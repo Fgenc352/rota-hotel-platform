@@ -1,0 +1,492 @@
+.maison-estate {
+  --estate-ink:#f7eedc;
+  --estate-muted:#b9c7cc;
+  --estate-accent:#ddbe86;
+  --estate-line:#c5a36c40;
+  --estate-header:#102735f5;
+  --estate-footer:#091b27;
+  --estate-button-ink:#1a2a32;
+  --atelier-ink:#f7eedc;
+  --atelier-muted:#bdcbd0;
+  --atelier-accent:#ddbe86;
+  --atelier-line:#60707a;
+  --atelier-panel:#fff8eb;
+  --atelier-panel-ink:#183143;
+  --atelier-panel-muted:#596975;
+  --atelier-button:#163d52;
+  --atelier-button-ink:#fff8eb;
+  background:#102735;
+  color:var(--estate-ink);
+}
+
+.cave-estate {
+  --estate-muted:#cfbdbb;
+  --estate-accent:#e3b27d;
+  --estate-header:#2b1d28f5;
+  --estate-footer:#21151e;
+  --atelier-accent:#e3b27d;
+  --atelier-muted:#d4c1b9;
+  --atelier-panel:#fff1df;
+  --atelier-panel-ink:#382732;
+  --atelier-panel-muted:#73605a;
+  --atelier-button:#51333f;
+  background:#2b1d28;
+}
+
+.maison-hero {
+  position:relative;
+  min-height:850px;
+  height:100svh;
+  max-height:1250px;
+  overflow:clip;
+  isolation:isolate;
+}
+
+.maison-hero-image,.maison-hero-shade {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.maison-hero-image {
+  object-position:center 55%;
+  transform:translateY(calc(var(--hero-shift) * -.2)) scale(1.04);
+}
+
+.maison-hero-shade {
+  background:linear-gradient(90deg,#051e33b8,transparent 85%),linear-gradient(0deg,#081b2def,transparent 55%,#0b203d66);
+}
+
+.cave-estate .maison-hero-shade {
+  background:linear-gradient(90deg,#291122a8,transparent 90%),linear-gradient(0deg,#241320f0,transparent 65%,#301c3966);
+}
+
+.hero-fine-frame {
+  position:absolute;
+  inset:130px 3% 90px;
+  border:1px solid #e8d4ac40;
+  pointer-events:none;
+}
+
+.maison-hero-copy {
+  position:relative;
+  padding:210px 9% 120px;
+  max-width:1500px;
+  margin:auto;
+}
+
+.hero-edition {
+  display:flex;
+  align-items:center;
+  gap:18px;
+  color:#fff1d4;
+  font-size:8px;
+  letter-spacing:2.5px;
+}
+
+.hero-edition i {
+  width:35px;
+  height:1px;
+  background:#e2c28b;
+}
+
+.maison-hero h1 {
+  font-size:clamp(85px,10vw,156px);
+  line-height:.92;
+  letter-spacing:-6px;
+  margin-top:38px;
+  text-shadow:0 10px 50px #04182f33;
+}
+
+.maison-hero h1 em {
+  color:#f5d79f;
+}
+
+.cave-estate .maison-hero h1 {
+  margin-left:32%;
+  font-size:clamp(80px,10vw,150px);
+}
+
+.cave-estate .hero-edition {
+  justify-content:end;
+}
+
+.cave-estate .maison-hero h1 em {
+  color:#f5cfa8;
+}
+
+.hero-tail {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin-top:45px;
+  gap:40px;
+}
+
+.hero-tail p {
+  max-width:300px;
+  font-size:13px;
+  line-height:1.9;
+  color:#f4e9d7;
+}
+
+.hero-tail .estate-pill {
+  background:linear-gradient(120deg,#f0d5a6,#c9a36b);
+  border-color:#ffe6bd;
+  box-shadow:0 12px 40px #081c2f30;
+}
+
+.hero-side-note {
+  position:absolute;
+  right:4.2%;
+  top:45%;
+  writing-mode:vertical-rl;
+  color:#f8e6c4;
+  font-size:7px;
+  letter-spacing:3px;
+}
+
+.hero-bottom {
+  position:absolute;
+  inset:auto 6% 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  font-size:8px;
+  letter-spacing:1px;
+  color:#e5d5b9;
+}
+
+.hero-bottom a {
+  display:flex;
+  gap:16px;
+  align-items:center;
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.hero-bottom a span {
+  font-size:25px;
+}
+
+.maison-invitation {
+  display:grid;
+  grid-template-columns:.2fr 1fr 1fr;
+  align-items:center;
+  gap:6%;
+}
+
+.invitation-seal {
+  width:95px;
+  height:145px;
+  border:1px solid var(--estate-line);
+  border-radius:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+}
+
+.invitation-seal > span {
+  font:italic 49px Georgia,serif;
+  color:var(--estate-accent);
+}
+
+.invitation-seal small {
+  text-align:center;
+  font-size:5px;
+  line-height:2;
+  letter-spacing:2px;
+}
+
+.invitation-copy h2 {
+  font-size:clamp(40px,4vw,60px);
+  margin:30px 0;
+}
+
+.invitation-copy > p {
+  font-size:13px;
+  line-height:2;
+  color:var(--estate-muted);
+  max-width:400px;
+}
+
+.invitation-copy .estate-link {
+  color:var(--estate-accent);
+  margin-top:25px;
+}
+
+.invitation-image {
+  position:relative;
+  padding:15px;
+  border:1px solid var(--estate-line);
+}
+
+.invitation-image img {
+  display:block;
+  width:100%;
+  height:450px;
+  object-fit:cover;
+}
+
+.cave-estate .invitation-image,.cave-estate .invitation-image img {
+  border-radius:240px 240px 0 0;
+}
+
+.invitation-image > span {
+  position:absolute;
+  bottom:34px;
+  left:32px;
+  color:#fff9e9;
+  font:italic 26px Georgia,serif;
+  text-shadow:0 2px 10px #000a;
+}
+
+.maison-residences {
+  background:linear-gradient(135deg,#173d4b,#0d222f);
+  border-block:1px solid var(--estate-line);
+}
+
+.cave-estate .maison-residences {
+  background:linear-gradient(135deg,#51323b,#291b28);
+}
+
+.estate-section-heading h2 em,.ritual-heading h2 em,.estate-booking-head h2 em {
+  color:var(--estate-accent);
+}
+
+.maison-interlude {
+  position:relative;
+  height:620px;
+  display:grid;
+  place-content:center;
+  text-align:center;
+}
+
+.maison-interlude > img,.maison-interlude > div {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.maison-interlude > div {
+  background:#07192573;
+}
+
+.cave-estate .maison-interlude > div {
+  background:#25152266;
+}
+
+.maison-interlude p {
+  position:relative;
+  font:clamp(55px,8vw,115px)/1.05 Georgia,serif;
+  letter-spacing:-3px;
+  color:#fff6e7;
+}
+
+.maison-interlude em {
+  color:#f4d39e;
+}
+
+.maison-interlude > span {
+  position:absolute;
+  bottom:45px;
+  left:0;
+  right:0;
+  font-size:8px;
+  letter-spacing:4px;
+}
+
+.ritual-heading {
+  text-align:center;
+  margin-bottom:65px;
+}
+
+.ritual-heading h2 {
+  margin:30px 0 20px;
+}
+
+.ritual-heading > p {
+  font-size:13px;
+  color:var(--estate-muted);
+}
+
+.maison-ritual-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:65px;
+}
+
+.maison-ritual-grid article:nth-child(2) {
+  margin-top:100px;
+}
+
+.ritual-image {
+  position:relative;
+  padding:12px;
+  border:1px solid var(--estate-line);
+}
+
+.ritual-image img {
+  display:block;
+  width:100%;
+  height:400px;
+  object-fit:cover;
+}
+
+.ritual-image span {
+  position:absolute;
+  bottom:32px;
+  left:30px;
+  font-size:7px;
+  letter-spacing:2px;
+  background:#1a2839ab;
+  color:#fff4dc;
+  padding:11px 14px;
+  backdrop-filter:blur(8px);
+}
+
+.maison-ritual-grid h3 {
+  font-size:35px;
+  margin:25px 0 14px;
+}
+
+.maison-ritual-grid article > p {
+  color:var(--estate-muted);
+  font-size:12px;
+  line-height:1.9;
+  max-width:400px;
+}
+
+.ritual-availability {
+  font-size:10px;
+  color:var(--estate-muted);
+  margin-top:40px;
+}
+
+.maison-booking {
+  border-top:1px solid var(--estate-line);
+  background:radial-gradient(ellipse at 100% 0%,#28556870,transparent 65%);
+}
+
+.cave-estate .maison-booking {
+  background:radial-gradient(ellipse at 0% 0%,#8e635540,transparent 65%);
+}
+
+.maison-booking showcase-booking-embed {
+  outline:1px solid var(--estate-line);
+  outline-offset:10px;
+  box-shadow:0 35px 100px #0003;
+}
+
+@media(max-width:1100px) {
+  .maison-invitation {
+    grid-template-columns:1fr 1fr;
+    gap:7%;
+  }
+  .invitation-seal {
+    display:none;
+  }
+  .maison-hero-copy {
+    padding-top:210px;
+  }
+  .cave-estate .maison-hero h1 {
+    margin-left:20%;
+  }
+}
+
+@media(max-width:760px) {
+  .maison-hero {
+    height:auto;
+    min-height:850px;
+  }
+  .hero-fine-frame {
+    inset:120px 4% 85px;
+  }
+  .maison-hero-copy {
+    padding:200px 8% 140px;
+  }
+  .hero-edition {
+    font-size:6px;
+    letter-spacing:1.1px;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .hero-edition i {
+    width:20px;
+  }
+  .maison-hero h1,.cave-estate .maison-hero h1 {
+    font-size:clamp(66px,13vw,95px);
+    letter-spacing:-3px;
+    margin-left:0;
+    margin-top:42px;
+  }
+  .cave-estate .hero-edition {
+    justify-content:start;
+  }
+  .hero-tail {
+    flex-direction:column;
+    align-items:start;
+    gap:28px;
+    margin-top:35px;
+  }
+  .hero-tail p {
+    font-size:12px;
+  }
+  .hero-side-note {
+    display:none;
+  }
+  .hero-bottom {
+    font-size:7px;
+  }
+  .hero-bottom > span:last-child {
+    display:none;
+  }
+  .maison-invitation {
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+  .invitation-image {
+    max-width:520px;
+    width:100%;
+  }
+  .invitation-image img {
+    height:420px;
+  }
+  .maison-interlude {
+    height:450px;
+  }
+  .maison-interlude p {
+    font-size:57px;
+    letter-spacing:-2px;
+  }
+  .maison-ritual-grid {
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+  .maison-ritual-grid article:nth-child(2) {
+    margin-top:0;
+  }
+  .ritual-image img {
+    height:330px;
+  }
+  .ritual-heading {
+    text-align:left;
+    margin-bottom:40px;
+  }
+  .maison-booking showcase-booking-embed {
+    outline-offset:5px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .maison-hero-image {
+    transform:none;
+  }
+}

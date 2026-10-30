@@ -1,0 +1,413 @@
+.lagos-signature {
+  --sig-ink: #203e4b;
+  --sig-muted: #587581;
+  --sig-accent: #2b727a;
+  --sig-line: #d7e4e5;
+  --sig-surface: #f1f6f4;
+  --sig-soft: #e9f1ed;
+  --sig-dock: #fdfcf7;
+  --sig-header: #1c3c4bea;
+  --sig-button-ink: #fff;
+  --showcase-accent: #2b727a;
+  background: #fafbf7;
+  color: var(--sig-ink);
+}
+
+.hero-image {
+  object-position: center 55%;
+}
+
+.hero-topline {
+  position: absolute;
+  top: 150px;
+  left: 5%;
+  right: 5%;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  line-height: 1.8;
+}
+
+.hero-topline span:last-child {
+  text-align: right;
+}
+
+.hero-monogram {
+  position: absolute;
+  top: 20%;
+  left: 3.5%;
+  right: 3.5%;
+  text-align: center;
+  font: 400 clamp(120px, 23.6vw, 390px)/1 Georgia, serif;
+  letter-spacing: -.055em;
+  color: #ffffffe8;
+  text-shadow: 0 10px 40px #00344415;
+  pointer-events: none;
+}
+
+.hero-bottom-content {
+  position: absolute;
+  bottom: 75px;
+  left: 6%;
+  right: 6%;
+  display: flex;
+  gap: 30px;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.hero-kicker {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font: 400 clamp(45px, 4.3vw, 70px)/1.05 Georgia, serif;
+  letter-spacing: -2px;
+}
+
+h1 em {
+  font-weight: 400;
+}
+
+.hero-bottom-content > p {
+  font-size: 12px;
+  line-height: 1.9;
+  margin-bottom: 5px;
+}
+
+.explore-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #ffffffa0;
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+  transition: background 200ms;
+}
+
+.explore-circle:hover {
+  background: #ffffff20;
+}
+
+.explore-circle span:last-child {
+  font-size: 28px;
+}
+
+.manifesto-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 30px;
+  padding: 24px 35px;
+  background: #e5ede7;
+  color: #426966;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 9px;
+  letter-spacing: 2px;
+}
+
+.manifesto-strip i {
+  font-size: 25px;
+  font-style: normal;
+}
+
+.lagos-story {
+  display: grid;
+  grid-template-columns: .35fr 1.35fr .8fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.story-index {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--sig-muted);
+  margin-top: 15px;
+}
+
+.story-pullquote h2 {
+  font: 400 clamp(48px, 5vw, 76px)/1.04 Georgia, serif;
+  letter-spacing: -2.5px;
+}
+
+.story-pullquote h2 em {
+  font-weight: 400;
+}
+
+.story-pullquote > p {
+  color: var(--sig-muted);
+  font-size: 12px;
+  line-height: 1.9;
+  max-width: 300px;
+  margin-top: 27px;
+}
+
+.sun-drawing {
+  display: block;
+  color: #a0ac71;
+  font: 60px Georgia, serif;
+  margin-bottom: 25px;
+}
+
+.story-detail p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--sig-muted);
+}
+
+.story-detail a {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  padding: 25px 0 12px;
+  border-bottom: 1px solid var(--sig-line);
+}
+
+.story-detail a span {
+  font-size: 20px;
+}
+
+.lagos-mosaic {
+  display: grid;
+  grid-template-columns: 1.15fr .65fr .9fr;
+  min-height: 550px;
+}
+
+.lagos-mosaic figure {
+  margin: 0;
+  position: relative;
+  min-height: 550px;
+  overflow: hidden;
+}
+
+.lagos-mosaic figure img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s;
+}
+
+.lagos-mosaic figure:hover img {
+  transform: scale(1.04);
+}
+
+.lagos-mosaic figcaption {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+  font-size: 7px;
+  color: white;
+  letter-spacing: 1.8px;
+  text-shadow: 0 1px 6px #000;
+}
+
+.mosaic-note {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  background: #eaf0e7;
+  padding: 30px;
+  text-align: center;
+}
+
+.mosaic-note > span {
+  font: 400 clamp(32px, 4vw, 60px)/1.05 Georgia, serif;
+  letter-spacing: -1.5px;
+}
+
+.mosaic-note em {
+  font-size: .75em;
+}
+
+.mosaic-note small {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+}
+
+.lagos-interlude {
+  position: relative;
+  min-height: 620px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
+
+.lagos-interlude > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.6);
+}
+
+.lagos-interlude > div {
+  position: relative;
+  z-index: 1;
+  padding: 50px 25px;
+}
+
+.lagos-interlude .sig-kicker {
+  color: #ffffffe0;
+}
+
+.lagos-interlude p {
+  font: 400 clamp(45px, 5.8vw, 85px)/1.1 Georgia, serif;
+  letter-spacing: -2px;
+  margin: 30px 0 40px;
+}
+
+.lagos-interlude a {
+  border-bottom: 1px solid #ffffff80;
+  padding-bottom: 12px;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.lagos-booking {
+  background: #edf3f2;
+}
+
+.signature-footer {
+  background: #203e4b;
+  color: #f5f7e9;
+  --sig-muted: #bccbb7;
+  --sig-line: #6b7b614f;
+}
+
+.footer-giant {
+  font: 400 clamp(100px, 24vw, 390px)/1.2 Georgia, serif;
+  text-align: center;
+  letter-spacing: -.06em;
+  margin-top: 45px;
+}
+
+@media (max-width: 900px) {
+  .lagos-story {
+    grid-template-columns: 1fr 1fr;
+  }
+  .story-index {
+    display: none;
+  }
+  .hero-bottom-content > p {
+    display: none;
+  }
+  .lagos-mosaic {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mosaic-note {
+    grid-row: 2;
+    grid-column: span 2;
+    min-height: 200px;
+  }
+  .mosaic-note > span {
+    font-size: 38px;
+  }
+  .mosaic-note br {
+    display: none;
+  }
+  .lagos-mosaic figure {
+    min-height: 440px;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-topline {
+    top: 130px;
+    font-size: 6px;
+  }
+  .hero-monogram {
+    top: 29%;
+    font-size: 23.3vw;
+  }
+  .hero-bottom-content {
+    bottom: 65px;
+  }
+  .hero-bottom-content h1 {
+    font-size: 44px;
+  }
+  .hero-kicker {
+    font-size: 6px;
+  }
+  .explore-circle {
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    font-size: 6px;
+  }
+  .lagos-story {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .story-pullquote h2 {
+    font-size: 53px;
+  }
+  .sun-drawing {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+  .manifesto-strip {
+    justify-content: flex-start;
+    gap: 25px;
+    font-size: 7px;
+  }
+  .lagos-mosaic {
+    grid-template-columns: 1fr;
+  }
+  .lagos-mosaic figure {
+    min-height: 400px;
+  }
+  .mosaic-note {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 230px;
+  }
+  .lagos-interlude {
+    min-height: 470px;
+  }
+}
+
+.lagos-signature .manifesto-strip {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+}
+
+.lagos-signature .manifesto-strip i {
+  color: #a99169;
+}
+
+.lagos-signature .story-pullquote > p, .lagos-signature .story-detail p {
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+.lagos-signature .mosaic-note {
+  border-top: 1px solid #dde5d8;
+  border-bottom: 1px solid #dde5d8;
+}
+
+.lagos-signature .hero-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.7px;
+}

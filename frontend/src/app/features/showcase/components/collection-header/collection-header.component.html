@@ -1,0 +1,49 @@
+<a class="collection-skip" routerLink="." fragment="main" queryParamsHandling="preserve">
+  İçeriğe geç
+</a>
+<header class="collection-header" [class.quiet-header]="edition() === 'quiet'">
+  <a
+    class="collection-wordmark"
+    routerLink="."
+    fragment="top"
+    queryParamsHandling="preserve"
+    aria-label="Sayfa başına dön"
+  >
+    <span>
+      {{ cave() ? 'peri stone' : 'lagos' }}
+      <i>
+        .
+      </i>
+    </span>
+    <small>
+      {{ cave() ? 'CAPPADOCIA' : 'MEDITERRANEAN' }} · {{ edition() === 'maison' ? 'MAISON COLLECTION' : 'QUIET COLLECTION' }}
+    </small>
+  </a>
+  <button
+    class="collection-menu-toggle"
+    type="button"
+    (click)="menu.set(!menu())"
+    [attr.aria-expanded]="menu()"
+    aria-controls="collection-navigation"
+    aria-label="Menüyü aç veya kapat"
+  >
+    <ui-icon [name]="menu() ? 'close' : 'menu'" />
+  </button>
+  <nav id="collection-navigation" [class.menu-open]="menu()" aria-label="Otel menüsü">
+    <a routerLink="." fragment="story" queryParamsHandling="preserve" (click)="menu.set(false)">
+      Hikâyemiz
+    </a>
+    <a routerLink="." fragment="residences" queryParamsHandling="preserve" (click)="menu.set(false)">
+      Odalar & süitler
+    </a>
+    <a [routerLink]="'/' + edition() + '/' + (cave() ? 'lagos-beach' : 'peri-stone')">
+      {{ cave() ? 'Akdeniz’i keşfet' : 'Kapadokya’yı keşfet' }}
+    </a>
+  </nav>
+  <a bookingScroll class="collection-book" (click)="menu.set(false)">
+    <span>
+      Yerinizi ayırtın
+    </span>
+    <ui-icon name="chevron" />
+  </a>
+</header>

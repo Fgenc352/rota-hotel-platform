@@ -1,0 +1,117 @@
+<div class="table-scroll">
+  <table class="pms-stays">
+    <thead>
+      <tr>
+        <th>
+          Misafir / rezervasyon
+        </th>
+        <th>
+          Konaklama
+        </th>
+        <th>
+          Oda ve atama
+        </th>
+        <th>
+          Durum / tutar
+        </th>
+        <th>
+          İşlem
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(booking of bookings(); track id(booking)) {
+      <tr>
+        <td>
+          <strong>
+            {{ booking.first_name }} {{ booking.last_name }}
+          </strong>
+          <span class="booking-code">
+            {{ booking.code }}
+          </span>
+          <small>
+            {{ booking.adults }} yetişkin · {{ booking.children }} çocuk
+          </small>
+        </td>
+        <td>
+          <ui-stay-dates [checkIn]="booking.check_in" [checkOut]="booking.check_out" [compact]="true" />
+        </td>
+        <td>
+          <span class="room-type">
+            {{ booking.room_name }}
+          </span>
+          @if(booking.status === 'CONFIRMED' || booking.status === 'CHECKED_IN') {
+          <div class="assignment-control">
+            <select
+              [attr.aria-label]="booking.code + ' için oda'"
+              [value]="choices()[id(booking)] || assignment(booking)?.roomId || ''"
+              (change)="pick(booking, $any($event.target).value)"
+              [disabled]="busy()"
+            >
+              <option value="">
+                Oda seçin
+              </option>
+              @for(room of candidates(booking); track room.id) {
+              <option [value]="room.id">
+                {{ room.number }}{{ room.occupantId && room.occupantId !== id(booking) ? ' · şu an dolu' : '' }}
+              </option>
+              }
+            </select>
+            <button
+              type="button"
+              class="secondary"
+              [disabled]="busy() || !choices()[id(booking)] || choices()[id(booking)] === assignment(booking)?.roomId"
+              (click)="save(booking)"
+              [attr.aria-label]="booking.code + ' oda atamasını kaydet'"
+            >
+              Ata
+            </button>
+          </div>
+          <small>
+            Oda {{ roomNumber(booking) }}
+          </small>
+          } @else {
+          <small>
+            Atama işlemi kapalı
+          </small>
+          }
+        </td>
+        <td>
+          <span class="pill" [attr.data-status]="booking.status">
+            {{ label(booking.status) }}
+          </span>
+          <strong class="stay-total">
+            {{ money(booking.total) }}
+          </strong>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="secondary"
+            (click)="opened.emit(booking)"
+            [disabled]="busy()"
+            [attr.aria-label]="booking.code + ' detay ve işlemler'"
+          >
+            Detay / işlemler
+          </button>
+          <button
+            type="button"
+            class="quiet service-plan-button"
+            (click)="servicesOpened.emit(booking)"
+            [disabled]="busy()"
+            [attr.aria-label]="booking.code + ' hizmet planı'"
+          >
+            Hizmet planı
+          </button>
+        </td>
+      </tr>
+      } @empty {
+      <tr>
+        <td colspan="5" class="empty">
+          Bu filtreye uygun rezervasyon bulunamadı.
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

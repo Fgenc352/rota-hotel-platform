@@ -1,0 +1,100 @@
+<div class="room-grid" [class.room-list]="layout() === 'list'">
+  @for (room of rooms(); track room.id; let i = $index) {
+  <article class="room-card">
+    <button
+      type="button"
+      class="room-photo"
+      (click)="detail.set(room)"
+      [attr.aria-label]="text(room.name) + ' · ' + t('Fotoğraflar ve detaylar', 'Photos and details')"
+    >
+      @if (room.images[0]; as image) {
+      <img
+        [src]="image"
+        [alt]="text(room.name) + ' · ' + t('temsili oda görseli', 'illustrative room image')"
+        loading="lazy"
+        width="720"
+        height="520"
+      />
+      }
+      <span class="photo-index">
+        0{{ i + 1 }} / {{ t('KONAKLAMA', 'STAY') }}
+      </span>
+      <span class="photo-action">
+        {{ t('Keşfet', 'Explore') }}
+        <ui-icon name="chevron" />
+      </span>
+    </button>
+    <div class="room-copy">
+      <div class="room-specs">
+        @if (room.areaSquareMeters) {
+        <span>
+          {{ room.areaSquareMeters }} m²
+        </span>
+        }
+        <span>
+          {{ room.capacity }} {{ t('kişiye kadar', 'guests maximum') }}
+        </span>
+      </div>
+      <h3>
+        {{ text(room.name) }}
+      </h3>
+      <p class="room-description">
+        {{ text(room.description) }}
+      </p>
+      <p class="bed">
+        {{ text(room.bedDescription) }}
+      </p>
+      <ul class="amenities" [attr.aria-label]="t('Oda özellikleri', 'Room amenities')">
+        @for (amenity of room.amenities.slice(0, 3); track amenity) {
+        <li>
+          {{ text(amenity) }}
+        </li>
+        }
+      </ul>
+      @if (offer(room.id); as available) {
+      <p class="remaining">
+        {{ available.remaining }} {{ t('oda müsait', 'rooms available') }} · {{ available.nights.length }} {{ t('gece', 'nights') }}
+      </p>
+      <booking-rate-breakdown [offer]="available" [language]="language()" [formatMoney]="price" />
+      }
+      <div class="room-bottom">
+        <div class="room-price">
+          @if (offer(room.id); as available) {
+          <small>{{ available.nights.length }} {{ t('gece · oda toplamı', 'nights · room total') }}</small>
+          <strong>{{ price(available.total) }}</strong>
+          <span>{{ t('Tarihlere göre hesaplandı', 'Calculated for your dates') }}</span>
+          } @else {
+          <small>{{ t('Gecelik başlangıç', 'Per night from') }}</small>
+          <strong>{{ price(room.nightlyPrice) }}</strong>
+          <span>{{ t('Kesin tutar için tarih seçin', 'Select dates for the exact total') }}</span>
+          }
+        </div>
+        <button type="button" class="choose-room" (click)="selected.emit(room.id)" [disabled]="busy()">
+          {{ offers() ? t('Odayı seç', 'Choose room') : t('Tarih seç', 'Choose dates') }}
+          <ui-icon name="chevron" />
+        </button>
+      </div>
+      <button type="button" class="details-link" (click)="detail.set(room)">
+        {{ t('Tüm özellikler ve fotoğraflar', 'All details and photos') }}
+        <span>
+          <ui-icon name="chevron" />
+        </span>
+      </button>
+    </div>
+  </article>
+  } @empty {
+  <p class="no-rooms">
+    {{ t('Bu tarihlerde kişi sayınıza uygun oda bulunamadı. Tarihleri veya kişi sayısını değiştirebilirsiniz.', 'No rooms match your dates and party size. Try different dates or guest counts.') }}
+  </p>
+  }
+</div>
+@if (detail(); as room) {
+<showcase-room-details-dialog
+  [room]="room"
+  [currency]="currency()"
+  [language]="language()"
+  [eurRate]="eurRate()"
+  (closed)="detail.set(null)"
+  (selected)="selected.emit(room.id); detail.set(null)"
+/>
+}

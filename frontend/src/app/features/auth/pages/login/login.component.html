@@ -1,0 +1,155 @@
+<main class="login-layout">
+  <section class="login-story">
+    <img
+      class="login-image"
+      src="/images/showcase/lagos-hero.webp"
+      alt="Misafirperverlik ve seyahat atmosferi; temsili görsel"
+      width="1536"
+      height="1024"
+      fetchpriority="high"
+    />
+    <div class="login-shade">
+    </div>
+    <a class="login-brand" href="/login">
+      rota
+      <span>
+        .
+      </span>
+      <small>
+        HOSPITALITY, THOUGHTFULLY CONNECTED
+      </small>
+    </a>
+    <div class="login-story-copy">
+      <span class="story-kicker">
+        HER DETAYDA DAHA İYİ BİR KARŞILAMA
+      </span>
+      <h1>
+        Her misafir,
+        <br>
+        <em>
+          yeni bir hikâye.
+        </em>
+      </h1>
+      <p>
+        Oteli yönetmekten fazlası.
+        <br>
+        İnsanları hatırlamak, deneyimleri güzelleştirmek.
+      </p>
+      <div class="story-features">
+        <span>
+          <ui-icon name="users" />
+          Misafir ilişkileri
+        </span>
+        <span>
+          <ui-icon name="calendar" />
+          Rezervasyon yönetimi
+        </span>
+      </div>
+    </div>
+    <div class="login-photo-caption">
+      <div>
+        <span>
+          MİSAFİRPERVERLİĞİN ORTAK NOKTASI
+        </span>
+        <strong>
+          İyi bir karşılama, her şeyin başlangıcı.
+        </strong>
+        <small>
+          Misafirleriniz, ekibiniz ve unutulmaz deneyimler için.
+        </small>
+      </div>
+      <span class="caption-monogram" aria-hidden="true">
+        r.
+      </span>
+    </div>
+  </section>
+  <section class="login-form">
+    <div class="login-form-inner">
+      <div class="login-badge">
+        <ui-icon name="shield" />
+        <span>
+          PERSONEL GİRİŞİ
+        </span>
+      </div>
+      <h2>
+        Tekrar hoş geldiniz.
+      </h2>
+      <p class="login-subtitle">
+        Güzel bir konaklama deneyimi,
+        <br>
+        iyi organize edilmiş bir ekiple başlar.
+      </p>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="login-field">
+          <label for="login-username">
+            Kullanıcı adı
+          </label>
+          <div class="input-wrap">
+            <ui-icon name="users" />
+            <input
+              id="login-username"
+              formControlName="username"
+              autocomplete="username"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+            />
+          </div>
+        </div>
+        <div class="login-field">
+          <label for="login-password">
+            Parola
+          </label>
+          <div class="input-wrap">
+            <ui-icon name="shield" />
+            <input
+              id="login-password"
+              [type]="passwordVisible() ? 'text' : 'password'"
+              formControlName="password"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="passwordVisible.set(!passwordVisible())"
+              [attr.aria-label]="passwordVisible() ? 'Parolayı gizle' : 'Parolayı göster'"
+              [attr.aria-pressed]="passwordVisible()"
+            >
+              <ui-icon [name]="passwordVisible() ? 'close' : 'eye'" />
+            </button>
+          </div>
+        </div>
+        @if (connectionError() && !error()) {
+        <div role="alert" class="login-error">
+          {{ connectionError() }}
+        </div>
+        } @if (error()) {
+        <div role="alert" class="login-error">
+          {{ error() }}
+        </div>
+        }
+        <button class="login-submit" type="submit" [disabled]="busy() || loginForm.invalid">
+          <span>
+            {{ busy() ? 'Giriş yapılıyor…' : 'Giriş yap' }}
+          </span>
+          <ui-icon name="chevron" />
+        </button>
+      </form>
+      <p class="login-security">
+        <ui-icon name="shield" />
+        <span>
+          Hesabınız yalnızca yetkili olduğunuz otelin verilerine erişir.
+        </span>
+      </p>
+      <div class="login-bottom">
+        <span>
+          Misafir ilişkileri, özenle tasarlandı.
+        </span>
+        <b>
+          rota.
+        </b>
+      </div>
+    </div>
+  </section>
+</main>

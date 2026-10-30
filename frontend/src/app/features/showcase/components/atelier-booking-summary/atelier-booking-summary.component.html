@@ -1,0 +1,74 @@
+@if(experience.summaryOffer();as offer) {
+<aside class="atelier-stay-card" [attr.aria-label]="booking.t('Konaklama özetiniz','Your stay summary')">
+  <button
+    type="button"
+    class="summary-image"
+    (click)="gallery.emit()"
+    [disabled]="booking.busy()"
+    [attr.aria-label]="booking.t('Oda fotoğraflarını aç','Open room photos')"
+  >
+    <img [src]="experience.selectedPhoto()" [alt]="booking.text(offer.name)" width="500" height="360" />
+    <span>
+      <ui-icon name="plus" />
+      {{ booking.t('Fotoğraflar','Photos') }}
+    </span>
+  </button>
+  <div class="summary-body">
+    <span class="summary-eyebrow">
+      {{ booking.t('SİZE AYRILAN ALAN','YOUR PLACE TO STAY') }}
+    </span>
+    <h2>
+      {{ booking.text(offer.name) }}
+    </h2>
+    <ui-stay-dates
+      [checkIn]="stay().checkIn || ''"
+      [checkOut]="stay().checkOut || ''"
+      [locale]="booking.lang() === 'tr' ? 'tr-TR' : 'en-GB'"
+    />
+    <p class="summary-people">
+      <ui-icon name="users" />
+      {{ stay().adults }} {{ booking.t('yetişkin','adults') }} · {{ stay().children }} {{ booking.t('çocuk','children') }}
+      <span>
+        {{ offer.nights.length }} {{ booking.t('gece','nights') }}
+      </span>
+    </p>
+    @if (extras().length) {
+    <div class="summary-inclusions">
+      @for (line of extras(); track line.code) {
+        <span><ui-icon name="check" />{{ serviceLabel(line.code, line.name) }}</span>
+      }
+    </div>
+    }
+    @if(!booking.receipt()) {
+    <div class="summary-bill">
+      <span>
+        {{ booking.t('Oda bedeli','Room total') }}
+      </span>
+      <strong>
+        {{ booking.money(offer.total) }}
+      </strong>
+    </div>
+    <div class="summary-bill">
+      <span>
+        {{ booking.t('Ek hizmetler','Extras') }}
+      </span>
+      <strong>
+        {{ booking.money(booking.extrasTotal()) }}
+      </strong>
+    </div>
+    }
+    <div class="summary-grand">
+      <span>
+        {{ booking.receipt() ? booking.t('Kesin rezervasyon tutarı','Confirmed booking total') : booking.t('Konaklama toplamı','Stay total') }}
+      </span>
+      <strong>
+        {{ booking.money(booking.receipt()?.total ?? booking.bookingTotal()) }}
+      </strong>
+    </div>
+    <p class="summary-note">
+      <ui-icon name="shield" />
+      {{ booking.t('Rezervasyon şimdi. Ödeme otelde.','Reserve now. Pay at the hotel.') }}
+    </p>
+  </div>
+</aside>
+}

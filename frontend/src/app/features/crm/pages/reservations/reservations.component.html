@@ -1,0 +1,176 @@
+@if (error()) {
+<div class="alert" role="alert">
+  {{ error() }}
+</div>
+}
+@if (notice()) {
+<div class="notice" role="status">
+  {{ notice() }}
+</div>
+}
+@if (busy()) {
+<div class="loading-bar" role="status" aria-label="Yükleniyor">
+</div>
+}
+<div class="page-title">
+  <div>
+    <span class="eyebrow">
+      KONAKLAMA OPERASYONU
+    </span>
+    <h1>
+      Rezervasyonlar
+    </h1>
+    <p>
+      Kim geliyor, hangi odada konaklıyor? Günlük akışınızı tek bir yerden yönetin.
+    </p>
+  </div>
+  <button type="button" class="secondary" (click)="refresh()" [disabled]="busy()">
+    <ui-icon name="refresh" />
+    Yenile
+  </button>
+</div>
+<section class="panel">
+  <div class="toolbar-row">
+    <div class="toolbar-title">
+      <h2>
+        Konaklama takvimi
+        <span class="count">
+          {{ reservations().total }}
+        </span>
+      </h2>
+      <p>
+        Giriş ve çıkış bilgilerini karşılaştırın, işlem için rezervasyon kartını açın.
+      </p>
+    </div>
+    <ui-sort-controls
+      [value]="sort"
+      [options]="sortOptions"
+      [busy]="busy()"
+      (changed)="sortChanged($event)"
+    />
+  </div>
+  <crm-reservation-filters [rooms]="rooms()" [busy]="busy()" (changed)="filterChanged($event)" />
+  <div class="table-scroll">
+    <table aria-label="Rezervasyon listesi">
+      <thead>
+        <tr>
+          <th>
+            Misafir ve oda
+          </th>
+          <th>
+            Rezervasyon
+          </th>
+          <th>
+            Konaklama tarihleri
+          </th>
+          <th>
+            Durum
+          </th>
+          <th>
+            Toplam tutar
+          </th>
+          <th>
+            <span class="sr-only">
+              Rezervasyon işlemleri
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (b of reservations().items; track b.id) {
+        <tr>
+          <td>
+            <div class="name-avatar">
+              <div class="person-avatar">
+                {{ b.first_name?.slice(0,1) }}{{ b.last_name?.slice(0,1) }}
+              </div>
+              <div>
+                <strong>
+                  {{ b.first_name }} {{ b.last_name }}
+                </strong>
+                <small>
+                  {{ b.room_name }}
+                </small>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="code-label">
+              {{ b.code }}
+            </span>
+          </td>
+          <td class="date-cell">
+            <ui-stay-dates [checkIn]="b.check_in" [checkOut]="b.check_out" [compact]="true" />
+          </td>
+          <td>
+            <span class="pill" [attr.data-status]="b.status">
+              {{ label(b.status) }}
+            </span>
+          </td>
+          <td class="booking-amount">
+            {{ money(b.total) }}
+          </td>
+          <td>
+            <button
+              type="button"
+              class="secondary manage-booking"
+              (click)="open(b)"
+              [disabled]="busy()"
+              [attr.aria-label]="b.code + ' rezervasyonunu yönet'"
+            >
+              Yönet
+              <ui-icon name="chevron" />
+            </button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="6" class="empty">
+            <ui-icon name="calendar" />
+            <h3>
+              Henüz rezervasyon yok.
+            </h3>
+            <p>
+              Otelinizin rezervasyonları burada listelenecek.
+            </p>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <footer class="pagination">
+    <span>
+      {{ reservations().total }} rezervasyon · Sayfa {{ reservationPage + 1 }}
+    </span>
+    <div>
+      <button
+        type="button"
+        class="secondary"
+        (click)="changeReservationPage(-1)"
+        [disabled]="reservationPage === 0 || busy()"
+      >
+        <ui-icon name="back" />
+        Önceki
+      </button>
+      <button
+        type="button"
+        class="secondary"
+        (click)="changeReservationPage(1)"
+        [disabled]="(reservationPage+1)*20 >= reservations().total || busy()"
+      >
+        Sonraki
+        <ui-icon name="chevron" />
+      </button>
+    </div>
+  </footer>
+</section>
+@if (selected(); as booking) {
+<crm-reservation-detail
+  [booking]="booking"
+  [busy]="busy()"
+  [error]="error()"
+  (closed)="closeDetail()"
+  (changed)="changeStatus(booking, $event)"
+/>
+}

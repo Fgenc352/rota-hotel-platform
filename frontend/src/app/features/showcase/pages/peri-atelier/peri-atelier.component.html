@@ -1,0 +1,269 @@
+<div class="atelier-site peri-atelier" signatureMotion>
+  <atelier-site-header [cave]="true" />
+  <div class="atelier-progress" aria-hidden="true">
+  </div>
+  <main id="main">
+    <section class="peri-hero" id="top">
+      <div class="hero-orbit" aria-hidden="true">
+      </div>
+      <div class="peri-hero-grid atelier-width">
+        <div class="peri-hero-copy">
+          <span class="atelier-eyebrow">
+            KAPADOKYA · PERI STONE CAVE HOTEL
+          </span>
+          <h1>
+            Taş.
+            <br>
+            Işık.
+            <br>
+            <em>
+              Ve siz.
+            </em>
+          </h1>
+          <p>
+            Bir kayanın içinde saklı.
+            <br>
+            Bir yolculuğun tam kalbinde.
+          </p>
+          <a bookingScroll class="atelier-pill">
+            Kendi hikâyene yer aç
+            <ui-icon name="chevron" />
+          </a>
+          <span class="hero-collection">
+            ATELIER COLLECTION / CAPPADOCIA
+          </span>
+        </div>
+        <div class="peri-hero-portrait">
+          <img
+            src="/images/atelier/peri-atelier-hero.webp"
+            alt="Amber ışıklarla aydınlanan Kapadokya taş oteli; temsili Peri Stone görseli"
+            width="1440"
+            height="960"
+            fetchpriority="high"
+          />
+          <div class="portrait-shade">
+          </div>
+          <span class="portrait-wordmark" aria-hidden="true">
+            peri
+            <br>
+            <i>
+              stone
+            </i>
+          </span>
+          <span class="portrait-caption">
+            TAŞIN İÇİNDE, ZAMANDAN UZAK.
+            <small>
+              Temsili otel atmosferi
+            </small>
+          </span>
+        </div>
+      </div>
+      <div class="peri-hero-foot atelier-width">
+        <span>
+          THE ART OF SLOW STAYING
+        </span>
+        <a routerLink="." fragment="experience" queryParamsHandling="preserve">
+          Aşağıda başka bir dünya var
+          <ui-icon name="down" />
+        </a>
+        <span>
+          {{ minimumPrice() !== null ? money(minimumPrice()!) + ' · gecelik başlangıç' : 'Size ait bir konaklama' }}
+        </span>
+      </div>
+    </section>
+    <section class="peri-prologue atelier-section" id="experience">
+      <div class="atelier-width prologue-grid">
+        <div class="prologue-image" data-reveal>
+          <span class="image-line" aria-hidden="true">
+          </span>
+          <img
+            src="/images/atelier/peri-atelier-detail.webp"
+            alt="Sıcak taş kemerin altında dinlenme alanı; temsili görsel"
+            width="960"
+            height="640"
+            loading="lazy"
+          />
+          <span class="image-label">
+            TOUCHED BY TIME.
+            <br>
+            MADE FOR YOURS.
+          </span>
+        </div>
+        <div class="prologue-copy" data-reveal>
+          <span class="atelier-eyebrow">
+            01 / TAŞIN HAFIZASI, SİZİN HİKÂYENİZ
+          </span>
+          <h2>
+            Bazı yerler
+            <br>
+            anlatılmaz.
+            <br>
+            <em>
+              Hissedilir.
+            </em>
+          </h2>
+          <p>
+            Taşın sıcaklığı, ışığın sessizliği, Kapadokya’nın kendine özgü ritmi. Peri Stone, bir yere varmanın ötesinde; bulunduğunuz ana biraz daha yaklaşmak için.
+          </p>
+          <a routerLink="." fragment="residences" queryParamsHandling="preserve" class="atelier-link">
+            İçeride sizi bekleyenler
+            <ui-icon name="chevron" />
+          </a>
+          <span class="prologue-flourish" aria-hidden="true">
+            p.
+          </span>
+        </div>
+      </div>
+    </section>
+    <section class="peri-residences atelier-section" id="residences">
+      <div class="atelier-width">
+        <div class="atelier-heading" data-reveal>
+          <div>
+            <span class="atelier-eyebrow">
+              02 / YAŞAYAN MEKÂNLAR
+            </span>
+            <h2>
+              Her oda bir dünya.
+              <br>
+              <em>
+                Sizinki hangisi?
+              </em>
+            </h2>
+          </div>
+          <p>
+            Taşın karakterini, ışığı ve konforu bir araya getiren alanlar. Yalnızca bu yolculuğa ait bir oda seçin.
+          </p>
+        </div>
+        @if(stay.busy()) {
+        <div class="atelier-loading" role="status">
+          Odalarınız hazırlanıyor…
+        </div>
+        }
+        @else if(stay.error()) {
+        <div class="atelier-error" role="alert">
+          {{ stay.error() }}
+          <button type="button" (click)="retry()">
+            Tekrar dene
+          </button>
+        </div>
+        }
+        @else {
+        <atelier-rooms [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+        }
+      </div>
+    </section>
+    <section class="peri-rituals atelier-section">
+      <div class="atelier-width">
+        <div class="rituals-heading" data-reveal>
+          <span class="atelier-eyebrow">
+            GÜNÜNÜZE KARIŞAN KÜÇÜK AYRICALIKLAR
+          </span>
+          <h2>
+            Sabahın ilk ışığından,
+            <br>
+            <em>
+              akşamın son sohbetine.
+            </em>
+          </h2>
+        </div>
+        <div class="rituals-grid">
+          <article class="ritual-breakfast" data-reveal>
+            <img
+              src="/images/services/peri-breakfast.webp"
+              alt="Kapadokya vadisine bakan kahvaltı masası; temsili görsel"
+              width="720"
+              height="480"
+              loading="lazy"
+            />
+            <div>
+              <span>
+                01 / SABAH
+              </span>
+              <h3>
+                Güne biraz daha yavaş.
+              </h3>
+            </div>
+          </article>
+          <article class="ritual-dinner" data-reveal>
+            <img
+              src="/images/services/peri-dinner.webp"
+              alt="Taş kemerler altında akşam yemeği; temsili görsel"
+              width="720"
+              height="480"
+              loading="lazy"
+            />
+            <div>
+              <span>
+                02 / AKŞAM
+              </span>
+              <h3>
+                Işık kalsın.
+                <br>
+                Sohbet uzasın.
+              </h3>
+            </div>
+          </article>
+        </div>
+        <p class="ritual-note">
+          Konaklamanıza dahil olanları ve dilediğiniz ek hizmetleri rezervasyon sırasında birlikte görün.
+        </p>
+      </div>
+    </section>
+    <section class="peri-finale">
+      <img
+        src="/images/showcase/peri-terrace-evening.webp"
+        alt="Kapadokya'da günün son ışıkları; temsili görsel"
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      <div class="finale-copy" data-reveal>
+        <span>
+          BAZI YOLCULUKLAR İNSANIN İÇİNDE DEVAM EDER.
+        </span>
+        <p>
+          Biraz daha
+          <br>
+          <em>
+            kalmak isteyeceksiniz.
+          </em>
+        </p>
+        <a bookingScroll>
+          Peri Stone hikâyenizi başlatın
+          <ui-icon name="chevron" />
+        </a>
+      </div>
+    </section>
+    <section class="atelier-booking-wrap peri-booking">
+      <div class="atelier-width">
+        <div class="atelier-booking-intro" data-reveal>
+          <div>
+            <span class="atelier-eyebrow">
+              03 / SİZE AYRILAN ZAMAN
+            </span>
+            <h2>
+              Güzel bir hikâyenin
+              <br>
+              <em>
+                ilk satırı.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Tarihlerinizi seçin; odanızı, konaklamanızı ve küçük ayrıcalıklarınızı birlikte planlayalım.
+          </p>
+        </div>
+        <showcase-booking-embed
+          id="booking"
+          hotelKey="peri-stone"
+          variant="atelier"
+          [preferredRoom]="stay.preferredRoom()"
+        />
+        <small class="atelier-quiet-note">
+          Güncel müsaitlik. Açık fiyatlar. Ödeme otelde.
+        </small>
+      </div>
+    </section>
+  </main>
+  <atelier-site-footer [cave]="true" />
+</div>

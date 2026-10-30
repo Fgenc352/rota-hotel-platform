@@ -1,0 +1,241 @@
+@if (error()) {
+<div class="alert" role="alert">
+  {{ error() }}
+</div>
+}
+@if (notice()) {
+<div class="notice" role="status">
+  {{ notice() }}
+</div>
+}
+@if (busy()) {
+<div class="loading-bar" role="status" aria-label="Yükleniyor">
+</div>
+}
+<div class="page-title">
+  <div>
+    <span class="eyebrow">
+      OTELİNİZİN NABZI
+    </span>
+    <h1>
+      Genel bakış
+    </h1>
+    <p>
+      Rezervasyon yolculuğunu ve ekibinizin takip etmesi gerekenleri bir arada görün.
+    </p>
+  </div>
+  <button type="button" class="secondary" (click)="refresh()" [disabled]="busy()">
+    <ui-icon name="refresh" />
+    Yenile
+  </button>
+</div>
+<section class="stats-grid">
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="calendar" />
+    </div>
+    <span>
+      Toplam rezervasyon
+    </span>
+    <strong>
+      {{ analytics()?.reservations ?? 0 }}
+    </strong>
+    <small>
+      Otelinizin tüm rezervasyon kayıtları.
+    </small>
+  </article>
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="chart" />
+    </div>
+    <span>
+      Aramadan rezervasyona
+    </span>
+    <strong>
+      %{{ conversion() }}
+    </strong>
+    <small>
+      Arama yapan tekil widget oturumlarına göre.
+    </small>
+  </article>
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="shield" />
+    </div>
+    <span>
+      İnceleme gereken bildirim
+    </span>
+    <strong>
+      {{ attention() }}
+    </strong>
+    <small>
+      {{ pending() }} bildirim işlenmeyi bekliyor.
+    </small>
+  </article>
+</section>
+<div class="operations-grid">
+  <section class="panel conversion-panel">
+    <div class="section-heading">
+      <div>
+        <h2>
+          Misafirin rezervasyon yolculuğu
+        </h2>
+        <p>
+          İlk aramadan rezervasyon onayına, her adım.
+        </p>
+      </div>
+      <span class="chart-kicker">
+        TEKİL OTURUMLAR
+      </span>
+    </div>
+    <div class="funnel">
+      @for (stage of ['SEARCH','ROOM_SELECTED','FORM','CONFIRMED']; track stage; let i = $index) {
+      <div class="funnel-row">
+        <div class="funnel-label">
+          <span class="stage-number">
+            0{{ i + 1 }}
+          </span>
+          <strong>
+            {{ stageLabels[stage] }}
+          </strong>
+          <span class="stage-value">
+            {{ count(stage) }}
+          </span>
+        </div>
+        <div class="funnel-track">
+          <span [style.width.%]="width(stage)" [class.final-stage]="stage === 'CONFIRMED'">
+          </span>
+        </div>
+      </div>
+      }
+    </div>
+    <p class="chart-note">
+      Otel sayfanızdaki etkileşimler geldikçe bu görünüm güncellenir.
+    </p>
+  </section>
+  <p class="pms-dashboard-link"><a [href]="pmsDashboardUrl" target="_blank" rel="noopener noreferrer">PMS bildirim ekranını aç <span aria-hidden="true">↗</span></a><small>Yerel PMS mock çalışırken gelen rezervasyonları ve başarılı/başarısız denemeleri görüntüler.</small></p>
+  <section class="panel delivery-panel">
+    <div class="section-heading">
+      <div>
+        <h2>
+          Bağlantıların durumu
+        </h2>
+        <p>
+          Rezervasyon bilgilerinin ilgili alanlara aktarımı. Kafka aktarımı ve PMS teslimatı ayrı izlenir.
+        </p>
+      </div>
+    </div>
+    @for (d of analytics()?.deliveries || []; track d.consumer) {
+    <article class="delivery-card">
+      <div class="delivery-card-icon" [class.needs-attention]="d.dead > 0">
+        <ui-icon [name]="d.dead ? 'clock' : 'check'" />
+      </div>
+      <div>
+        <strong>
+          {{ consumerLabel(d.consumer) }}
+        </strong>
+        <p>
+          {{ d.pending }} bekleyen
+          <span>
+            ·
+          </span>
+          {{ d.dead }} inceleme gereken
+        </p>
+      </div>
+      <span class="delivery-state" [class.warning]="d.dead > 0">
+        {{ d.dead ? 'İnceleme' : d.pending ? 'İşleniyor' : 'Bekleyen yok' }}
+      </span>
+    </article>
+    } @empty {
+    <div class="empty-deliveries">
+      <ui-icon name="shield" />
+      <p>
+        Henüz aktarım kaydı yok.
+      </p>
+      <small>
+        Yeni rezervasyonlarla bağlantı durumu burada görünür.
+      </small>
+    </div>
+    }
+  </section>
+</div>
+<section class="panel">
+  <details class="delivery-details" [open]="failed().length > 0">
+    <summary>
+      <span>
+        <ui-icon name="note" />
+        <strong>
+          Bildirim işlem ayrıntıları
+        </strong>
+      </span>
+      <span class="count">
+        {{ failed().length }}
+      </span>
+    </summary>
+    <p class="subtle-help">
+      Tekrar denenmesi gereken kayıtları inceleyin. İzleme kodu, ilgili işlemi uygulama kayıtlarında bulmanızı sağlar.
+    </p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Bildirim
+            </th>
+            <th>
+              Hedef
+            </th>
+            <th>
+              Deneme sayısı
+            </th>
+            <th>
+              İşlem
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (e of failed(); track e.id + e.consumer) {
+          <tr>
+            <td>
+              <strong>
+                {{ e.event_type }}
+              </strong>
+              <details class="trace-details">
+                <summary>
+                  İzleme bilgisi
+                </summary>
+                <code>
+                  {{ e.trace_id }}
+                </code>
+                @if (e.last_error) {
+                <p>
+                  {{ e.last_error }}
+                </p>
+                }
+              </details>
+            </td>
+            <td>
+              {{ consumerLabel(e.consumer) }}
+            </td>
+            <td>
+              {{ e.attempts }}
+            </td>
+            <td>
+              <button type="button" class="secondary" (click)="retry(e.id)" [disabled]="busy()">
+                <ui-icon name="refresh" />
+                Tekrar dene
+              </button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="4" class="empty">
+              İnceleme gereken bildirim yok.
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </details>
+</section>

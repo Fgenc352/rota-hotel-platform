@@ -1,0 +1,136 @@
+<div class="board-toolbar">
+  <label>
+    Oda ara
+    <input
+      type="search"
+      placeholder="Oda numarası veya tipi"
+      [value]="query()"
+      (input)="search($any($event.target).value)"
+    >
+  </label>
+  <label>
+    Oda tipi
+    <select [value]="roomType()" (change)="type($any($event.target).value)">
+      <option value="ALL">
+        Tüm oda tipleri
+      </option>
+      @for(type of roomTypes(); track type.id) {
+      <option [value]="type.id">
+        {{ type.name }}
+      </option>
+      }
+    </select>
+  </label>
+  <label>
+    Oda görünümü
+    <select [value]="filter()" (change)="scope($any($event.target).value)">
+      <option value="ALL">
+        Tüm odalar
+      </option>
+      <option value="OCCUPIED">
+        Konaklama devam ediyor
+      </option>
+      <option value="CLEAN">
+        Hazır
+      </option>
+      <option value="DIRTY">
+        Temizlik gerekli
+      </option>
+      <option value="INSPECTING">
+        Kontrolde
+      </option>
+    </select>
+  </label>
+  <span>
+    {{ filtered().length }} oda
+  </span>
+</div>
+<div class="room-board">
+  @for(room of visible(); track room.id) {
+  <article
+    class="physical-room"
+    [class.is-occupied]="room.occupantId"
+    [class.is-dirty]="room.housekeeping === 'DIRTY'"
+  >
+    <div class="room-top">
+      <ui-icon name="bed" />
+      <span>
+        {{ room.occupantId ? 'KONAKLAMA DEVAM EDİYOR' : 'ŞU AN BOŞ' }}
+      </span>
+    </div>
+    <strong class="room-number">
+      {{ room.number }}
+    </strong>
+    <p class="room-type">
+      {{ room.roomTypeName }}
+    </p>
+    <div class="room-reservation">
+      @if(room.occupantId) {
+      <button type="button" class="quiet" (click)="opened.emit(room.occupantId)">
+        {{ room.occupantCode }}
+        <ui-icon name="chevron" />
+      </button>
+      } @else {
+      <span>
+        {{ room.upcomingAssignments ? room.upcomingAssignments + ' planlı oda ataması' : 'Aktif oda ataması yok' }}
+      </span>
+      }
+    </div>
+    <span class="housekeeping-state" [attr.data-state]="room.housekeeping">
+      {{ housekeepingLabel(room.housekeeping) }}
+    </span>
+    <div class="room-edit">
+      <label [for]="'housekeeping-' + room.id">
+        Temizlik durumu
+        <select
+          [id]="'housekeeping-' + room.id"
+          [value]="choices()[room.id] || room.housekeeping"
+          (change)="pick(room.id, $any($event.target).value)"
+          [disabled]="busy()"
+        >
+          <option value="CLEAN">
+            Hazır
+          </option>
+          <option value="DIRTY">
+            Temizlik gerekli
+          </option>
+          <option value="INSPECTING">
+            Kontrolde
+          </option>
+        </select>
+      </label>
+      <button
+        type="button"
+        class="secondary"
+        [disabled]="busy() || !choices()[room.id] || choices()[room.id] === room.housekeeping"
+        (click)="save(room)"
+        [attr.aria-label]="room.number + ' oda durumunu kaydet'"
+      >
+        Kaydet
+      </button>
+    </div>
+  </article>
+  } @empty {
+  <p class="empty">
+    Bu filtreye uygun oda yok.
+  </p>
+  }
+</div>
+@if(filtered().length > 12) {
+<div class="room-board-pagination">
+  <span>
+    Sayfa {{ page()+1 }}
+  </span>
+  <button type="button" class="secondary" [disabled]="page() === 0" (click)="page.set(page()-1)">
+    Önceki odalar
+  </button>
+  <button
+    type="button"
+    class="secondary"
+    [disabled]="(page()+1)*12 >= filtered().length"
+    (click)="page.set(page()+1)"
+  >
+    Sonraki odalar
+  </button>
+</div>
+}

@@ -1,0 +1,147 @@
+:host {
+  display: block;
+}
+
+.service-desk-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 25px;
+  margin-bottom: 28px;
+}
+
+h2 {
+  font: 32px/1.2 Georgia,serif;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+.service-desk-heading p {
+  font-size: 12px;
+  color: #687d98;
+  line-height: 1.8;
+  margin-top: 12px;
+  max-width: 650px;
+}
+
+.service-desk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(245px,1fr));
+  gap: 20px;
+}
+
+article {
+  overflow: hidden;
+  border: 1px solid #e0e6ef;
+  border-radius: 14px;
+  background: #fff;
+}
+
+article > img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-body {
+  padding: 23px;
+}
+
+.service-kicker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 7px;
+  color: #7c8ba1;
+  letter-spacing: .6px;
+}
+
+.service-kicker > span:last-child {
+  padding: 5px 7px;
+  background: #eff3f8;
+  border-radius: 10px;
+  font-size: 9px;
+  letter-spacing: 0;
+}
+
+h3 {
+  font: 25px Georgia,serif;
+  font-weight: 400;
+  margin: 20px 0 14px;
+}
+
+.service-body p {
+  font-size: 12px;
+  color: #536983;
+}
+
+.service-body small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #7a8aa0;
+  margin-top: 12px;
+}
+
+.service-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 23px;
+}
+
+.service-actions button {
+  font-size: 10px;
+  padding: 10px 12px;
+}
+
+.completed-service {
+  display: inline-flex;
+  font-size: 11px;
+  color: #43795d;
+  background: #edf7f1;
+  border: 1px solid #d3e7dc;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.service-body .service-actor {
+  margin-top: 20px;
+  font-size: 9px;
+  color: #7a8aa0;
+}
+
+.service-history {
+  margin-top: 25px;
+}
+
+.service-history summary {
+  padding: 15px 0;
+  color: #627994;
+  font-size: 12px;
+}
+
+.service-history p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #e6ebf3;
+  font-size: 11px;
+}
+
+.service-history small {
+  font-size: 10px;
+  color: #7b8ea6;
+  margin-left: auto;
+}
+
+@media(max-width:600px) {
+  .service-desk-grid {
+    grid-template-columns: 1fr;
+  }
+}

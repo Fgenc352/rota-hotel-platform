@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bağımsız site · widget entegrasyon testi</title>
+    <style>
+      body { margin: 0; padding: 32px; background: #862626; color: #fff; font: 18px Georgia, serif; }
+      main { max-width: 1100px; margin: auto; }
+      section { margin: 36px 0; }
+      button { background: #ff00ff !important; color: #00ff00 !important; border: 12px solid #ff0 !important; }
+      input, select { display: none !important; }
+      iframe { height: 40px !important; border: 20px solid #0f0 !important; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Bu sayfa Angular kullanmıyor.</h1>
+      <p>İki otelin widget'ı yalnız script ile eklenir. Sert host stilleri iframe içindeki formu etkilememeli.</p>
+      <button type="button">Host sitenin düğmesi</button>
+      <section aria-label="Lagos rezervasyon">
+        <h2>Lagos Beach Hotel</h2>
+        <script src="http://localhost:4200/widget.js" data-hotel-key="lagos-beach"></script>
+      </section>
+      <section aria-label="Peri rezervasyon">
+        <h2>Peri Stone Cave Hotel</h2>
+        <script src="http://localhost:4200/widget.js" data-hotel-key="peri-stone"></script>
+      </section>
+    </main>
+  </body>
+</html>

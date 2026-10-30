@@ -1,0 +1,15 @@
+<dialog
+  #dialog
+  class="gallery-host"
+  (cancel)="finished.emit(false)"
+  [attr.aria-label]="request().language === 'en' ? 'Room photos and details' : 'Oda fotoğrafları ve detayları'"
+>
+  <iframe
+    #frame
+    [src]="url()"
+    [title]="request().language === 'en' ? 'Room photos and details' : 'Oda fotoğrafları ve detayları'"
+    sandbox="allow-scripts allow-same-origin"
+    referrerpolicy="strict-origin-when-cross-origin"
+  >
+  </iframe>
+</dialog>

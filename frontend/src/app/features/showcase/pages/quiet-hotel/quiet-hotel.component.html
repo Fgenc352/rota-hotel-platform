@@ -1,0 +1,240 @@
+<div class="collection-estate quiet-estate" [class.cave-estate]="content.cave" signatureMotion>
+  <collection-header [cave]="content.cave" edition="quiet" />
+  <main id="main">
+    <section class="quiet-hero estate-width" id="top">
+      <div class="quiet-hero-title">
+        <span class="estate-kicker">
+          {{ content.place }} · QUIET COLLECTION
+        </span>
+        <h1>
+          @if(content.cave) { Taşın içinde.
+          <br>
+          <em>
+            Her şeyin dışında.
+          </em>
+          } @else { Az şey.
+          <br>
+          <em>
+            Çok güzel his.
+          </em>
+          }
+        </h1>
+        <div class="quiet-hero-note">
+          <span class="quiet-mark" aria-hidden="true">
+            {{ content.cave ? 'p' : 'l' }}.
+          </span>
+          <p>
+            {{ content.cave ? 'Işık. Doku. Sessizlik. Kapadokya’yı hissetmenin en yalın hâli.' : 'Deniz. Işık. Biraz zaman. İyi hissetmek bazen bu kadar sade.' }}
+          </p>
+          <a bookingScroll class="estate-link">
+            Konaklamanızı planlayın
+            <ui-icon name="chevron" />
+          </a>
+        </div>
+      </div>
+      <div class="quiet-hero-photo">
+        <img
+          [src]="content.quietHero"
+          alt="Otel manzarası; temsili görsel"
+          width="1536"
+          height="1024"
+          fetchpriority="high"
+        />
+        <span>
+          {{ content.cave ? 'A quieter kind of extraordinary.' : 'A little less. A little closer.' }}
+        </span>
+      </div>
+      <div class="quiet-photo-caption">
+        <span>
+          {{ content.name }}
+        </span>
+        <span>
+          {{ content.cave ? 'DOĞAL TAŞ · SICAK IŞIK · SESSİZLİK' : 'AÇIK UFUK · DOĞAL DOKULAR · YAVAŞ SABAHLAR' }}
+        </span>
+      </div>
+    </section>
+    <section class="quiet-story estate-width estate-section" id="story">
+      <div class="quiet-story-index">
+        <span class="estate-kicker">
+          01 / FELSEFEMİZ
+        </span>
+        <span class="story-line" aria-hidden="true">
+        </span>
+      </div>
+      <div class="quiet-story-copy" data-reveal>
+        <h2>
+          Lüks, bazen
+          <br>
+          <em>
+            fazlasını istememektir.
+          </em>
+        </h2>
+        <p>
+          {{ content.description }}
+        </p>
+        <a routerLink="." fragment="residences" queryParamsHandling="preserve" class="estate-link">
+          Odalarımızla tanışın
+          <ui-icon name="chevron" />
+        </a>
+      </div>
+      <div class="quiet-detail-photo" data-reveal>
+        <img
+          [src]="content.detail"
+          alt="Mimari detay ve dinlenme alanı; temsili görsel"
+          width="960"
+          height="640"
+          loading="lazy"
+        />
+        <span>
+          {{ content.cave ? 'Doğanın bıraktığı izler.' : 'Günün en sakin köşesi.' }}
+        </span>
+      </div>
+    </section>
+    <section class="quiet-residences estate-section" id="residences">
+      <div class="estate-width">
+        <div class="estate-section-heading" data-reveal>
+          <div>
+            <span class="estate-kicker">
+              02 / SİZE AİT ALAN
+            </span>
+            <h2>
+              İyi bir oda.
+              <br>
+              <em>
+                İyi bir başlangıç.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Her odanın kendine ait bir karakteri var. Fotoğrafları, konfor ayrıntılarını ve size uygun alanı keşfedin.
+          </p>
+        </div>
+        @if(stay.busy()) {
+        <p class="estate-loading" role="status">
+          Odalarınız hazırlanıyor…
+        </p>
+        } @else if(stay.error()) {
+        <div class="estate-error" role="alert">
+          <p>
+            {{ stay.error() }}
+          </p>
+          <button type="button" (click)="retry()">
+            Tekrar dene
+          </button>
+        </div>
+        } @else {
+        <atelier-rooms selectorVariant="quiet" [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+        }
+      </div>
+    </section>
+    <section class="quiet-rituals estate-width estate-section">
+      <div class="quiet-ritual-heading" data-reveal>
+        <span class="estate-kicker">
+          03 / GÜNÜN İÇİNDEN
+        </span>
+        <h2>
+          Küçük anlar.
+          <br>
+          <em>
+            Uzun hatıralar.
+          </em>
+        </h2>
+      </div>
+      <div class="quiet-ritual-grid">
+        <article data-reveal>
+          <img
+            [src]="content.breakfast"
+            alt="Kahvaltı sofrası; temsili görsel"
+            width="960"
+            height="640"
+            loading="lazy"
+          />
+          <span>
+            SABAH
+          </span>
+          <h3>
+            {{ content.ritual }}
+          </h3>
+          <p>
+            {{ content.ritualText }}
+          </p>
+        </article>
+        <article data-reveal>
+          <img
+            [src]="content.dinner"
+            alt="Akşam yemeği sofrası; temsili görsel"
+            width="960"
+            height="640"
+            loading="lazy"
+          />
+          <span>
+            AKŞAM
+          </span>
+          <h3>
+            {{ content.evening }}
+          </h3>
+          <p>
+            {{ content.eveningText }}
+          </p>
+        </article>
+      </div>
+      <p class="quiet-service-note">
+        Dahil olan ve ücretli hizmetleri rezervasyon sırasında seçebilirsiniz.
+      </p>
+    </section>
+    <section class="quiet-closing">
+      <img
+        [src]="content.room"
+        alt="Oda atmosferi; temsili görsel"
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      <div class="quiet-closing-card" data-reveal>
+        <span class="estate-kicker">
+          KENDİNİZE BİR YER AÇIN.
+        </span>
+        <h2>
+          {{ content.cave ? 'Dışarıda vadi.' : 'Dışarıda deniz.' }}
+          <br>
+          <em>
+            İçeride huzur.
+          </em>
+        </h2>
+        <a bookingScroll class="estate-link">
+          Yerinizi ayırtın
+          <ui-icon name="chevron" />
+        </a>
+      </div>
+    </section>
+    <section class="quiet-booking estate-width estate-section">
+      <div class="estate-booking-head" data-reveal>
+        <div>
+          <span class="estate-kicker">
+            04 / GÜZEL BİR KARAR
+          </span>
+          <h2>
+            Burada kalın.
+            <br>
+            <em>
+              Kendinize gelin.
+            </em>
+          </h2>
+        </div>
+        <p>
+          Tarihlerinizi seçin. Odanızı bulun. Konaklamanızı, tüm fiyatları görerek kolayca planlayın.
+        </p>
+      </div>
+      <showcase-booking-embed
+        id="booking"
+        [hotelKey]="key"
+        variant="quiet"
+        [preferredRoom]="stay.preferredRoom()"
+      />
+      <small class="estate-booking-note">
+        Doğrudan rezervasyon. Ön ödeme yok. Ödeme otelde.
+      </small>
+    </section>
+  </main>
+  <collection-footer [cave]="content.cave" edition="quiet" />
+</div>

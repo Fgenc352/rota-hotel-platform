@@ -1,0 +1,31 @@
+<footer class="collection-footer" [class.quiet-footer]="edition() === 'quiet'">
+  <div class="footer-invitation">
+    <span>
+      {{ edition() === 'maison' ? 'THE ART OF STAYING' : 'LESS, BUT MEANINGFUL' }}
+    </span>
+    <p>
+      {{ cave() ? 'Zaman geçsin.' : 'Dünya beklesin.' }}
+      <br>
+      <em>
+        Siz burada kalın.
+      </em>
+    </p>
+    <a bookingScroll aria-label="Konaklamanızı planlayın">
+      <ui-icon name="chevron" />
+    </a>
+  </div>
+  <div class="footer-baseline">
+    <strong>
+      {{ cave() ? 'peri stone.' : 'lagos.' }}
+    </strong>
+    <span>
+      {{ cave() ? 'Kapadokya · Türkiye' : 'Antalya · Türkiye' }}
+    </span>
+    <a bookingScroll>
+      Konaklamanızı planlayın
+    </a>
+  </div>
+  <small>
+    Otel atmosferi ve deneyim fotoğrafları temsili görsellerdir. Kesin fiyat ve müsaitlik seçtiğiniz tarihlere göre hesaplanır.
+  </small>
+</footer>

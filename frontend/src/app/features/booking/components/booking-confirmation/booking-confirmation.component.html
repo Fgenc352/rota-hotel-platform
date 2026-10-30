@@ -1,0 +1,33 @@
+<section
+  #confirmation
+  class="confirmation"
+  tabindex="-1"
+  role="region"
+  [attr.aria-label]="t('Rezervasyon onayı', 'Booking confirmation')"
+  aria-live="polite"
+>
+  <div class="success-icon">
+    ✓
+  </div>
+  <span class="eyebrow">
+    {{t('REZERVASYON ONAYLANDI','BOOKING CONFIRMED')}}
+  </span>
+  <h2>
+    {{t('Tatiliniz için hazırız.','We look forward to welcoming you.')}}
+  </h2>
+  <p>
+    {{t('Rezervasyon kodunuz','Your booking code')}}
+  </p>
+  <strong class="booking-code">
+    {{receipt().code}}
+  </strong>
+  <p>
+    {{money(receipt().total)}}
+  </p>
+  <p>
+    {{t('Ödeme otelde yapılacaktır.','Payment will be made at the hotel.')}}
+  </p>
+  <button type="button" (click)="newBooking.emit()">
+    {{t('Yeni rezervasyon','New booking')}}
+  </button>
+</section>

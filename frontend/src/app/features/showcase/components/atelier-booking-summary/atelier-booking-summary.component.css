@@ -1,0 +1,145 @@
+:host {
+  display:block;
+  min-width:0;
+}
+
+.atelier-stay-card {
+  border:1px solid #e5e5e5;
+  border-radius:16px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.summary-image {
+  display:block;
+  position:relative;
+  width:100%;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:#242424;
+}
+
+.summary-image img {
+  display:block;
+  width:100%;
+  height:170px;
+  object-fit:cover;
+}
+
+.summary-image span {
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  background:#ffffffeb;
+  color:#242424;
+  border-radius:100px;
+  padding:7px 11px;
+  font-size:9px;
+}
+
+.summary-body {
+  padding:24px 20px;
+}
+
+.summary-eyebrow {
+  font-size:7px;
+  letter-spacing:1.7px;
+  color:#707070;
+}
+
+h2 {
+  font:27px/1.15 Georgia,serif;
+  letter-spacing:-.7px;
+  margin:13px 0 22px;
+  color:#242424;
+}
+
+.summary-people {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:10px;
+  color:#656565;
+  border-bottom:1px solid #e5e5e5;
+  padding:18px 0;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+
+.summary-people > span {
+  margin-left:auto;
+}
+
+.summary-inclusions {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:18px;
+  font-size:10px;
+  color:#656565;
+}
+
+.summary-inclusions span {
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.summary-inclusions ui-icon {
+  width:13px;
+  height:13px;
+}
+
+.summary-bill {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:10px;
+  color:#656565;
+  margin:12px 0;
+}
+
+.summary-bill strong {
+  font-weight:500;
+  color:#242424;
+}
+
+.summary-grand {
+  border-top:1px solid #e5e5e5;
+  padding-top:18px;
+  margin-top:18px;
+}
+
+.summary-grand span {
+  display:block;
+  font-size:10px;
+  color:#656565;
+  margin-bottom:8px;
+}
+
+.summary-grand strong {
+  font-size:30px;
+  letter-spacing:-1.2px;
+  font-weight:500;
+  color:#242424;
+}
+
+.summary-note {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:9px;
+  line-height:1.7;
+  color:#656565;
+  margin-top:18px;
+}
+
+.summary-note ui-icon {
+  width:13px;
+  height:13px;
+  flex-shrink:0;
+}

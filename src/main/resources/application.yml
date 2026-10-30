@@ -1,0 +1,117 @@
+spring:
+  application:
+    name: hotel-booking-crm
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotel
+    username: hotel
+    password: hotel-local-only
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  liquibase:
+    # Keep shared demo data; Liquibase applies only pending changesets.
+    drop-first: false
+    contexts: demo
+    change-log: classpath:db/changelog/db.changelog-master.yml
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+        max.block.ms: 3000
+        delivery.timeout.ms: 5000
+        request.timeout.ms: 2000
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+      max-poll-records: 50
+    admin:
+      operation-timeout: 5s
+      fail-fast: false
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      connect-timeout: 500ms
+      timeout: 500ms
+      repositories:
+        enabled: false
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+server:
+  port: 8085
+  servlet:
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        same-site: lax
+management:
+  health:
+    redis:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+app:
+  messaging:
+    transport: kafka
+    topic: hotel.reservations.v1
+    dead-letter-topic: hotel.reservations.v1.DLT
+    group-id: hotel-pms-dispatch-v1
+    partitions: 3
+    replicas: 1
+    publish-timeout: 5s
+  availability-cache:
+    provider: redis
+    ttl: 5s
+    max-entries: 2000
+    namespace: hotel:availability:v1
+  booking:
+    eur-rate: 40.00
+  demo:
+    seed-password: DemoHotel2026!
+  pms:
+    # Local backend uses the Docker PMS published on the host.
+    url: http://localhost:8090
+    connect-timeout: 2s
+    request-timeout: 3s
+  outbox:
+    batch-size: 20
+    poll-interval: 500ms
+  worker-enabled: true
+logging:
+  file:
+    name: logs/hotel-booking.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+      total-size-cap: 100MB
+  level:
+    com.hotelbooking: INFO
+    org.hibernate.orm.jdbc.bind: 'OFF'
+    org.hibernate.orm.jdbc.extract: 'OFF'
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: 'OFF'
+  pattern:
+    level: '%5p [trace=%X{traceId}]'
+springdoc:
+  paths-to-match: /api/**
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    tags-sorter: alpha
+    operations-sorter: method

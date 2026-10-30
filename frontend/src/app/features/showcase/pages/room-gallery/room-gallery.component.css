@@ -1,0 +1,26 @@
+html:has(.room-gallery-page), html:has(.room-gallery-page) body {
+  background: transparent;
+}
+
+.room-gallery-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+
+.room-gallery-page .gallery-loading {
+  max-width: 400px;
+  margin: 24px;
+  padding: 32px;
+  border-radius: 18px;
+  background: #fff;
+  color: #242424;
+  text-align: center;
+  box-shadow: 0 24px 80px #0003;
+}
+
+.room-gallery-page .gallery-loading p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,256 @@
+<div class="collection-estate maison-estate" [class.cave-estate]="content.cave" signatureMotion>
+  <collection-header [cave]="content.cave" edition="maison" />
+  <main id="main">
+    <section class="maison-hero" id="top">
+      <img
+        class="maison-hero-image"
+        [src]="content.hero"
+        alt="Otel atmosferi; temsili görsel"
+        width="1440"
+        height="960"
+        fetchpriority="high"
+      />
+      <div class="maison-hero-shade">
+      </div>
+      <div class="hero-fine-frame" aria-hidden="true">
+      </div>
+      <div class="maison-hero-copy">
+        <span class="hero-edition">
+          THE MAISON COLLECTION
+          <i>
+          </i>
+          {{ content.place }}
+        </span>
+        <h1>
+          @if(content.cave) { Zamana
+          <br>
+          <em>
+            işlenmiş.
+          </em>
+          } @else { Deniz kadar
+          <br>
+          <em>
+            sonsuz.
+          </em>
+          }
+        </h1>
+        <div class="hero-tail">
+          <p>
+            {{ content.cave ? 'Taşın dokusu. Işığın büyüsü. Size ayrılmış bir dünya.' : 'Ufkun ötesinde bir his. Kendinize ayırdığınız en güzel zaman.' }}
+          </p>
+          <a bookingScroll class="estate-pill">
+            Konaklamanızı tasarlayın
+            <ui-icon name="chevron" />
+          </a>
+        </div>
+      </div>
+      <span class="hero-side-note">
+        {{ content.eyebrow }}
+      </span>
+      <div class="hero-bottom">
+        <span>
+          {{ content.name }}
+        </span>
+        <a routerLink="." fragment="story" queryParamsHandling="preserve" aria-label="Otelin hikâyesini keşfet">
+          KEŞFET
+          <span aria-hidden="true">
+            ↓
+          </span>
+        </a>
+        <span>
+          MAISON · {{ content.cave ? 'STONE & SOUL' : 'SEA & SOUL' }}
+        </span>
+      </div>
+    </section>
+    <section class="maison-invitation estate-width estate-section" id="story">
+      <div class="invitation-seal" aria-hidden="true">
+        <span>
+          {{ content.cave ? 'p' : 'l' }}.
+        </span>
+        <small>
+          MAISON
+          <br>
+          COLLECTION
+        </small>
+      </div>
+      <div class="invitation-copy" data-reveal>
+        <span class="estate-kicker">
+          GÖSTERİŞTEN ÖTE, BİR HİS.
+        </span>
+        <h2>
+          {{ content.story }}
+        </h2>
+        <p>
+          {{ content.description }}
+        </p>
+        <a routerLink="." fragment="residences" queryParamsHandling="preserve" class="estate-link">
+          Size ait alanı keşfedin
+          <ui-icon name="chevron" />
+        </a>
+      </div>
+      <div class="invitation-image" data-reveal>
+        <img
+          [src]="content.detail"
+          alt="Otelin mimari detayları; temsili görsel"
+          width="960"
+          height="640"
+          loading="lazy"
+        />
+        <span>
+          {{ content.cave ? 'Sculpted by time.' : 'Touched by the sea.' }}
+        </span>
+      </div>
+    </section>
+    <section class="maison-residences estate-section" id="residences">
+      <div class="estate-width">
+        <div class="estate-section-heading" data-reveal>
+          <div>
+            <span class="estate-kicker">
+              PRIVATE WORLDS
+            </span>
+            <h2>
+              Yalnızca bir oda değil.
+              <br>
+              <em>
+                Size ait bir dünya.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Dokular, ışık ve konfor. Odanızın tüm detaylarını keşfedin; tarihinize özel fiyatı rezervasyon sırasında görün.
+          </p>
+        </div>
+        @if(stay.busy()) {
+        <p class="estate-loading" role="status">
+          Odalarınız hazırlanıyor…
+        </p>
+        } @else if(stay.error()) {
+        <div class="estate-error" role="alert">
+          <p>
+            {{ stay.error() }}
+          </p>
+          <button type="button" (click)="retry()">
+            Tekrar dene
+          </button>
+        </div>
+        } @else {
+        <atelier-rooms selectorVariant="maison" [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+        }
+      </div>
+    </section>
+    <section class="maison-interlude">
+      <img
+        [src]="content.room"
+        alt="Oda içinde dinlenme alanı; temsili görsel"
+        width="1536"
+        height="1024"
+        loading="lazy"
+      />
+      <div>
+      </div>
+      <p data-reveal>
+        {{ content.cave ? 'Biraz sessizlik.' : 'Biraz daha yavaş.' }}
+        <br>
+        <em>
+          Çokça siz.
+        </em>
+      </p>
+      <span>
+        THE LUXURY OF FEELING AT HOME
+      </span>
+    </section>
+    <section class="maison-rituals estate-width estate-section">
+      <div class="ritual-heading" data-reveal>
+        <span class="estate-kicker">
+          THE EVERYDAY, EXTRAORDINARY
+        </span>
+        <h2>
+          Günün en güzel
+          <br>
+          <em>
+            ayrıntıları.
+          </em>
+        </h2>
+        <p>
+          Bir konaklamayı unutulmaz yapan, aradaki küçük anlardır.
+        </p>
+      </div>
+      <div class="maison-ritual-grid">
+        <article data-reveal>
+          <div class="ritual-image">
+            <img
+              [src]="content.breakfast"
+              alt="Kahvaltı deneyimi; temsili görsel"
+              width="960"
+              height="640"
+              loading="lazy"
+            />
+            <span>
+              01 / MORNING RITUAL
+            </span>
+          </div>
+          <h3>
+            {{ content.ritual }}
+          </h3>
+          <p>
+            {{ content.ritualText }}
+          </p>
+        </article>
+        <article data-reveal>
+          <div class="ritual-image">
+            <img
+              [src]="content.dinner"
+              alt="Akşam yemeği deneyimi; temsili görsel"
+              width="960"
+              height="640"
+              loading="lazy"
+            />
+            <span>
+              02 / AFTER HOURS
+            </span>
+          </div>
+          <h3>
+            {{ content.evening }}
+          </h3>
+          <p>
+            {{ content.eveningText }}
+          </p>
+        </article>
+      </div>
+      <p class="ritual-availability">
+        Dahil olan ve ücretli hizmetler rezervasyon adımında ayrı ayrı gösterilir.
+      </p>
+    </section>
+    <section class="maison-booking estate-section">
+      <div class="estate-width">
+        <div class="estate-booking-head" data-reveal>
+          <div>
+            <span class="estate-kicker">
+              YOUR NEXT CHAPTER
+            </span>
+            <h2>
+              Bazı yolculuklar
+              <br>
+              <em>
+                sizinle başlar.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Odanızı, tarihlerinizi ve size iyi gelecek ayrıntıları seçin. Geriye yalnızca yola çıkmak kalsın.
+          </p>
+        </div>
+        <showcase-booking-embed
+          id="booking"
+          [hotelKey]="key"
+          variant="maison"
+          [preferredRoom]="stay.preferredRoom()"
+        />
+        <small class="estate-booking-note">
+          Doğrudan rezervasyon · Açık fiyatlandırma · Ödeme otelde
+        </small>
+      </div>
+    </section>
+  </main>
+  <collection-footer [cave]="content.cave" edition="maison" />
+</div>

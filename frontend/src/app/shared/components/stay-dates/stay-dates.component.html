@@ -1,0 +1,18 @@
+<div class="stay-dates" [class.compact]="compact()">
+  <div>
+    <span>
+      {{ locale().startsWith('en') ? 'Check-in' : 'Giriş' }}
+    </span>
+    <time [attr.datetime]="checkIn()">
+      {{ format(checkIn(), locale()) }}
+    </time>
+  </div>
+  <div>
+    <span>
+      {{ locale().startsWith('en') ? 'Check-out' : 'Çıkış' }}
+    </span>
+    <time [attr.datetime]="checkOut()">
+      {{ format(checkOut(), locale()) }}
+    </time>
+  </div>
+</div>

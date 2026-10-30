@@ -1,0 +1,89 @@
+<div class="service-desk-heading">
+  <div>
+    <span class="eyebrow">
+      KONAKLAMA HİZMETLERİ · {{ plan().code }}
+    </span>
+    <h2>
+      Her ayrıntısı planlı.
+    </h2>
+    <p>
+      Rezervasyonda seçilen hizmetlerin miktar ve bedellerini inceleyin. Yemek, transfer ve vale işlemleri Günlük operasyon sekmesinden gün bazında yönetilir.
+    </p>
+  </div>
+  <button type="button" class="secondary" (click)="closed.emit()">
+    Kapat
+  </button>
+</div>
+@if(disabled()) {
+<p class="subtle-help">
+  Bu rezervasyonda hizmet durumu değiştirilemez.
+</p>
+}
+<div class="service-desk-grid">
+  @for(task of plan().services;track task.line.code) {
+  <article>
+    @if(image(hotelKey(),task.line.code);as photo) {
+    <img
+      [src]="photo"
+      [alt]="task.line.name + ' · temsili hizmet görseli'"
+      width="720"
+      height="480"
+      loading="lazy"
+    />
+    }
+    <div class="service-body">
+      <div class="service-kicker">
+        <span>
+          {{ task.line.included ? 'KONAKLAMAYA DAHİL' : 'SEÇİLMİŞ EK HİZMET' }}
+        </span>
+        <span>
+          {{ task.trackable ? 'Paket bilgisi' : 'Bilgilendirme' }}
+        </span>
+      </div>
+      <h3>
+        {{ task.line.name }}
+      </h3>
+      <p>
+        {{ task.line.quantity }} {{ task.line.unit === 'PER_PERSON_PER_NIGHT' ? 'kişi/gece' : task.line.unit === 'PER_NIGHT' ? 'gece' : 'konaklama' }} · {{ task.line.included ? 'Dahil' : money(task.line.total) }}
+      </p>
+      <small>
+        Rezervasyonun kayıtlı hizmet bedeli. Durum değişikliği ek ücret oluşturmaz.
+      </small>
+      @if(task.trackable) {
+      <p class="subtle-help">
+        Günlük servis ve teslim durumları Günlük operasyon sekmesinden yönetilir.
+      </p>
+      }
+      @if(task.actor) {
+      <p class="service-actor">
+        {{ task.actor }} · {{ task.updatedAt | hotelTimestamp }}
+      </p>
+      }
+    </div>
+  </article>
+  } @empty {
+  <p class="empty">
+    Bu rezervasyonda kayıtlı hizmet bilgisi yok. Önceki demo kayıtları hizmet paketi içermeyebilir.
+  </p>
+  }
+</div>
+@if(plan().history.length) {
+<details class="service-history">
+  <summary>
+    Hizmet işlem geçmişi ({{ plan().history.length }})
+  </summary>
+  @for(event of plan().history.slice(0,20);track event.id) {
+  <p>
+    <strong>
+      {{ name(event.code) }}
+    </strong>
+    <span>
+      {{ progress(event.previousState) }} / {{ progress(event.nextState) }}
+    </span>
+    <small>
+      {{ event.actor }} · {{ event.createdAt | hotelTimestamp }}
+    </small>
+  </p>
+  }
+</details>
+}

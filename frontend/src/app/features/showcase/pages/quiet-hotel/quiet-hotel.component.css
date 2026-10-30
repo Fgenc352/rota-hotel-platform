@@ -1,0 +1,406 @@
+.quiet-estate {
+  --estate-ink:#28382f;
+  --estate-muted:#657067;
+  --estate-accent:#6c765f;
+  --estate-line:#d9ddd2;
+  --estate-button-ink:#fff;
+  --atelier-ink:#28382f;
+  --atelier-muted:#657067;
+  --atelier-accent:#6c765f;
+  --atelier-line:#d0d5c9;
+  --atelier-panel:#fffefb;
+  --atelier-panel-ink:#28382f;
+  --atelier-panel-muted:#657067;
+  --atelier-button:#334537;
+  --atelier-button-ink:#fff;
+  background:#faf9f5;
+  color:var(--estate-ink);
+}
+
+.quiet-estate.cave-estate {
+  --estate-ink:#44372f;
+  --estate-muted:#796e61;
+  --estate-accent:#8a7058;
+  --estate-line:#ded5ca;
+  --atelier-ink:#44372f;
+  --atelier-muted:#796e61;
+  --atelier-accent:#8a7058;
+  --atelier-line:#ded5ca;
+  --atelier-panel:#fffaf4;
+  --atelier-panel-ink:#44372f;
+  --atelier-panel-muted:#796e61;
+  --atelier-button:#504034;
+}
+
+.quiet-hero {
+  padding-top:180px;
+}
+
+.quiet-hero-title {
+  display:grid;
+  grid-template-columns:1.4fr .6fr;
+  align-items:end;
+  gap:0 50px;
+  padding-bottom:55px;
+}
+
+.quiet-hero-title > .estate-kicker {
+  grid-column:1/-1;
+  margin-bottom:30px;
+}
+
+.quiet-hero h1 {
+  font-size:clamp(65px,7.8vw,115px);
+  line-height:1.04;
+  letter-spacing:-4px;
+}
+
+.quiet-hero h1 em {
+  color:var(--estate-muted);
+}
+
+.quiet-hero-note {
+  padding-bottom:10px;
+}
+
+.quiet-mark {
+  display:block;
+  font:italic 65px Georgia,serif;
+  color:var(--estate-accent);
+  margin-bottom:20px;
+}
+
+.quiet-hero-note p {
+  max-width:240px;
+  font-size:12px;
+  line-height:1.9;
+  color:var(--estate-muted);
+}
+
+.quiet-hero-note .estate-link {
+  margin-top:16px;
+  font-size:10px;
+  gap:25px;
+}
+
+.quiet-hero-photo {
+  position:relative;
+  height:620px;
+  overflow:hidden;
+}
+
+.quiet-hero-photo > img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 56%;
+  transform:translateY(calc(var(--hero-shift) * -.1)) scale(1.025);
+}
+
+.quiet-hero-photo > span {
+  position:absolute;
+  left:30px;
+  bottom:30px;
+  font:italic 25px Georgia,serif;
+  color:#fff;
+  text-shadow:0 1px 15px #000;
+}
+
+.cave-estate .quiet-hero-title {
+  grid-template-columns:.8fr 1.2fr;
+}
+
+.cave-estate .quiet-hero h1 {
+  grid-column:2;
+  grid-row:2;
+  font-size:clamp(56px,6vw,95px);
+}
+
+.cave-estate .quiet-hero-note {
+  grid-column:1;
+  grid-row:2;
+}
+
+.cave-estate .quiet-hero-photo {
+  width:88%;
+  margin-left:auto;
+  height:680px;
+  border-radius:380px 380px 0 0;
+}
+
+.quiet-photo-caption {
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:8px;
+  letter-spacing:1.2px;
+  color:var(--estate-muted);
+  padding-top:20px;
+}
+
+.quiet-photo-caption span:first-child {
+  font:18px Georgia,serif;
+  letter-spacing:0;
+}
+
+.quiet-story {
+  display:grid;
+  grid-template-columns:.45fr 1.1fr 1fr;
+  gap:7%;
+  align-items:center;
+}
+
+.quiet-story-index {
+  align-self:start;
+  padding-top:15px;
+}
+
+.story-line {
+  display:block;
+  height:90px;
+  width:1px;
+  background:var(--estate-line);
+  margin-top:30px;
+}
+
+.quiet-story-copy h2 {
+  font-size:clamp(38px,4.2vw,62px);
+}
+
+.quiet-story-copy em {
+  color:var(--estate-muted);
+}
+
+.quiet-story-copy p {
+  font-size:13px;
+  line-height:2;
+  margin-top:25px;
+  color:var(--estate-muted);
+}
+
+.quiet-story-copy .estate-link {
+  margin-top:20px;
+}
+
+.quiet-detail-photo img {
+  display:block;
+  width:100%;
+  height:430px;
+  object-fit:cover;
+}
+
+.quiet-detail-photo > span {
+  display:block;
+  font:italic 17px Georgia,serif;
+  color:var(--estate-muted);
+  margin-top:18px;
+}
+
+.quiet-residences {
+  background:#eeefe8;
+  border-block:1px solid var(--estate-line);
+}
+
+.cave-estate .quiet-residences {
+  background:#f0eae1;
+}
+
+.estate-section-heading h2 em,.quiet-ritual-heading h2 em {
+  color:var(--estate-muted);
+}
+
+.quiet-ritual-heading {
+  margin-bottom:55px;
+}
+
+.quiet-ritual-heading h2 {
+  margin-top:25px;
+}
+
+.quiet-ritual-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+
+.quiet-ritual-grid img {
+  display:block;
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+.quiet-ritual-grid article:nth-child(2) {
+  padding-top:70px;
+}
+
+.quiet-ritual-grid article > span {
+  display:block;
+  font-size:7px;
+  letter-spacing:2px;
+  margin:25px 0 14px;
+  color:var(--estate-accent);
+}
+
+.quiet-ritual-grid h3 {
+  font-size:32px;
+  letter-spacing:-.7px;
+}
+
+.quiet-ritual-grid p {
+  color:var(--estate-muted);
+  font-size:12px;
+  line-height:1.9;
+  margin-top:13px;
+  max-width:380px;
+}
+
+.quiet-service-note {
+  margin-top:35px;
+  font-size:10px;
+  color:var(--estate-muted);
+}
+
+.quiet-closing {
+  position:relative;
+  height:650px;
+  display:flex;
+  align-items:center;
+  padding:60px 9%;
+}
+
+.quiet-closing > img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.quiet-closing-card {
+  position:relative;
+  background:#faf9f5f5;
+  padding:50px;
+  max-width:570px;
+  backdrop-filter:blur(12px);
+}
+
+.quiet-closing-card h2 {
+  font-size:clamp(40px,4.7vw,65px);
+  margin:30px 0 20px;
+}
+
+.quiet-closing-card em {
+  color:var(--estate-muted);
+}
+
+.quiet-booking .estate-booking-head h2 em {
+  color:var(--estate-muted);
+}
+
+.quiet-booking showcase-booking-embed {
+  border:1px solid var(--estate-line);
+}
+
+@media(max-width:1100px) {
+  .quiet-story {
+    grid-template-columns:1fr 1fr;
+    gap:7%;
+  }
+  .quiet-story-index {
+    grid-column:1/-1;
+  }
+  .story-line {
+    display:none;
+  }
+  .quiet-hero-title {
+    grid-template-columns:1.25fr .75fr;
+    gap:30px;
+  }
+}
+
+@media(max-width:760px) {
+  .quiet-hero {
+    padding-top:140px;
+  }
+  .quiet-hero-title,.cave-estate .quiet-hero-title {
+    display:flex;
+    flex-direction:column;
+    align-items:start;
+    gap:0;
+    padding-bottom:35px;
+  }
+  .quiet-hero h1,.cave-estate .quiet-hero h1 {
+    font-size:clamp(51px,10.5vw,77px);
+    letter-spacing:-2.3px;
+  }
+  .quiet-hero-title > .estate-kicker {
+    font-size:6px;
+    letter-spacing:1.4px;
+  }
+  .quiet-mark {
+    display:none;
+  }
+  .quiet-hero-note {
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:25px;
+    padding:0;
+  }
+  .quiet-hero-note p {
+    max-width:270px;
+    font-size:11px;
+  }
+  .quiet-hero-note .estate-link {
+    margin-top:0;
+  }
+  .quiet-hero-photo,.cave-estate .quiet-hero-photo {
+    height:440px;
+    width:100%;
+  }
+  .quiet-hero-photo > span {
+    left:20px;
+    bottom:22px;
+    font-size:20px;
+  }
+  .quiet-photo-caption {
+    flex-direction:column;
+    gap:10px;
+  }
+  .quiet-photo-caption > span:last-child {
+    font-size:6px;
+  }
+  .quiet-story {
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+  .quiet-detail-photo img {
+    height:390px;
+  }
+  .quiet-ritual-grid {
+    grid-template-columns:1fr;
+    gap:40px;
+  }
+  .quiet-ritual-grid article:nth-child(2) {
+    padding-top:0;
+  }
+  .quiet-ritual-grid img {
+    height:320px;
+  }
+  .quiet-closing {
+    height:550px;
+    padding:35px 6%;
+    align-items:end;
+  }
+  .quiet-closing-card {
+    padding:30px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .quiet-hero-photo > img {
+    transform:none;
+  }
+}

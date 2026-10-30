@@ -1,0 +1,123 @@
+<showcase-room-selector variant="signature" [rooms]="rooms()" [active]="active()" (changed)="choose($event)" />
+@if (room(); as current) {
+<section
+  class="room-stage"
+  role="tabpanel"
+  [id]="'room-panel-' + current.id"
+  [attr.aria-labelledby]="'room-tab-' + current.id"
+>
+  <div class="room-stage-visual">
+    <button
+      class="gallery-trigger"
+      type="button"
+      (click)="showDetails.set(true)"
+      [attr.aria-label]="current.name + ' fotoğraf galerisini aç'"
+    >
+      <img
+        [src]="current.images[photo()]"
+        [alt]="current.name + ' · temsili oda fotoğrafı ' + (photo() + 1)"
+        width="1100"
+        height="900"
+        loading="lazy"
+      />
+      <span class="photo-caption">
+        FOTOĞRAFLARI KEŞFET
+        <span>
+          <ui-icon name="chevron" />
+        </span>
+      </span>
+    </button>
+    <div class="photo-controls">
+      <button type="button" (click)="movePhoto(-1)" aria-label="Önceki oda fotoğrafı">
+        <ui-icon name="back" />
+      </button>
+      <span>
+        {{ photo() + 1 }} / {{ current.images.length }}
+      </span>
+      <button type="button" (click)="movePhoto(1)" aria-label="Sonraki oda fotoğrafı">
+        <ui-icon name="chevron" />
+      </button>
+    </div>
+  </div>
+  <div class="room-stage-copy">
+    <span class="room-eyebrow">
+      KENDİNİZE AİT BİR DÜNYA / 0{{ active() + 1 }}
+    </span>
+    <h3>
+      {{ current.name }}
+    </h3>
+    <p>
+      {{ current.description }}
+    </p>
+    <div class="room-facts">
+      <span>
+        {{ current.areaSquareMeters }}
+        <small>
+          m²
+        </small>
+      </span>
+      <span>
+        {{ current.capacity }}
+        <small>
+          kişiye kadar
+        </small>
+      </span>
+      <span>
+        {{ current.minNights }}
+        <small>
+          minimum gece
+        </small>
+      </span>
+    </div>
+    <p class="bed-description">
+      {{ current.bedDescription }}
+    </p>
+    <ul>
+      @for (amenity of current.amenities; track amenity) {
+      <li>
+        {{ amenity }}
+      </li>
+      }
+    </ul>
+    <div class="room-thumbnails" aria-label="Oda fotoğrafları">
+      @for (image of current.images; track image; let i = $index) {
+      <button
+        type="button"
+        (click)="photo.set(i)"
+        [class.active]="photo() === i"
+        [attr.aria-label]="current.name + ' fotoğraf ' + (i + 1)"
+        [attr.aria-pressed]="photo() === i"
+      >
+        <img [src]="image" alt="" width="100" height="75" loading="lazy" />
+      </button>
+      }
+    </div>
+    <div class="room-rate">
+      <div>
+        <span>
+          GECELİK BAŞLANGIÇ
+        </span>
+        <strong>
+          {{ currency.format(current.nightlyPrice) }}
+        </strong>
+      </div>
+      <button class="room-book" type="button" (click)="selected.emit(current.id)">
+        Bu odayı seç
+        <span>
+          <ui-icon name="chevron" />
+        </span>
+      </button>
+    </div>
+    <small class="rate-caption">
+      Kesin toplam ve müsaitlik, tarihlerinizle hesaplanır. Görseller temsilidir.
+    </small>
+  </div>
+</section>
+@if (showDetails()) {
+<showcase-room-details-dialog
+  [room]="current"
+  (closed)="showDetails.set(false)"
+  (selected)="selected.emit(current.id); showDetails.set(false)"
+/>
+}
+}

@@ -1,0 +1,493 @@
+.collection-widget {
+  max-width:1280px;
+  margin:auto;
+  overflow:clip;
+  border:1px solid #dedede;
+  border-radius:3px;
+  background:#fff;
+  color:var(--widget-ink);
+  font-family:Inter,'Segoe UI',Arial,sans-serif;
+  box-shadow:0 20px 80px #0000000b;
+}
+
+.collection-widget .collection-widget-header {
+  padding:30px 36px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.collection-widget .collection-widget-identity {
+  display:flex;
+  align-items:center;
+  gap:18px;
+  min-width:0;
+}
+
+.collection-widget .collection-seal {
+  width:48px;
+  height:58px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  border:1px solid #bcbcbc;
+  outline:1px solid #e1e1e1;
+  outline-offset:4px;
+  font:30px Georgia,serif;
+}
+
+.collection-widget .collection-eyebrow {
+  display:block;
+  font-size:7px;
+  letter-spacing:2px;
+  color:#656565;
+}
+
+.collection-widget .collection-widget-identity h1 {
+  font:27px/1.2 Georgia,serif;
+  letter-spacing:-.8px;
+  margin-top:8px;
+}
+
+.collection-widget .collection-preferences {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-shrink:0;
+}
+
+.collection-widget .collection-preferences :is(button,select) {
+  min-width:42px;
+  min-height:42px;
+  width:auto;
+  padding:10px 12px;
+  border:1px solid #dedede;
+  border-radius:2px;
+  background:#fff;
+  color:#242424;
+  font-size:10px;
+}
+
+.collection-widget .collection-widget-hero {
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:300px;
+  margin:0 24px;
+  border:1px solid #d5d5d5;
+  background:#f6f6f6;
+}
+
+.collection-widget .collection-hero-copy {
+  padding:40px;
+  align-self:center;
+  position:relative;
+  z-index:1;
+}
+
+.collection-widget .collection-hero-copy > span {
+  font-size:7px;
+  letter-spacing:2px;
+  color:#656565;
+}
+
+.collection-widget .collection-hero-copy > p {
+  font:clamp(39px,5vw,65px)/1.02 Georgia,serif;
+  margin:24px 0 18px;
+  letter-spacing:-2px;
+}
+
+.collection-widget .collection-hero-copy em {
+  font-weight:400;
+  color:#666;
+}
+
+.collection-widget .collection-hero-copy > small {
+  display:block;
+  max-width:240px;
+  font-size:10px;
+  line-height:1.8;
+  color:#656565;
+}
+
+.collection-widget .collection-widget-hero > img {
+  width:100%;
+  height:100%;
+  min-height:300px;
+  object-fit:cover;
+  filter:grayscale(1);
+}
+
+.collection-widget showcase-booking-steps {
+  display:block;
+  margin:28px 36px 0;
+}
+
+.collection-widget .collection-widget-content {
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  padding:40px 36px;
+  gap:32px;
+}
+
+.collection-widget .collection-widget-content.with-summary {
+  grid-template-columns:minmax(0,1fr) 310px;
+  align-items:start;
+}
+
+.collection-widget .collection-booking-main {
+  min-width:0;
+}
+
+.collection-widget .collection-step-title {
+  margin-bottom:32px;
+}
+
+.collection-widget .collection-step-title > span {
+  display:block;
+  font-size:8px;
+  letter-spacing:2px;
+  color:#656565;
+}
+
+.collection-widget .collection-step-title i {
+  font-style:normal;
+  opacity:.6;
+  margin-left:8px;
+}
+
+.collection-widget .collection-step-title h2 {
+  font:clamp(30px,4vw,45px)/1.1 Georgia,serif;
+  letter-spacing:-1.3px;
+  margin:15px 0 12px;
+  color:#242424;
+}
+
+.collection-widget .collection-step-title > p {
+  font-size:12px;
+  color:#656565;
+  line-height:1.8;
+}
+
+.collection-widget booking-stay-search .search-grid {
+  background:#f8f8f8;
+  border:1px solid #e5e5e5;
+  padding:24px;
+  border-radius:2px;
+}
+
+.collection-widget booking-stay-search .search-grid :is(label,input) {
+  min-width:0;
+  max-width:100%;
+}
+
+.collection-widget booking-stay-search .search-grid input {
+  background:#fff;
+}
+
+.collection-widget booking-stay-search button[type=submit],.collection-widget booking-guest-form button[type=submit] {
+  width:100%;
+  min-height:50px;
+  border-radius:2px;
+  background:#242424;
+  color:#fff;
+}
+
+.collection-widget .collection-preferred {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:16px;
+  margin-bottom:20px;
+  border:1px solid #dedede;
+  background:#f8f8f8;
+  font-size:11px;
+}
+
+.collection-widget .collection-preferred strong {
+  display:block;
+  margin-top:5px;
+  font:21px Georgia,serif;
+}
+
+.collection-widget .collection-booking-promise {
+  display:flex;
+  align-items:start;
+  gap:14px;
+  padding:23px 0 0;
+}
+
+.collection-widget .collection-booking-promise > ui-icon {
+  color:#656565;
+}
+
+.collection-widget .collection-booking-promise strong {
+  font-size:11px;
+  font-weight:600;
+}
+
+.collection-widget .collection-booking-promise p {
+  font-size:10px;
+  color:#656565;
+  margin-top:7px;
+}
+
+.collection-widget .collection-results {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding-bottom:20px;
+  font-size:11px;
+  color:#656565;
+}
+
+.collection-widget .collection-results button {
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+}
+
+.collection-widget .collection-info {
+  padding:16px;
+  margin-block:15px;
+  font-size:12px;
+  line-height:1.8;
+  background:#f6f6f6;
+  border:1px solid #e5e5e5;
+}
+
+.collection-widget .collection-info button {
+  margin-left:10px;
+}
+
+.collection-widget .collection-guest-welcome {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding:20px;
+  border:1px solid #dedede;
+  background:#fafafa;
+  margin-bottom:28px;
+}
+
+.collection-widget .collection-guest-welcome > span {
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  border:1px solid #c7c7c7;
+  border-radius:50%;
+}
+
+.collection-widget .collection-guest-welcome p {
+  font:23px Georgia,serif;
+}
+
+.collection-widget .collection-guest-welcome small {
+  display:block;
+  font:10px/1.8 Inter,Arial,sans-serif;
+  color:#656565;
+  margin-top:6px;
+}
+
+.collection-widget atelier-booking-summary {
+  position:sticky;
+  top:20px;
+  min-width:0;
+}
+
+.collection-widget .collection-rate-note {
+  font-size:10px;
+  line-height:1.8;
+  margin-top:20px;
+  color:#656565;
+}
+
+.collection-widget .collection-widget-footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:22px 36px;
+  border-top:1px solid #e5e5e5;
+  color:#656565;
+  font-size:7px;
+  letter-spacing:1px;
+}
+
+.collection-widget .collection-widget-footer b {
+  font:24px Georgia,serif;
+  letter-spacing:-1px;
+  color:#242424;
+}
+
+.collection-widget.quiet-widget {
+  border-radius:14px;
+  box-shadow:0 10px 45px #00000005;
+}
+
+.quiet-widget .collection-widget-header {
+  padding:32px 40px 24px;
+}
+
+.quiet-widget .collection-seal {
+  outline:none;
+  border:0;
+  width:38px;
+  height:40px;
+  font:italic 40px Georgia,serif;
+}
+
+.quiet-widget .collection-widget-identity h1 {
+  font-size:24px;
+}
+
+.quiet-widget .collection-preferences :is(button,select) {
+  border-radius:100px;
+}
+
+.quiet-widget .quiet-widget-intro {
+  padding:30px 40px 25px;
+}
+
+.quiet-widget .quiet-rule {
+  display:block;
+  height:1px;
+  width:55px;
+  background:#a5a5a5;
+  margin-bottom:25px;
+}
+
+.quiet-widget .quiet-widget-intro > p {
+  font:clamp(30px,4vw,46px)/1.2 Georgia,serif;
+  letter-spacing:-1px;
+  max-width:620px;
+}
+
+.quiet-widget .quiet-widget-intro em {
+  color:#707070;
+  font-weight:400;
+}
+
+.quiet-widget .quiet-widget-intro small {
+  display:block;
+  font-size:11px;
+  color:#656565;
+  margin-top:15px;
+}
+
+.quiet-widget .collection-widget-content {
+  padding-top:25px;
+}
+
+.quiet-widget .collection-step-title {
+  margin-bottom:25px;
+}
+
+.quiet-widget booking-stay-search .search-grid {
+  background:#fff;
+  border:0;
+  padding:0;
+}
+
+.quiet-widget booking-stay-search button[type=submit],.quiet-widget booking-guest-form button[type=submit] {
+  border-radius:7px;
+}
+
+@media(max-width:1050px) {
+  .collection-widget .collection-widget-content.with-summary {
+    grid-template-columns:minmax(0,1fr) 275px;
+    gap:24px;
+  }
+}
+
+@media(max-width:800px) {
+  .collection-widget .collection-widget-header,.quiet-widget .collection-widget-header {
+    padding:24px 20px;
+    gap:15px;
+  }
+  .collection-widget .collection-seal {
+    width:32px;
+    height:42px;
+    font-size:23px;
+  }
+  .collection-widget .collection-widget-identity {
+    gap:13px;
+  }
+  .collection-widget .collection-widget-identity h1 {
+    font-size:21px;
+  }
+  .collection-widget .collection-eyebrow {
+    font-size:6px;
+    letter-spacing:1px;
+  }
+  .collection-widget .collection-widget-content,.collection-widget .collection-widget-content.with-summary {
+    padding:28px 20px;
+    grid-template-columns:1fr;
+  }
+  .collection-widget atelier-booking-summary {
+    display:none;
+  }
+  .collection-widget .collection-widget-hero {
+    margin-inline:12px;
+    min-height:220px;
+    grid-template-columns:1.1fr .9fr;
+  }
+  .collection-widget .collection-hero-copy {
+    padding:24px 20px;
+  }
+  .collection-widget .collection-hero-copy > p {
+    font-size:38px;
+  }
+  .collection-widget .collection-hero-copy > span {
+    font-size:6px;
+    letter-spacing:1px;
+  }
+  .collection-widget .collection-widget-hero > img {
+    min-height:220px;
+  }
+  .collection-widget showcase-booking-steps {
+    margin:22px 20px 0;
+  }
+  .collection-widget .collection-widget-footer {
+    padding:20px;
+    font-size:6px;
+  }
+  .quiet-widget .quiet-widget-intro {
+    padding:20px 25px;
+  }
+  .collection-widget booking-stay-search .search-grid {
+    padding:16px;
+  }
+  .quiet-widget booking-stay-search .search-grid {
+    padding:0;
+  }
+  .collection-widget :is(input:not([type=checkbox]),select) {
+    font-size:16px;
+  }
+}
+
+@media(max-width:450px) {
+  .collection-widget .collection-seal {
+    display:none;
+  }
+  .collection-widget .collection-preferences {
+    gap:5px;
+  }
+  .collection-widget .collection-preferences :is(button,select) {
+    min-width:35px;
+    padding:8px;
+    font-size:10px;
+  }
+  .collection-widget .collection-widget-identity h1 {
+    font-size:19px;
+  }
+  .collection-widget .collection-hero-copy > p {
+    font-size:32px;
+  }
+  .collection-widget .collection-hero-copy > small {
+    font-size:9px;
+  }
+}

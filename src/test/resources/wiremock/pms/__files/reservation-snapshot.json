@@ -1,0 +1,17 @@
+{
+  "id": "30000000-0000-0000-0000-000000000001",
+  "hotelId": "10000000-0000-0000-0000-000000000001",
+  "code": "RT-WIREMOCK",
+  "checkIn": "2026-11-07",
+  "checkOut": "2026-11-09",
+  "firstName": "Private",
+  "lastName": "Guest",
+  "email": "private@example.com",
+  "phone": "+905551111111",
+  "marketingAllowed": false,
+  "consentAt": "2026-10-29T08:00:00Z",
+  "status": "CHECKED_OUT",
+  "total": 1000,
+  "version": 3,
+  "checkedOutAt": "2026-11-09T08:00:00Z"
+}

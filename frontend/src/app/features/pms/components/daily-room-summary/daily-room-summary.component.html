@@ -1,0 +1,72 @@
+<div class="room-summary-head">
+  <div>
+    <span class="eyebrow">
+      ANLIK FİZİKSEL ODA DURUMU
+    </span>
+    <h3>
+      Hangi oda dolu, hangisi boş?
+    </h3>
+    <p>
+      Gerçek check-in/check-out durumudur. Seçilen tarihin planlanan doluluğu üstte ayrıca gösterilir.
+    </p>
+  </div>
+  <label>
+    Oda doluluğu
+    <select [value]="filter()" (change)="scope($any($event.target).value)">
+      <option value="ALL">
+        Tüm odalar
+      </option>
+      <option value="OCCUPIED">
+        Dolu odalar
+      </option>
+      <option value="EMPTY">
+        Boş odalar
+      </option>
+    </select>
+  </label>
+</div>
+<div class="room-summary-grid">
+  @for(room of visible(); track room.id) {
+  <article [class.occupied]="room.occupantId">
+    <div>
+      <strong>
+        {{ room.number }}
+      </strong>
+      <span>
+        {{ room.occupantId ? 'Dolu' : 'Boş' }}
+      </span>
+    </div>
+    <p>
+      {{ room.roomTypeName }}
+    </p>
+    <small>
+      {{ housekeeping(room.housekeeping) }}
+    </small>
+    @if(room.occupantId) {
+    <button type="button" class="quiet" (click)="opened.emit(room.occupantId)">
+      {{ room.occupantCode }} · Rezervasyonu aç
+    </button>
+    }
+  </article>
+  } @empty {
+  <p class="empty">
+    Bu görünümde oda bulunmuyor.
+  </p>
+  }
+</div>
+<div class="room-summary-pagination">
+  <span>
+    {{ filtered().length }} oda · Sayfa {{ page()+1 }}
+  </span>
+  <button type="button" class="secondary" [disabled]="page()===0" (click)="page.set(page()-1)">
+    Önceki odalar
+  </button>
+  <button
+    type="button"
+    class="secondary"
+    [disabled]="(page()+1)*12 >= filtered().length"
+    (click)="page.set(page()+1)"
+  >
+    Sonraki odalar
+  </button>
+</div>

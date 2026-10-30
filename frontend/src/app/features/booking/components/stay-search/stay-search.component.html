@@ -1,0 +1,38 @@
+<form [formGroup]="form()" (ngSubmit)="submitted.emit()" class="search-grid">
+  <label>
+    {{t('Giriş tarihi','Check-in')}}
+    <input type="date" formControlName="checkIn" required>
+  </label>
+  <label>
+    {{t('Çıkış tarihi','Check-out')}}
+    <input type="date" formControlName="checkOut" required>
+  </label>
+  <label>
+    {{t('Yetişkin','Adults')}}
+    <input
+      type="number"
+      formControlName="adults"
+      min="1"
+      max="10"
+      required
+    >
+  </label>
+  <label>
+    {{t('Çocuk','Children')}}
+    <input
+      type="number"
+      formControlName="children"
+      min="0"
+      max="10"
+      required
+    >
+  </label>
+  <button type="submit" [disabled]="busy()||!hotelLoaded()">
+    {{busy()?t('İşleniyor…','Working…'):t('Oda ara','Find a room')}}
+  </button>
+</form>
+@if (form().touched && form().invalid){
+<p class="field-error" role="alert">
+  {{t('Tarihleri ve kişi sayılarını kontrol edin.','Please check dates and guest counts.')}}
+</p>
+}

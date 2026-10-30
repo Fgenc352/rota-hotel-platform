@@ -1,0 +1,247 @@
+:host {
+  display: block;
+}
+
+.room-stage {
+  display: grid;
+  grid-template-columns: 1.12fr 1fr;
+  min-height: 680px;
+  background: var(--sig-surface, #f6f6ee);
+}
+
+.room-stage-visual {
+  position: relative;
+  min-width: 0;
+}
+
+.gallery-trigger {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  background: #a7b096;
+}
+
+.gallery-trigger img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 900ms ease;
+}
+
+.gallery-trigger:hover img {
+  transform: scale(1.04);
+}
+
+.photo-caption {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  text-shadow: 0 2px 10px #000;
+}
+
+.photo-caption span {
+  font-size: 22px;
+}
+
+.photo-controls {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 5px;
+  background: #fbfbf0ec;
+  color: #273e37;
+}
+
+.photo-controls button {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  border-radius: 0;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+}
+
+.photo-controls > span {
+  font-size: 10px;
+}
+
+.room-stage-copy {
+  padding: 55px 10%;
+  min-width: 0;
+  color: var(--sig-ink, #203d39);
+}
+
+.room-eyebrow {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--sig-muted, #6a786b);
+}
+
+h3 {
+  font: 400 clamp(35px, 4vw, 60px)/1.04 Georgia, serif;
+  letter-spacing: -1.8px;
+  margin: 24px 0;
+}
+
+.room-stage-copy > p {
+  font-size: 13px;
+  color: var(--sig-muted, #6a786b);
+  line-height: 1.95;
+}
+
+.room-facts {
+  display: flex;
+  gap: 28px;
+  border-top: 1px solid var(--sig-line, #d9ded7);
+  border-bottom: 1px solid var(--sig-line, #d9ded7);
+  padding: 23px 0;
+  margin: 28px 0 18px;
+}
+
+.room-facts > span {
+  font: 27px Georgia, serif;
+}
+
+.room-facts small {
+  display: block;
+  font: 9px Arial, sans-serif;
+  margin-top: 7px;
+  color: var(--sig-muted, #6a786b);
+}
+
+.room-stage-copy .bed-description {
+  font-size: 11px;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 16px;
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 24px;
+  font-size: 10px;
+  color: var(--sig-muted, #6a786b);
+}
+
+li::before {
+  content: '·';
+  margin-right: 8px;
+}
+
+.room-thumbnails {
+  display: flex;
+  gap: 8px;
+  margin: 25px 0;
+}
+
+.room-thumbnails button {
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  width: min(18%, 80px);
+  aspect-ratio: 1.15;
+  overflow: hidden;
+}
+
+.room-thumbnails button.active {
+  border-color: var(--sig-accent, #426b4e);
+  outline: 2px solid var(--sig-accent, #426b4e);
+  outline-offset: 2px;
+}
+
+.room-thumbnails img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-rate {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.room-rate > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.room-rate > div > span {
+  color: var(--sig-muted, #6a786b);
+  font-size: 8px;
+  letter-spacing: 1.3px;
+}
+
+.room-rate strong {
+  font: 29px Georgia, serif;
+}
+
+.room-book {
+  background: var(--sig-accent, #426b4e);
+  color: var(--sig-button-ink, #fff);
+  border-radius: 0;
+  min-height: 46px;
+  font-size: 11px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.rate-caption {
+  display: block;
+  margin-top: 17px;
+  color: var(--sig-muted, #6a786b);
+  font-size: 9px;
+  line-height: 1.8;
+}
+
+@media (max-width: 850px) {
+  .room-stage {
+    grid-template-columns: 1fr;
+  }
+  .room-stage-visual {
+    min-height: 440px;
+  }
+  .room-stage-copy {
+    padding: 35px;
+  }
+}
+
+@media (max-width: 500px) {
+  .room-stage-visual {
+    min-height: 330px;
+  }
+  .room-stage-copy {
+    padding: 28px 22px;
+  }
+  .room-facts {
+    gap: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-trigger img {
+    transition: none;
+  }
+}

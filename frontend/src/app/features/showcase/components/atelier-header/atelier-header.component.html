@@ -1,0 +1,53 @@
+<a class="atelier-skip" routerLink="." fragment="main" queryParamsHandling="preserve">
+  İçeriğe geç
+</a>
+<header class="atelier-header" [class.dark-header]="cave()">
+  <a
+    class="atelier-wordmark"
+    routerLink="."
+    fragment="top"
+    queryParamsHandling="preserve"
+    [attr.aria-label]="cave() ? 'Peri Stone ana sayfa' : 'Lagos ana sayfa'"
+  >
+    <span>
+      {{ cave() ? 'peri stone' : 'lagos' }}
+      <i>
+        .
+      </i>
+    </span>
+    <small>
+      {{ cave() ? 'CAPPADOCIA · CAVE HOTEL' : 'ANTALYA · BEACH HOTEL' }}
+    </small>
+  </a>
+  <button
+    type="button"
+    class="mobile-menu-toggle"
+    (click)="menu.set(!menu())"
+    [attr.aria-expanded]="menu()"
+    aria-controls="atelier-navigation"
+    aria-label="Otel menüsünü aç veya kapat"
+  >
+    <ui-icon [name]="menu() ? 'close' : 'menu'" />
+  </button>
+  <nav id="atelier-navigation" aria-label="Otel menüsü" [class.menu-open]="menu()" (click)="menu.set(false)">
+    <a routerLink="." fragment="experience" queryParamsHandling="preserve">
+      {{ cave() ? 'Taşın hafızası' : 'Lagos hissi' }}
+    </a>
+    <a routerLink="." fragment="residences" queryParamsHandling="preserve">
+      Odalar & süitler
+    </a>
+    <a [routerLink]="cave() ? '/atelier/lagos-beach' : '/atelier/peri-stone'">
+      {{ cave() ? 'Akdeniz koleksiyonu' : 'Kapadokya koleksiyonu' }}
+      <ui-icon name="chevron" />
+    </a>
+  </nav>
+  <a bookingScroll class="atelier-header-book" (click)="menu.set(false)">
+    <span class="desktop-book-label">
+      Konaklamanı planla
+    </span>
+    <span class="mobile-book-label">
+      Yer ayırın
+    </span>
+    <ui-icon name="chevron" />
+  </a>
+</header>

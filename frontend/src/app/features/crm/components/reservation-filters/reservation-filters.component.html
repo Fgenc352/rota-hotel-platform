@@ -1,0 +1,118 @@
+<form class="reservation-filters" (ngSubmit)="apply()">
+  <div class="filter-grid">
+    <label>
+      Rezervasyon kodu
+      <input name="code" [(ngModel)]="filters.code" placeholder="RT-…" maxlength="100">
+    </label>
+    <label>
+      Ad
+      <input name="firstName" [(ngModel)]="filters.firstName" maxlength="100">
+    </label>
+    <label>
+      Soyad
+      <input name="lastName" [(ngModel)]="filters.lastName" maxlength="100">
+    </label>
+    <label>
+      Durum
+      <select name="status" [(ngModel)]="filters.status">
+        <option [ngValue]="undefined">
+          Tüm durumlar
+        </option>
+        <option value="PENDING">
+          Bekliyor
+        </option>
+        <option value="CONFIRMED">
+          Onaylandı
+        </option>
+        <option value="CHECKED_IN">
+          Giriş yapıldı
+        </option>
+        <option value="CHECKED_OUT">
+          Çıkış yapıldı
+        </option>
+        <option value="CANCELLED">
+          İptal edildi
+        </option>
+        <option value="NO_SHOW">
+          Gelmedi
+        </option>
+      </select>
+    </label>
+    <label>
+      Oda tipi
+      <select name="roomTypeId" [(ngModel)]="filters.roomTypeId">
+        <option [ngValue]="undefined">
+          Tüm oda tipleri
+        </option>
+        @for (room of rooms(); track room.id) {
+        <option [value]="room.id">
+          {{ room.name }}
+        </option>
+        }
+      </select>
+    </label>
+  </div>
+  <details>
+    <summary>
+      Tarih, iletişim, kişi sayısı ve tutar filtreleri
+    </summary>
+    <div class="filter-grid advanced-filters">
+      <label>
+        E-posta
+        <input name="email" [(ngModel)]="filters.email" maxlength="254">
+      </label>
+      <label>
+        Telefon
+        <input name="phone" [(ngModel)]="filters.phone" maxlength="30">
+      </label>
+      <label>
+        Giriş tarihi · Başlangıç
+        <input type="date" name="checkInFrom" [(ngModel)]="filters.checkInFrom">
+      </label>
+      <label>
+        Giriş tarihi · Bitiş
+        <input type="date" name="checkInTo" [(ngModel)]="filters.checkInTo" [min]="filters.checkInFrom || ''">
+      </label>
+      <label>
+        Çıkış tarihi · Başlangıç
+        <input type="date" name="checkOutFrom" [(ngModel)]="filters.checkOutFrom">
+      </label>
+      <label>
+        Çıkış tarihi · Bitiş
+        <input
+          type="date"
+          name="checkOutTo"
+          [(ngModel)]="filters.checkOutTo"
+          [min]="filters.checkOutFrom || ''"
+        >
+      </label>
+      <label>
+        Yetişkin sayısı
+        <input type="number" min="1" name="adults" [(ngModel)]="filters.adults" placeholder="Tümü">
+      </label>
+      <label>
+        Çocuk sayısı
+        <input type="number" min="0" name="children" [(ngModel)]="filters.children" placeholder="Tümü">
+      </label>
+      <label>
+        En düşük tutar · ₺
+        <input type="number" min="0" step="0.01" name="minTotal" [(ngModel)]="filters.minTotal">
+      </label>
+      <label>
+        En yüksek tutar · ₺
+        <input type="number" min="0" step="0.01" name="maxTotal" [(ngModel)]="filters.maxTotal">
+      </label>
+    </div>
+  </details>
+  <div class="filter-actions">
+    <span>
+      Dolu alanlar birlikte uygulanır.
+    </span>
+    <button type="button" class="secondary" (click)="clear()" [disabled]="busy()">
+      Filtreleri temizle
+    </button>
+    <button type="submit" [disabled]="busy()">
+      Filtrele
+    </button>
+  </div>
+</form>

@@ -1,0 +1,70 @@
+<main class="widget-shell">
+  <header class="widget-header">
+    <div>
+      <span class="eyebrow">DIRECT BOOKING</span>
+      <h1>{{booking.hotel()?.name || 'Rota'}}</h1>
+      <p>{{booking.hotel()?.location}}</p>
+    </div>
+    <div class="toolbar">
+      <button
+        type="button"
+        class="quiet"
+        (click)="booking.lang.set(booking.lang()==='tr'?'en':'tr')"
+        aria-label="Change language"
+      >
+        {{booking.lang()==='tr'?'EN':'TR'}}
+      </button>
+      <select
+        aria-label="Currency"
+        [value]="booking.currency()"
+        (change)="booking.currency.set($any($event.target).value)"
+      >
+        <option>TRY</option>
+        <option>EUR</option>
+      </select>
+    </div>
+  </header>
+  @if (booking.error()){
+    <div role="alert" class="alert">{{booking.error()}}</div>
+  }
+  @if (booking.receipt(); as confirmation) {
+    <booking-confirmation
+      [receipt]="confirmation"
+      (newBooking)="booking.startNewBooking()"
+    />
+  }
+  @else {
+    @if (!booking.selected()) {
+      <booking-stay-search
+        [form]="booking.searchForm"
+        [busy]="booking.busy()"
+        [hotelLoaded]="!!booking.hotel()"
+        (submitted)="booking.search()"
+      />
+    }
+    @if (booking.selected(); as room) {
+      <booking-guest-form
+        [form]="booking.guestForm"
+        [room]="room"
+        [busy]="booking.busy()"
+        (submitted)="booking.book()"
+        (back)="booking.selected.set(null)"
+      />
+    }
+    @else if(booking.searched()) {
+      <booking-room-offers [offers]="booking.offers()" (selected)="booking.select($event)" />
+    }
+    @if (booking.currency()==='EUR') {
+      <p class="muted">
+        {{booking.t('EUR fiyatları örnek kurla gösterilir. Rezervasyon bedeli TRY olarak sabitlenir.','EUR prices use a demo exchange rate. Your booking is fixed in TRY.')}}
+      </p>
+    }
+  }
+  <footer class="widget-footer">
+    {{booking.t('Güvenli doğrudan rezervasyon · Ödeme otelde','Book directly · Pay at the hotel')}}
+    <span>
+      powered by
+      <b>rota.</b>
+    </span>
+  </footer>
+</main>

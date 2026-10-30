@@ -1,0 +1,137 @@
+<fieldset class="service-options" [disabled]="booking.busy()">
+  <legend>
+    {{ booking.t('Konaklamanıza dahil ve ekstra hizmetler', 'Included services and extras') }}
+  </legend>
+  <div class="services-intro">
+    <span class="services-eyebrow">
+      {{ booking.t('KÜÇÜK AYRICALIKLAR, GÜZEL ANILAR', 'LITTLE EXTRAS, LOVELY MEMORIES') }}
+    </span>
+    <h3>
+      {{ booking.t('Deneyiminizi tamamlayın.', 'Make the stay your own.') }}
+    </h3>
+    <p>
+      {{ booking.t('Sizin için hazırladığımız ayrıcalıkları keşfedin; konaklamanıza dilediğinizi ekleyin.', 'Discover our thoughtful extras and add your favorites to your stay.') }}
+    </p>
+  </div>
+  @if (!booking.servicesReady()) {
+  <div class="services-unavailable" role="alert">
+    <p>
+      {{ booking.t('Hizmet bilgileri yüklenemedi.', 'Services could not be loaded.') }}
+    </p>
+    <button type="button" (click)="booking.loadServices()">
+      {{ booking.t('Tekrar yükle', 'Retry') }}
+    </button>
+  </div>
+  }
+  <div class="service-grid">
+    @for (service of booking.services(); track service.code) {
+    @if (photo(service.code); as image) {
+    <label
+      class="service-card"
+      [class.is-selected]="selected(service.code)"
+      [class.is-included]="service.included"
+    >
+      <span class="service-media">
+        <img [src]="image" alt="" width="720" height="480" loading="lazy" decoding="async">
+        <span class="service-category">
+          {{ service.included ? booking.t('DAHİL', 'INCLUDED') : booking.t('EK HİZMET', 'OPTIONAL EXTRA') }}
+        </span>
+        <input
+          type="checkbox"
+          [attr.aria-label]="name(service)"
+          [attr.aria-describedby]="'service-description-' + service.code"
+          [checked]="service.included || selected(service.code)"
+          [disabled]="service.included || booking.busy()"
+          (change)="toggle(service.code, $event)"
+        >
+      </span>
+      <span class="service-copy">
+        <strong class="service-name">
+          {{ name(service) }}
+        </strong>
+        <small class="service-description" [id]="'service-description-' + service.code">
+          {{ description(service) }}
+        </small>
+        <span class="service-price-row">
+          <span class="service-cost">
+            <strong>
+              {{ service.included ? booking.t('Konaklamaya dahil', 'Included in your stay') : booking.money(service.price) }}
+            </strong>
+            @if (!service.included) {
+            <small>
+              {{ booking.lang() === 'tr' ? units[service.unit] : englishUnits[service.unit] }}
+            </small>
+            }
+          </span>
+          <span class="service-selection">
+            <ui-icon [name]="service.included || selected(service.code) ? 'check' : 'plus'" />
+          </span>
+        </span>
+        @if (!service.included && selected(service.code)) {
+        <span class="service-stay-total">
+          {{ booking.t('Bu konaklama için', 'For this stay') }}
+          <b>
+            {{ booking.money(lineTotal(service.code)) }}
+          </b>
+        </span>
+        }
+      </span>
+    </label>
+    } @else {
+    <label class="service-benefit" [class.is-included]="service.included">
+      <ui-icon [name]="service.included ? 'check' : 'plus'" />
+      <span>
+        <strong>
+          {{ name(service) }}
+        </strong>
+        <small>
+          {{ description(service) }}
+        </small>
+      </span>
+      <input
+        type="checkbox"
+        [attr.aria-label]="name(service)"
+        [checked]="service.included || selected(service.code)"
+        [disabled]="service.included || booking.busy()"
+        (change)="toggle(service.code, $event)"
+      >
+      <span class="benefit-price">
+        {{ service.included ? booking.t('Dahil', 'Included') : booking.money(service.price) }}
+      </span>
+    </label>
+    }
+    }
+  </div>
+  <p class="service-policy">
+    {{ booking.t('Yemeklerde çocuklar da kişi sayısına dahildir. Vale bir araç, transfer tek yön içindir. Hizmetler tüm konaklama için seçilir.', 'Meal pricing includes children. Valet covers one car; transfer is one way. Services apply to the entire stay.') }}
+  </p>
+  <span class="image-notice">
+    {{ booking.t('Hizmet görselleri temsili olarak üretilmiştir.', 'Service images are generated illustrations of the experience.') }}
+  </span>
+  <dl class="service-totals">
+    <div>
+      <dt>
+        {{ booking.t('Oda bedeli', 'Room total') }}
+      </dt>
+      <dd>
+        {{ booking.money(booking.selected()?.total || 0) }}
+      </dd>
+    </div>
+    <div>
+      <dt>
+        {{ booking.t('Ek hizmetler', 'Extras') }}
+      </dt>
+      <dd>
+        {{ booking.money(booking.extrasTotal()) }}
+      </dd>
+    </div>
+    <div class="grand-total">
+      <dt>
+        {{ booking.t('Genel toplam', 'Grand total') }}
+      </dt>
+      <dd>
+        {{ booking.money(booking.bookingTotal()) }}
+      </dd>
+    </div>
+  </dl>
+</fieldset>

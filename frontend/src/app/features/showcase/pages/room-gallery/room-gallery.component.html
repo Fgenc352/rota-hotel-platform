@@ -1,0 +1,23 @@
+<main class="room-gallery-page">
+  @if (room(); as room) {
+  <showcase-room-details-dialog
+    [room]="room"
+    [currency]="currency"
+    [language]="language"
+    [eurRate]="eurRate()"
+    [selectable]="selectable"
+    [hosted]="true"
+    (closed)="finish(false)"
+    (selected)="finish(true)"
+  />
+  } @else {
+  <section class="gallery-loading" role="status">
+    <p>
+      {{ error() || (language === 'tr' ? 'Odanızın detayları hazırlanıyor…' : 'Preparing your room gallery…') }}
+    </p>
+    <button type="button" (click)="finish(false)">
+      {{ language === 'tr' ? 'Kapat' : 'Close' }}
+    </button>
+  </section>
+  }
+</main>

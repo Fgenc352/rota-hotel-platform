@@ -1,0 +1,35 @@
+<div class="service-catalog">
+  @for(service of services(); track service.code) {
+  <article>
+    @if(image(hotelKey(), service.code); as photo) {
+    <img [src]="photo" [alt]="service.name + ' · temsili görsel'" loading="lazy" width="600" height="400" />
+    }
+    <div class="catalog-body">
+      <span class="eyebrow">
+        {{ service.included ? 'KONAKLAMAYA DAHİL' : 'EK HİZMET' }}
+      </span>
+      <h3>
+        {{ service.name }}
+      </h3>
+      <p>
+        {{ service.description }}
+      </p>
+      <strong>
+        {{ service.included ? 'Dahil' : money(service.price) }}
+      </strong>
+      @if(!service.included) {
+      <small>
+        {{ unit(service.unit) }}
+      </small>
+      }
+    </div>
+  </article>
+  } @empty {
+  <p class="empty">
+    Bu otel için tanımlı hizmet bulunamadı.
+  </p>
+  }
+</div>
+<p class="catalog-help">
+  Otelin güncel hizmet kataloğu. Misafirin aldığı hizmetleri ve rezervasyon anındaki bedelleri görmek için aşağıdan rezervasyon seçin.
+</p>

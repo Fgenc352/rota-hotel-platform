@@ -1,0 +1,268 @@
+<div class="peri-page">
+  <a class="skip-link" routerLink="." fragment="main-content" queryParamsHandling="preserve">
+    İçeriğe geç
+  </a>
+  <header class="peri-header">
+    <a class="peri-brand" routerLink="." fragment="top" queryParamsHandling="preserve" aria-label="Peri Stone Cave Hotel ana sayfa">
+      <span class="arch-mark" aria-hidden="true">
+      </span>
+      <span>
+        peri stone
+        <small>
+          CAVE HOTEL · CAPPADOCIA
+        </small>
+      </span>
+    </a>
+    <nav aria-label="Peri ana menü">
+      <a routerLink="." fragment="story" queryParamsHandling="preserve">
+        Hikâyemiz
+      </a>
+      <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+        Odalarımız
+      </a>
+      <a routerLink="/showcase/lagos-beach">
+        Akdeniz’e bir yolculuk ↗
+      </a>
+    </nav>
+    <a bookingScroll class="book-link">
+      Yerinizi ayırın
+      <span>
+        ↗
+      </span>
+    </a>
+  </header>
+  <main id="main-content">
+    <section class="peri-hero" id="top" aria-labelledby="peri-hero-title">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <span class="kicker">
+            KAPADOKYA · TAŞIN SAKLADIĞI BİR HİKÂYE
+          </span>
+          <h1 id="peri-hero-title">
+            Zamanın
+            <br>
+            biraz
+            <br>
+            <em>
+              dışında.
+            </em>
+          </h1>
+          <p>
+            Toprağın tonları, taşın hafızası.
+            <br>
+            Kendinize döneceğiniz bir konaklama.
+          </p>
+          <a class="discover" routerLink="." fragment="rooms" queryParamsHandling="preserve">
+            <span>
+              ↓
+            </span>
+            Peri’nin dünyasına adım atın
+          </a>
+          <div class="hero-caption">
+            <span>
+              01 / YAVAŞ YAŞAM
+            </span>
+            <span>
+              HER ŞEYDEN UZAK.
+              <br>
+              KENDİNİZE YAKIN.
+            </span>
+          </div>
+        </div>
+        <div class="hero-portrait">
+          <div class="arch-frame">
+            <img
+              src="/images/showcase/peri-hero.webp"
+              alt="Kapadokya vadisine ve gökyüzündeki balonlara açılan taş otel terası; temsili görsel"
+              width="1536"
+              height="1024"
+              fetchpriority="high"
+            />
+          </div>
+          <span class="portrait-label">
+            GÖKYÜZÜYLE AYNI HİKÂYEDE.
+          </span>
+          <span class="floating-seal" aria-hidden="true">
+            P
+            <small>
+              STONE & SKY
+            </small>
+          </span>
+        </div>
+      </div>
+    </section>
+    <section class="story-section section-width" id="story">
+      <div class="section-number">
+        I.
+        <span>
+          YERİN RUHU
+        </span>
+      </div>
+      <div class="story-heading">
+        <span class="kicker">
+          BİR YERE DEĞİL, BİR HİSSE GELİN.
+        </span>
+        <h2>
+          Bazı yerler,
+          <br>
+          <em>
+            içinizde kalır.
+          </em>
+        </h2>
+      </div>
+      <div class="story-description">
+        <p>
+          Her çizgisinde başka bir hikâye taşıyan taş duvarlar. Gün doğumuyla değişen renkler. Peri Stone’da konaklamak, biraz da anın içinde kalmayı hatırlamak.
+        </p>
+        <a class="underlined" routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          Size ait odayı keşfedin
+          <span>
+            ↗
+          </span>
+        </a>
+      </div>
+    </section>
+    <section class="rooms-section" id="rooms" aria-labelledby="peri-rooms-title">
+      <div class="section-width">
+        <div class="rooms-heading">
+          <span class="kicker">
+            TAŞIN İÇİNDE, KENDİNİZE AİT
+          </span>
+          <h2 id="peri-rooms-title">
+            Sıradan bir odadan
+            <br>
+            <em>
+              biraz daha fazlası.
+            </em>
+          </h2>
+          <p>
+            Doğal mimari. Sıcak dokular. Size özel bir sığınak.
+          </p>
+        </div>
+        @if (stay.error()) {
+        <div class="catalog-error" role="alert">
+          <p>
+            {{ stay.error() }}
+          </p>
+          <button type="button" (click)="retry()">
+            Yeniden dene
+          </button>
+        </div>
+        }
+        @if (stay.busy()) {
+        <div class="catalog-loading" role="status" aria-label="Odalar yükleniyor">
+          <span>
+          </span>
+          <span>
+          </span>
+        </div>
+        }
+        @else if (stay.rooms().length) {
+        <showcase-room-collection [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+        }
+        <p class="catalog-note">
+          Gecelik başlangıç fiyatlarıdır; kesin toplam ve müsaitlik tarihlerle hesaplanır. Görseller temsilidir.
+        </p>
+      </div>
+    </section>
+    <section class="stone-story">
+      <div class="stone-photo">
+        <img
+          src="/images/showcase/peri-room.webp"
+          alt="Doğal taş kemer ve sıcak aydınlatmalı mağara oda; temsili görsel"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+      </div>
+      <div class="stone-copy">
+        <span class="kicker">
+          DETAYLARDA SAKLI BİR SAKİNLİK
+        </span>
+        <h2>
+          Biraz sessizlik.
+          <br>
+          <em>
+            Biraz büyü.
+          </em>
+        </h2>
+        <p>
+          Bir kemerin gölgesi, taşın sıcaklığı, pencerenizin çerçevelediği bir manzara. Burada büyük anlar, küçük detaylarda saklı.
+        </p>
+        <span class="stone-signature">
+          peri stone
+        </span>
+        <span class="small-note">
+          STAY WITH THE STORY.
+        </span>
+      </div>
+    </section>
+    <section class="booking-section section-width" aria-labelledby="peri-booking-title">
+      <div class="booking-heading">
+        <div>
+          <span class="kicker">
+            HİKÂYENİZİN BİR SONRAKİ SAYFASI
+          </span>
+          <h2 id="peri-booking-title">
+            Sizin için
+            <br>
+            <em>
+              bir yer sakladık.
+            </em>
+          </h2>
+        </div>
+        <p>
+          Tarihlerinizi seçin, size ait odayı bulun.
+          <br>
+          Doğrudan otelden rezervasyon, ödeme otelde.
+        </p>
+      </div>
+      <showcase-booking-embed id="booking" hotelKey="peri-stone" [preferredRoom]="stay.preferredRoom()" />
+    </section>
+  </main>
+  <footer class="peri-footer">
+    <div class="footer-upper">
+      <div>
+        <span class="kicker">
+          PERI STONE CAVE HOTEL
+        </span>
+        <h2>
+          Yolunuz bir gün
+          <br>
+          <em>
+            buraya düşsün.
+          </em>
+        </h2>
+      </div>
+      <div class="footer-menu">
+        <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          Odalarımız ↗
+        </a>
+        <a routerLink="/showcase/lagos-beach">
+          Lagos Beach Hotel ↗
+        </a>
+        <a bookingScroll>
+          Konaklamanızı planlayın ↗
+        </a>
+      </div>
+    </div>
+    <div class="footer-line">
+      <span class="footer-brand">
+        peri stone
+      </span>
+      <span>
+        Kapadokya · Türkiye
+        <br>
+        Stone. Sky. Stillness.
+      </span>
+    </div>
+    <div class="footer-bottom">
+      <span>
+        © {{ year }} Peri Stone Cave Hotel · Kurgusal otel sunumu
+      </span>
+      <span>
+        Doğrudan rezervasyon · rota.
+      </span>
+    </div>
+  </footer>
+</div>

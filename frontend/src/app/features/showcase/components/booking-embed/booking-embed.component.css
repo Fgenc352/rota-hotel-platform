@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  width: 100%;
+  overflow-anchor: none;
+}
+
+iframe {
+  display: block;
+  width: 100%;
+  min-height: 500px;
+  border: 0;
+  background: transparent;
+  color-scheme: light;
+}

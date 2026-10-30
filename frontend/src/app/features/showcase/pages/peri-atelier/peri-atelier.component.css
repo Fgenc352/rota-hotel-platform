@@ -1,0 +1,452 @@
+.peri-atelier {
+  --atelier-ink:#faedda;
+  --atelier-muted:#c6ad9d;
+  --atelier-accent:#e4ae7b;
+  --atelier-line:#6f4d4f;
+  --atelier-panel:#fbf2e4;
+  --atelier-panel-ink:#39272b;
+  --atelier-panel-muted:#705850;
+  --atelier-button:#e1ad7a;
+  --atelier-button-ink:#2b1b24;
+  background:#291c25;
+  color:var(--atelier-ink);
+}
+
+.peri-hero {
+  position:relative;
+  padding-top:135px;
+  background:radial-gradient(ellipse at 75% 50%,#804b342f,transparent 65%);
+  overflow:hidden;
+}
+
+.hero-orbit {
+  position:absolute;
+  width:780px;
+  height:780px;
+  border:1px solid #a7775f26;
+  border-radius:50%;
+  left:-460px;
+  top:130px;
+}
+
+.peri-hero-grid {
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  align-items:center;
+  gap:3%;
+  position:relative;
+}
+
+.peri-hero-copy {
+  position:relative;
+  z-index:2;
+  padding:40px 0;
+}
+
+h1 {
+  font:clamp(90px,10vw,154px)/.89 Georgia,serif;
+  letter-spacing:-5px;
+  margin:35px 0;
+}
+
+h1 em {
+  font-weight:400;
+  color:#edba8a;
+}
+
+.peri-hero-copy > p {
+  font-size:14px;
+  line-height:2;
+  color:#dec6b7;
+  margin:28px 0;
+}
+
+.peri-hero-copy .atelier-pill {
+  margin-top:7px;
+}
+
+.hero-collection {
+  display:block;
+  font-size:7px;
+  letter-spacing:2px;
+  color:#a58a7e;
+  margin-top:40px;
+}
+
+.peri-hero-portrait {
+  height:730px;
+  position:relative;
+  border-radius:320px 320px 12px 12px;
+  overflow:hidden;
+  border:1px solid #d8a7774f;
+  box-shadow:0 35px 90px #130a11aa;
+}
+
+.peri-hero-portrait > img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:58% center;
+}
+
+.portrait-shade {
+  position:absolute;
+  inset:45% 0 0;
+  background:linear-gradient(transparent,#21141ace);
+}
+
+.portrait-wordmark {
+  position:absolute;
+  bottom:80px;
+  left:9%;
+  font:clamp(80px,8vw,125px)/.75 Georgia,serif;
+  letter-spacing:-7px;
+  color:#ffe9c9a1;
+}
+
+.portrait-wordmark i {
+  font-weight:400;
+  font-style:italic;
+  padding-left:60px;
+}
+
+.portrait-caption {
+  position:absolute;
+  bottom:30px;
+  left:10%;
+  font-size:7px;
+  letter-spacing:2px;
+  color:#fae2c4;
+}
+
+.portrait-caption small {
+  display:block;
+  margin-top:9px;
+  letter-spacing:.5px;
+  opacity:.6;
+  font-size:8px;
+}
+
+.peri-hero-foot {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+  border-bottom:1px solid #c69e7e36;
+  padding:30px 0 35px;
+  margin-top:32px;
+}
+
+.peri-hero-foot > span {
+  font-size:8px;
+  letter-spacing:1px;
+  color:#c7a88e;
+}
+
+.peri-hero-foot a {
+  display:flex;
+  align-items:center;
+  gap:15px;
+  font-size:10px;
+  color:#fae6ce;
+}
+
+.peri-prologue {
+  background:#f2e4d1;
+  color:#412e2f;
+}
+
+.prologue-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12%;
+  align-items:center;
+}
+
+.prologue-image {
+  position:relative;
+  padding:25px 25px 0 0;
+}
+
+.image-line {
+  position:absolute;
+  inset:0 0 25px 25px;
+  border:1px solid #ab886650;
+  border-radius:220px 220px 0 0;
+}
+
+.prologue-image img {
+  position:relative;
+  width:100%;
+  height:560px;
+  object-fit:cover;
+  border-radius:230px 230px 8px 8px;
+}
+
+.image-label {
+  position:absolute;
+  bottom:35px;
+  left:30px;
+  z-index:1;
+  font-size:8px;
+  letter-spacing:2px;
+  line-height:1.9;
+  color:#ffedda;
+  text-shadow:0 2px 12px #000;
+}
+
+.prologue-copy .atelier-eyebrow {
+  color:#9e7151;
+}
+
+.prologue-copy h2 {
+  font:clamp(50px,5.7vw,82px)/1.05 Georgia,serif;
+  letter-spacing:-2px;
+  margin:30px 0;
+}
+
+.prologue-copy h2 em {
+  color:#a26846;
+  font-weight:400;
+}
+
+.prologue-copy > p {
+  font-size:13px;
+  line-height:2;
+  max-width:370px;
+  color:#806a60;
+  margin-bottom:22px;
+}
+
+.prologue-flourish {
+  display:block;
+  font:italic 65px Georgia,serif;
+  color:#bb9472;
+  margin-top:20px;
+}
+
+.peri-residences {
+  background:#35222e;
+}
+
+.peri-rituals {
+  background:#f8eddf;
+  color:#44302e;
+}
+
+.rituals-heading {
+  text-align:center;
+  margin-bottom:55px;
+}
+
+.rituals-heading .atelier-eyebrow {
+  color:#9d7251;
+}
+
+.rituals-heading h2 {
+  font:clamp(40px,5.6vw,76px)/1.1 Georgia,serif;
+  letter-spacing:-2px;
+  margin-top:24px;
+}
+
+.rituals-heading h2 em {
+  font-weight:400;
+  color:#a46b4b;
+}
+
+.rituals-grid {
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:35px;
+  align-items:start;
+}
+
+.rituals-grid article {
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.rituals-grid img {
+  display:block;
+  width:100%;
+  height:510px;
+  object-fit:cover;
+}
+
+.rituals-grid article::after {
+  content:'';
+  position:absolute;
+  inset:40% 0 0;
+  background:linear-gradient(transparent,#21151dd4);
+}
+
+.ritual-breakfast {
+  margin-top:80px;
+}
+
+.rituals-grid article > div {
+  position:absolute;
+  bottom:30px;
+  left:30px;
+  z-index:1;
+  color:#ffedda;
+}
+
+.rituals-grid article span {
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.rituals-grid h3 {
+  font:clamp(32px,3.8vw,49px)/1.1 Georgia,serif;
+  letter-spacing:-1px;
+  margin-top:16px;
+  font-weight:400;
+}
+
+.ritual-note {
+  font-size:11px;
+  text-align:center;
+  color:#8b7265;
+  margin-top:36px;
+}
+
+.peri-finale {
+  position:relative;
+  min-height:640px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+
+.peri-finale > img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.peri-finale::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:#26152099;
+}
+
+.finale-copy {
+  position:relative;
+  z-index:1;
+  padding:80px 20px;
+}
+
+.finale-copy > span {
+  font-size:8px;
+  letter-spacing:2.3px;
+}
+
+.finale-copy p {
+  font:clamp(46px,7vw,96px)/1.06 Georgia,serif;
+  letter-spacing:-3px;
+  margin:30px 0;
+}
+
+.finale-copy p em {
+  font-weight:400;
+  color:#f5d6b0;
+}
+
+.finale-copy a {
+  display:inline-flex;
+  gap:22px;
+  align-items:center;
+  border-bottom:1px solid #f2d6b780;
+  padding-bottom:13px;
+  font-size:11px;
+}
+
+.peri-booking {
+  background:#38252e;
+}
+
+@media(max-width:1000px) {
+  .peri-hero-portrait {
+    height:650px;
+  }
+  .prologue-grid {
+    gap:8%;
+  }
+  .prologue-image img {
+    height:490px;
+  }
+}
+
+@media(max-width:700px) {
+  .peri-hero {
+    padding-top:110px;
+  }
+  .peri-hero-grid {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+  .peri-hero-copy {
+    padding:15px 0;
+  }
+  h1 {
+    font-size:94px;
+    letter-spacing:-4px;
+    margin:27px 0;
+  }
+  .peri-hero-copy > p {
+    font-size:12px;
+  }
+  .hero-collection {
+    margin-top:25px;
+  }
+  .peri-hero-portrait {
+    height:530px;
+    border-radius:230px 230px 12px 12px;
+  }
+  .portrait-wordmark {
+    font-size:100px;
+  }
+  .peri-hero-foot {
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  .peri-hero-foot > span:first-child {
+    width:100%;
+  }
+  .peri-hero-foot a {
+    font-size:9px;
+  }
+  .prologue-grid {
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+  .prologue-image img {
+    height:470px;
+  }
+  .prologue-copy h2 {
+    font-size:58px;
+  }
+  .rituals-grid {
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+  .ritual-breakfast {
+    margin-top:0;
+  }
+  .rituals-grid img {
+    height:440px;
+  }
+  .peri-finale {
+    min-height:520px;
+  }
+  .finale-copy p {
+    font-size:53px;
+    letter-spacing:-2px;
+  }
+}

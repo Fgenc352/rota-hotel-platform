@@ -1,0 +1,151 @@
+:host {
+  display: block;
+}
+
+.page-title {
+  align-items: end;
+}
+
+h1 em {
+  color: #718198;
+  font-weight: 400;
+}
+
+.pms-overview {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 18px;
+  margin: 28px 0;
+}
+
+.pms-overview article {
+  padding: 25px;
+  border: 1px solid #dfe5ee;
+  border-radius: 17px;
+  background: linear-gradient(140deg,#fff,#f6f8fb);
+  box-shadow: 0 6px 25px #25324905;
+}
+
+.pms-overview article:first-child {
+  background: linear-gradient(130deg,#263044,#46536a);
+  color: #fff;
+  border-color: #46556f;
+}
+
+.pms-overview article > span {
+  font-size: 11px;
+  opacity: .85;
+}
+
+.pms-overview strong {
+  display: block;
+  font: 43px/1.1 Georgia,serif;
+  margin: 23px 0 13px;
+}
+
+.pms-overview small {
+  font-size: 10px;
+  opacity: .7;
+  line-height: 1.8;
+}
+
+.section-heading .eyebrow {
+  display: block;
+  margin-bottom: 13px;
+}
+
+.section-heading h2 {
+  font: 31px/1.2 Georgia,serif;
+  font-weight: 400;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pagination > div {
+  display: flex;
+  gap: 8px;
+}
+
+.pms-integration-note {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  padding: 23px;
+  background: #eef2f7;
+  border: 1px solid #dce3ed;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  color: #53657f;
+}
+
+.pms-integration-note strong {
+  font-size: 12px;
+}
+
+.pms-integration-note p {
+  font-size: 11px;
+  line-height: 1.9;
+  margin-top: 8px;
+}
+
+.pms-integration-note a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media(max-width:1100px) {
+  .pms-overview {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:550px) {
+  .pms-overview {
+    gap: 10px;
+  }
+  .pms-overview article {
+    padding: 20px 15px;
+  }
+  .pms-overview article > span {
+    font-size: 10px;
+  }
+  .pms-overview strong {
+    font-size: 36px;
+  }
+  .pagination {
+    flex-wrap: wrap;
+  }
+}
+
+.pms-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #dce4ef;
+  padding-bottom: 15px;
+  margin: 20px 0 25px;
+}
+
+.pms-tabs button {
+  background: transparent;
+  color: #657b98;
+  border: 1px solid transparent;
+  padding: 12px 20px;
+}
+
+.pms-tabs button.active {
+  background: #fff;
+  color: #293b56;
+  border-color: #dbe4ef;
+  box-shadow: 0 4px 14px #263d5908;
+}
+
+pms-service-desk {
+  scroll-margin-top: 110px;
+}

@@ -1,0 +1,198 @@
+<main class="atelier-widget" bookingWidgetResize>
+  <header class="atelier-widget-header">
+    <div class="atelier-widget-identity">
+      <span class="concierge-seal" aria-hidden="true">
+        r.
+      </span>
+      <div>
+        <span class="concierge-eyebrow">
+          {{ booking.t('KONAKLAMA ATELİERİ','YOUR STAY, THOUGHTFULLY MADE') }}
+        </span>
+        <h1>
+          {{ booking.hotel()?.name || (experience.cave ? 'Peri Stone Cave Hotel' : 'Lagos Beach Hotel') }}
+        </h1>
+      </div>
+    </div>
+    <div class="atelier-preferences">
+      <button
+        type="button"
+        (click)="booking.lang.set(booking.lang()==='tr'?'en':'tr')"
+        aria-label="Change language"
+      >
+        {{ booking.lang()==='tr'?'EN':'TR' }}
+      </button>
+      <select
+        aria-label="Currency"
+        [value]="booking.currency()"
+        (change)="booking.currency.set($any($event.target).value)"
+      >
+        <option>
+          TRY
+        </option>
+        <option>
+          EUR
+        </option>
+      </select>
+    </div>
+  </header>
+  @if(journey.step()===1) {
+  <div class="atelier-widget-hero">
+    <img
+      [src]="hero()"
+      [alt]="booking.t('Temsili otel atmosferi','Illustrative hotel atmosphere')"
+      width="1440"
+      height="960"
+    />
+    <div>
+    </div>
+    <p>
+      {{ booking.t('Biraz uzağa.','A little away.') }}
+      <br>
+      <em>
+        {{ booking.t('Kendinize yakın.','A little closer to you.') }}
+      </em>
+    </p>
+    <span>
+      {{ booking.t('HER DETAYI SİZE AİT BİR KONAKLAMA.','A STAY THAT IS ENTIRELY YOURS.') }}
+    </span>
+  </div>
+  }
+  <showcase-booking-steps />
+  <div
+    class="atelier-widget-content"
+    [class.with-summary]="journey.step() >= 3 && !!experience.summaryOffer()"
+  >
+    <section class="atelier-booking-main">
+      <div class="atelier-step-title">
+        <span>
+          {{ booking.t('ADIM','STEP') }} 0{{ journey.step() }}
+          <i>
+            / 04
+          </i>
+        </span>
+        <h2>
+          {{ title() }}
+        </h2>
+        <p>
+          {{ booking.t('Açık fiyatlar. Özenli seçimler. Size kalan, yolculuğun keyfi.','Clear prices. Thoughtful choices. Just enjoy the journey.') }}
+        </p>
+      </div>
+      @if(booking.error()) {
+      <div class="alert" role="alert">
+        {{ booking.error() }}
+      </div>
+      }
+      @if(booking.receipt();as receipt) {
+      <booking-confirmation [receipt]="receipt" (newBooking)="journey.reset()" />
+      }
+      @else if(journey.step()===1) {
+      @if(experience.preferred();as preferred) {
+      <p class="atelier-preferred">
+        <ui-icon name="bed" />
+        <span>
+          {{ booking.t('Tercih ettiğiniz oda','Your preferred room') }}
+          <strong>
+            {{ booking.text(preferred.name) }}
+          </strong>
+        </span>
+      </p>
+      }
+      <booking-stay-search
+        [form]="booking.searchForm"
+        [busy]="booking.busy()"
+        [hotelLoaded]="!!booking.hotel()"
+        (submitted)="experience.search()"
+      />
+      <div class="atelier-booking-promise">
+        <ui-icon name="shield" />
+        <div>
+          <strong>
+            {{ booking.t('Rezervasyon şimdi. Ödeme otelde.','Reserve now. Pay at the hotel.') }}
+          </strong>
+          <p>
+            {{ booking.t('Bu adımda kart bilgisi ya da ön ödeme istenmez.','No card details or advance payment are requested here.') }}
+          </p>
+        </div>
+      </div>
+      } @else if(journey.step()===2) {
+      <div class="atelier-results">
+        <span role="status">
+          {{ booking.offers().length }} {{ booking.t('oda tipi müsait','room types available') }}
+        </span>
+        <button type="button" class="quiet" (click)="journey.goTo(1)">
+          {{ booking.t('Tarihleri düzenle','Edit dates') }}
+          <ui-icon name="calendar" />
+        </button>
+      </div>
+      @if(experience.requestedRoom && !booking.offers().some(experience.preferredOffer)) {
+      <p class="atelier-info">
+        {{ booking.t('Tercih ettiğiniz oda bu tarihlerde müsait değil. Diğer odaları keşfedebilirsiniz.','Your preferred room is unavailable on these dates. Explore our other rooms.') }}
+      </p>
+      }
+      <showcase-room-collection
+        [rooms]="experience.availableRooms()"
+        [offers]="booking.offers()"
+        [language]="booking.lang()"
+        [currency]="booking.currency()"
+        [eurRate]="booking.hotel()?.eurRate || 1"
+        [busy]="booking.busy()"
+        (selected)="experience.select($event)"
+      />
+      } @else if(booking.selected();as offer) {
+      <div class="atelier-guest-welcome">
+        <span>
+          <ui-icon name="check" />
+        </span>
+        <p>
+          {{ booking.text(offer.name) }}
+          <small>
+            {{ booking.t('Odanız hazır. Konaklamanızı birlikte tamamlayalım.','Your room is selected. Let us complete your stay.') }}
+          </small>
+        </p>
+      </div>
+      <booking-guest-form
+        [form]="booking.guestForm"
+        [room]="offer"
+        [busy]="booking.busy()"
+        (back)="journey.goTo(2)"
+        (submitted)="booking.book()"
+      />
+      }
+      @if(experience.catalogError()) {
+      <div class="atelier-info">
+        {{ experience.catalogError() }}
+        <button type="button" (click)="experience.loadRooms()">
+          {{ booking.t('Tekrar dene','Retry') }}
+        </button>
+      </div>
+      }
+      @if(booking.currency()==='EUR') {
+      <p class="atelier-rate-note">
+        {{ booking.t('EUR örnek kurla gösterilir. Kesin rezervasyon bedeli TRY cinsindendir.','EUR uses a demo exchange rate. Your booking is fixed in TRY.') }}
+      </p>
+      }
+    </section>
+    @if(journey.step()>=3 && experience.summaryOffer()) {
+    <atelier-booking-summary (gallery)="gallery.set(true)" />
+    }
+  </div>
+  <footer class="atelier-widget-footer">
+    <span>
+      {{ booking.t('SİZE AİT BİR YOLCULUK, ÖZENLE PLANLANDI.','YOUR JOURNEY, THOUGHTFULLY PLANNED.') }}
+    </span>
+    <b>
+      rota.
+    </b>
+  </footer>
+  @if(gallery() && experience.summaryRoom();as room) {
+  <showcase-room-details-dialog
+    [room]="room"
+    [language]="booking.lang()"
+    [currency]="booking.currency()"
+    [eurRate]="booking.hotel()?.eurRate || 1"
+    [selectable]="!booking.receipt()"
+    (closed)="gallery.set(false)"
+    (selected)="experience.select(room.id);gallery.set(false)"
+  />
+  }
+</main>

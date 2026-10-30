@@ -1,0 +1,142 @@
+<div class="crm-layout">
+  <aside class="sidebar">
+    <a class="workspace-brand" routerLink="/crm/guests" aria-label="Rota misafir yönetimi">
+      <span class="brand-emblem">
+        <ui-icon name="hotel" />
+      </span>
+      <span>
+        rota
+        <span class="brand-dot">
+          .
+        </span>
+        <small>
+          HOSPITALITY WORKSPACE
+        </small>
+      </span>
+    </a>
+    <div class="workspace-hotel">
+      <span class="workspace-caption">
+        ÇALIŞMA ALANINIZ
+      </span>
+      <strong>
+        {{ api.identity()?.hotelName }}
+      </strong>
+      <span>
+        {{ api.identity()?.location }}
+      </span>
+    </div>
+    <nav aria-label="Ana menü">
+      <span class="workspace-caption">
+        YÖNETİM
+      </span>
+      <a
+        routerLink="/crm/guests"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        aria-label="Misafirler"
+      >
+        <ui-icon name="users" />
+        <span>
+          Misafirler
+        </span>
+        <span class="nav-active-indicator">
+        </span>
+      </a>
+      <a
+        routerLink="/crm/reservations"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        aria-label="Rezervasyonlar"
+      >
+        <ui-icon name="calendar" />
+        <span>
+          Rezervasyonlar
+        </span>
+        <span class="nav-active-indicator">
+        </span>
+      </a>
+      <a
+        routerLink="/crm/operations"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        aria-label="Genel bakış"
+      >
+        <ui-icon name="chart" />
+        <span>
+          Genel bakış
+        </span>
+        <span class="nav-active-indicator">
+        </span>
+      </a>
+      <a routerLink="/crm/pms" routerLinkActive="active" ariaCurrentWhenActive="page" aria-label="PMS / Resepsiyon"><ui-icon name="bed" /><span>PMS / Resepsiyon</span><span class="nav-active-indicator"></span></a>
+    </nav>
+    <div class="sidebar-note">
+      <ui-icon name="shield" />
+      <p>
+        Her misafir bir hikâye.
+        <br>
+        Her detay tek bir yerde.
+      </p>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="staff-avatar">
+        {{ api.username().slice(0,1).toUpperCase() }}
+      </div>
+      <div>
+        <strong>
+          {{ api.username() }}
+        </strong>
+        <small>
+          Otel personeli
+        </small>
+      </div>
+      <button type="button" (click)="logout()" aria-label="Çıkış yap">
+        <ui-icon name="logout" />
+      </button>
+    </div>
+  </aside>
+  <main class="crm-main">
+    <header class="page-top">
+      <div class="breadcrumb">
+        <ui-icon name="hotel" />
+        <span>
+          {{ api.identity()?.hotelName }}
+        </span>
+        <span class="breadcrumb-divider">
+          /
+        </span>
+        <strong>
+          {{ outlet.isActivated ? outlet.activatedRouteData['title'] : '' }}
+        </strong>
+      </div>
+      <div class="top-identity">
+        <span class="scope-badge">
+          <ui-icon name="shield" />
+          Otelinize özel alan
+        </span>
+        <button class="mobile-logout" type="button" (click)="logout()" aria-label="Çıkış yap">
+          <ui-icon name="logout" />
+        </button>
+      </div>
+    </header>
+    @if (logoutError()) {
+    <p class="alert" role="alert">
+      {{ logoutError() }}
+    </p>
+    }
+    <div class="workspace-content">
+      <router-outlet #outlet="outlet" />
+    </div>
+    <footer class="page-footer">
+      <span>
+        <b>
+          rota.
+        </b>
+        Otelinizle misafiriniz arasında daha iyi bir bağ.
+      </span>
+      <span>
+        Misafir ilişkileri & doğrudan rezervasyon
+      </span>
+    </footer>
+  </main>
+</div>

@@ -1,0 +1,15 @@
+@if (url(); as source) {
+<iframe
+  #frame
+  [src]="source"
+  [style.height.px]="height()"
+  [title]="hotelKey() === 'peri-stone' ? 'Peri Stone Cave Hotel rezervasyon' : 'Lagos Beach Hotel rezervasyon'"
+  sandbox="allow-scripts allow-forms allow-same-origin"
+  referrerpolicy="strict-origin-when-cross-origin"
+>
+</iframe>
+}
+
+@if (gallery(); as request) {
+  <showcase-hosted-room-gallery [hotelKey]="hotelKey()" [request]="request" (finished)="finishGallery($event)" />
+}

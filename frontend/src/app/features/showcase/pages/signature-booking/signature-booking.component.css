@@ -1,0 +1,724 @@
+.signature-widget {
+  max-width: 1320px;
+  background: var(--widget-surface);
+  border: 1px solid var(--widget-line);
+  margin: 0 auto;
+  padding: 0 30px;
+  color: var(--widget-ink);
+  font-family: Inter, 'Segoe UI', Arial, sans-serif;
+}
+
+.signature-widget .signature-widget-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 27px 2px;
+}
+
+.signature-widget .widget-wordmark {
+  font: 31px Georgia, serif;
+  letter-spacing: 1px;
+}
+
+.signature-widget .widget-wordmark small {
+  display: block;
+  font: 7px Arial, sans-serif;
+  letter-spacing: 2px;
+  margin-top: 7px;
+}
+
+.signature-widget .widget-heading-note {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+.signature-widget .signature-preferences {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.signature-widget .signature-preferences button, .signature-widget .signature-preferences select {
+  font-size: 11px;
+  color: var(--showcase-ink);
+  background: transparent;
+  border-radius: 0;
+  min-height: 44px;
+}
+
+.signature-widget .signature-preferences button {
+  padding: 10px;
+  border: 0;
+}
+
+.signature-widget .signature-preferences select {
+  width: 75px;
+  padding: 9px;
+  border-color: var(--line);
+}
+
+.signature-widget .signature-widget-body {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 38px;
+  padding: 32px 0 35px;
+  align-items: start;
+}
+
+.signature-widget .stay-summary {
+  position: sticky;
+  top: 25px;
+  background: #f1f1f1;
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+
+.signature-widget .summary-portrait {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  background: #858585;
+}
+
+.signature-widget .summary-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 35% 0 0;
+  background: linear-gradient(transparent, #252525b0);
+  pointer-events: none;
+}
+
+.signature-widget .summary-portrait > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.signature-widget .summary-photo-label {
+  position: absolute;
+  z-index: 1;
+  left: 22px;
+  bottom: 52px;
+  right: 22px;
+  color: #ffffff;
+}
+
+.signature-widget .summary-photo-label > span {
+  font-size: 6px;
+  letter-spacing: 1.5px;
+}
+
+.signature-widget .summary-photo-label strong {
+  display: block;
+  font: 29px/1.08 Georgia, serif;
+  margin-top: 10px;
+}
+
+.signature-widget .summary-gallery {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 15px;
+  padding: 6px 0;
+  border: 0;
+  color: #ffffff;
+  background: transparent;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.signature-widget .summary-details {
+  padding: 25px 22px;
+}
+
+.signature-widget .summary-kicker {
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  color: var(--muted);
+}
+
+.signature-widget .summary-dates {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0 16px;
+}
+
+.signature-widget .summary-dates > div {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.signature-widget .summary-dates small {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.signature-widget .summary-dates strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.signature-widget .summary-dates > span {
+  font-size: 17px;
+  margin-top: 15px;
+}
+
+.signature-widget .summary-guests {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.signature-widget .summary-room-line {
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.signature-widget .summary-room-line button {
+  background: transparent;
+  color: var(--showcase-accent);
+  padding: 5px 0;
+  font-size: 9px;
+  text-decoration: underline;
+  border: 0;
+}
+
+.signature-widget .summary-room-line button:disabled {
+  display: none;
+}
+
+.signature-widget .summary-total {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 24px 0 0;
+}
+
+.signature-widget .summary-total small {
+  font-size: 7px;
+  letter-spacing: 1.7px;
+  color: var(--muted);
+}
+
+.signature-widget .summary-total strong {
+  font: 34px Georgia, serif;
+  letter-spacing: -1px;
+}
+
+.signature-widget .summary-total > span {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.signature-widget .summary-placeholder {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin: 23px 0;
+}
+
+.signature-widget .summary-footnote {
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 22px;
+}
+
+.signature-widget .summary-footnote > span {
+  font: 28px Georgia, serif;
+  color: var(--showcase-accent);
+}
+
+.signature-widget .summary-footnote > p {
+  font-size: 9px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.signature-widget .signature-widget-pane {
+  min-width: 0;
+  padding: 6px 0 0;
+}
+
+.signature-widget .signature-widget-kicker {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.signature-widget .signature-step-heading h1 {
+  font: 400 clamp(31px, 3.3vw, 48px)/1.08 Georgia, serif;
+  letter-spacing: -1.5px;
+  margin: 20px 0 15px;
+  max-width: 570px;
+}
+
+.signature-widget .signature-step-heading > p {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 30px;
+  line-height: 1.8;
+}
+
+.signature-widget booking-stay-search .search-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  padding: 25px;
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 0;
+}
+
+.signature-widget booking-stay-search .search-grid label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--showcase-ink);
+  min-width: 0;
+}
+
+.signature-widget booking-stay-search .search-grid input {
+  background: #f8f8f8;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 14px;
+  min-width: 0;
+  font-size: 14px;
+  color: var(--showcase-ink);
+}
+
+.signature-widget booking-stay-search .search-grid button {
+  grid-column: span 2;
+  border-radius: 0;
+  background: var(--showcase-accent);
+  min-height: 52px;
+  text-align: left;
+  padding: 17px 22px;
+  font-size: 12px;
+}
+
+.signature-widget booking-stay-search .search-grid button::after {
+  content: '↗';
+  float: right;
+  font-size: 18px;
+}
+
+.signature-widget .signature-promise {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px;
+  background: #f2f2f2;
+}
+
+.signature-widget .promise-mark {
+  font: 29px Georgia, serif;
+}
+
+.signature-widget .signature-promise h2 {
+  font: 23px/1.15 Georgia, serif;
+  margin: 2px 0 12px;
+}
+
+.signature-widget .signature-promise p {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.signature-widget .signature-preferred {
+  border-left: 2px solid var(--showcase-accent);
+  padding: 15px 18px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #c4c4c412;
+}
+
+.signature-widget .signature-preferred > span {
+  font-size: 7px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+.signature-widget .signature-preferred > strong {
+  font: 24px Georgia, serif;
+}
+
+.signature-widget .signature-preferred small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.signature-widget .results-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.signature-widget .results-toolbar p {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.signature-widget .results-toolbar button {
+  background: transparent;
+  color: var(--showcase-accent);
+  padding: 10px 0;
+  font-size: 10px;
+  border-radius: 0;
+}
+
+.signature-widget .room-list .room-card {
+  grid-template-columns: 36% minmax(0, 1fr);
+  margin-bottom: 0;
+  border-color: var(--line);
+}
+
+.signature-widget .room-list .room-copy {
+  padding: 24px;
+}
+
+.signature-widget .room-list .room-copy h3 {
+  font-size: 31px;
+}
+
+.signature-widget .room-list .room-photo {
+  min-height: 350px;
+}
+
+.signature-widget .room-description {
+  font-size: 11px;
+}
+
+.signature-widget .room-price strong {
+  font-size: 23px;
+}
+
+.signature-widget .room-bottom {
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.signature-widget .choose-room {
+  min-height: 44px;
+  font-size: 11px;
+}
+
+.signature-widget .guest-welcome {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  border: 1px solid var(--line);
+  padding: 18px;
+  margin-bottom: 25px;
+  background: #c4c4c412;
+}
+
+.signature-widget .guest-welcome > span {
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border: 1px solid var(--showcase-accent);
+  border-radius: 50%;
+  color: var(--showcase-accent);
+}
+
+.signature-widget .guest-welcome p {
+  font-size: 12px;
+}
+
+.signature-widget .guest-welcome small {
+  display: block;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.signature-widget booking-guest-form .booking-form > h2, .signature-widget booking-guest-form .booking-form > p {
+  display: none;
+}
+
+.signature-widget booking-guest-form .quiet {
+  padding: 6px 0;
+  margin-bottom: 20px;
+  font-size: 11px;
+  background: transparent;
+  color: var(--showcase-accent);
+}
+
+.signature-widget booking-guest-form label {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--showcase-ink);
+}
+
+.signature-widget booking-guest-form input:not([type='checkbox']) {
+  border-radius: 0;
+  border-color: var(--line);
+  background: #f9f9f9;
+  padding: 14px;
+  color: var(--showcase-ink);
+}
+
+.signature-widget booking-guest-form .checkbox {
+  line-height: 1.8;
+}
+
+.signature-widget booking-guest-form button[type='submit'] {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 0;
+  background: var(--showcase-accent);
+  text-align: left;
+  padding: 17px 22px;
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.signature-widget booking-guest-form button[type='submit']::after {
+  content: '↗';
+  float: right;
+  font-size: 19px;
+}
+
+.signature-widget booking-confirmation .confirmation {
+  padding: 20px 0;
+}
+
+.signature-widget booking-confirmation h2 {
+  font: 35px Georgia, serif;
+  line-height: 1.15;
+  margin: 25px 0;
+}
+
+.signature-widget booking-confirmation .booking-code {
+  display: block;
+  font: 34px Georgia, serif;
+  color: var(--showcase-accent);
+  margin: 23px 0;
+}
+
+.signature-widget booking-confirmation button {
+  border-radius: 0;
+  background: var(--showcase-accent);
+  margin-top: 20px;
+  min-height: 46px;
+}
+
+.signature-widget .signature-info {
+  padding: 16px;
+  border: 1px solid var(--line);
+  margin-top: 20px;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.signature-widget .signature-info button {
+  font-size: 10px;
+  padding: 4px;
+  color: var(--showcase-accent);
+  text-decoration: underline;
+  background: transparent;
+  border: 0;
+}
+
+.signature-widget .signature-widget-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  padding: 23px 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 8px;
+  line-height: 1.8;
+}
+
+.signature-widget .signature-widget-footer > span:first-child {
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+
+.signature-widget .signature-widget-footer b {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -.7px;
+  color: var(--showcase-ink);
+  margin-left: 9px;
+}
+
+@media (max-width: 900px) {
+  .signature-widget {
+    padding: 0 22px;
+  }
+  .signature-widget .signature-widget-body {
+    grid-template-columns: 230px minmax(0, 1fr);
+    gap: 25px;
+  }
+  .signature-widget .summary-portrait {
+    height: 260px;
+  }
+  .signature-widget .summary-details {
+    padding: 22px 17px;
+  }
+  .signature-widget .widget-heading-note {
+    display: none;
+  }
+  .signature-widget .room-list .room-card {
+    grid-template-columns: 1fr;
+  }
+  .signature-widget .room-list .room-photo {
+    height: 240px;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  .signature-widget {
+    padding: 0 16px;
+  }
+  .signature-widget .signature-widget-body {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 22px;
+  }
+  .signature-widget .stay-summary {
+    position: static;
+    width: 100%;
+  }
+  .signature-widget .summary-portrait {
+    height: 175px;
+  }
+  .signature-widget .summary-photo-label {
+    bottom: 45px;
+  }
+  .signature-widget .summary-photo-label strong {
+    font-size: 25px;
+    max-width: 70%;
+  }
+  .signature-widget .summary-details {
+    padding: 20px;
+  }
+  .signature-widget .summary-footnote, .signature-widget .summary-placeholder {
+    display: none;
+  }
+  .signature-widget .summary-dates {
+    margin: 15px 0;
+  }
+  .signature-widget .summary-total {
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .signature-widget .summary-total strong {
+    font-size: 30px;
+  }
+  .signature-widget .signature-widget-pane {
+    width: 100%;
+  }
+  .signature-widget .signature-step-heading h1 {
+    font-size: 34px;
+  }
+  .signature-widget booking-stay-search .search-grid {
+    padding: 16px;
+    gap: 17px;
+  }
+  .signature-widget booking-stay-search .search-grid input {
+    font-size: 16px;
+    padding: 11px 6px;
+  }
+  .signature-widget booking-guest-form input:not([type='checkbox']) {
+    font-size: 16px;
+  }
+  .signature-widget .signature-widget-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .signature-widget .signature-widget-header {
+    padding: 23px 0;
+  }
+  .signature-widget .widget-wordmark {
+    font-size: 27px;
+  }
+  .signature-widget .widget-wordmark small {
+    font-size: 6px;
+    letter-spacing: 1.5px;
+  }
+}
+
+.signature-widget {
+  border-radius: 15px;
+  box-shadow: 0 15px 70px #38383808;
+}
+
+.signature-widget .signature-widget-kicker {
+  display: inline-flex;
+  padding: 7px 11px;
+  font-size: 9px;
+  background: #f1f1f1;
+  color: var(--widget-muted, #656565);
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.signature-widget .signature-step-heading h1 {
+  font-size: clamp(33px, 3.5vw, 49px);
+  letter-spacing: -1.3px;
+  color: var(--showcase-ink);
+}
+
+.signature-widget .signature-step-heading > p {
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.signature-widget .summary-portrait {
+  border-radius: 11px 11px 0 0;
+}
+
+.signature-widget .stay-summary {
+  border-radius: 11px;
+}
+
+.signature-widget .readable-summary-dates {
+  display: block;
+}
+
+.signature-widget .summary-kicker {
+  font-size: 8px;
+  font-weight: 600;
+}
+
+.signature-widget booking-stay-search .search-grid, .signature-widget .signature-promise, .signature-widget .guest-welcome {
+  border-radius: 11px;
+}
+
+.signature-widget booking-stay-search .search-grid button, .signature-widget booking-guest-form button[type='submit'] {
+  border-radius: 7px;
+}
+
+.signature-widget booking-stay-search .search-grid button::after, .signature-widget booking-guest-form button[type='submit']::after {
+  content: none;
+}
+
+.signature-widget .summary-dates ui-stay-dates {
+  display: block;
+  width: 100%;
+}

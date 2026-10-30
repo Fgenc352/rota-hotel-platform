@@ -1,0 +1,239 @@
+:host {
+  display: contents;
+}
+
+.atelier-skip {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 100;
+  background: white;
+  color: #222;
+  padding: 14px;
+}
+
+.atelier-skip:focus {
+  top: 16px;
+}
+
+.atelier-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 4.5%;
+  color: #203c47;
+  transition: padding .3s, background .3s, border-color .3s;
+  border-bottom: 1px solid transparent;
+}
+
+.dark-header {
+  color: #f8eddd;
+}
+
+:host-context(.has-scrolled) .atelier-header {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  background: #faf9f4f2;
+  backdrop-filter: blur(18px);
+  border-color: #203c4719;
+}
+
+:host-context(.has-scrolled) .dark-header {
+  background: #261a22f2;
+  border-color: #e3b98924;
+}
+
+.atelier-wordmark {
+  flex-shrink: 0;
+}
+
+.atelier-wordmark > span {
+  display: block;
+  font: 42px/.9 Georgia,serif;
+  letter-spacing: -2.4px;
+}
+
+.atelier-wordmark i {
+  color: #92825b;
+  font-style: normal;
+}
+
+.dark-header .atelier-wordmark > span {
+  font-style: italic;
+}
+
+.dark-header .atelier-wordmark i {
+  color: #dfab7b;
+}
+
+.atelier-wordmark small {
+  display: block;
+  font-size: 7px;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 11px;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+  border-bottom: 1px solid transparent;
+}
+
+nav a:hover {
+  border-color: currentColor;
+}
+
+.atelier-header-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 14px 19px;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+  font-size: 11px;
+}
+
+.atelier-header-book:hover {
+  background: #203c47;
+  color: #fff;
+  border-color: #203c47;
+}
+
+.dark-header .atelier-header-book:hover {
+  background: #dfab7b;
+  color: #291c23;
+  border-color: #dfab7b;
+}
+
+@media(max-width:1100px) {
+  nav a:last-child {
+    display: none;
+  }
+  nav {
+    gap: 18px;
+  }
+}
+
+@media(max-width:760px) {
+  .atelier-header {
+    padding: 20px 6%;
+    gap: 18px;
+  }
+  .atelier-wordmark > span {
+    font-size: 32px;
+  }
+  .atelier-wordmark small {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  nav {
+    display: none;
+  }
+  .atelier-header-book {
+    font-size: 10px;
+    padding: 11px 13px;
+    gap: 10px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .atelier-header {
+    transition: none;
+  }
+}
+
+.mobile-menu-toggle, .mobile-book-label {
+  display:none;
+}
+
+@media(max-width:760px) {
+  .atelier-header {
+    gap:10px;
+  }
+  .mobile-menu-toggle {
+    display:grid;
+    place-items:center;
+    width:38px;
+    height:38px;
+    min-height:38px;
+    flex-shrink:0;
+    padding:0;
+    background:transparent;
+    color:inherit;
+    border:1px solid currentColor;
+    border-radius:50%;
+    margin-left:auto;
+  }
+  .mobile-menu-toggle:hover {
+    background:#203c4710;
+    color:inherit;
+  }
+  .dark-header .mobile-menu-toggle:hover {
+    background:#ffffff10;
+  }
+  .desktop-book-label {
+    display:none;
+  }
+  .mobile-book-label {
+    display:inline;
+  }
+  nav.menu-open {
+    display:flex;
+    position:absolute;
+    left:6%;
+    right:6%;
+    top:calc(100% + 8px);
+    flex-direction:column;
+    align-items:stretch;
+    background:#faf9f4;
+    color:#203c47;
+    border:1px solid #203c471f;
+    border-radius:16px;
+    padding:15px 22px;
+    box-shadow:0 15px 40px #0002;
+    gap:2px;
+  }
+  nav.menu-open a {
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+  }
+  .dark-header nav.menu-open {
+    background:#30212a;
+    color:#f8eddd;
+    border-color:#dfab7b40;
+  }
+}
+
+:host-context(.lagos-atelier) .atelier-header {
+  color:#102e40;
+}
+
+:host-context(.lagos-atelier) .atelier-header-book {
+  background:#123e52;
+  color:#fff8eb;
+  border-color:#b18b50;
+  box-shadow:0 6px 20px #123e5218;
+}
+
+:host-context(.lagos-atelier) .atelier-header-book:hover {
+  background:#235c70;
+  border-color:#d1b17a;
+}
+
+:host-context(.lagos-atelier) .atelier-wordmark i {
+  color:#a47b3e;
+}

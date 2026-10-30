@@ -1,0 +1,154 @@
+<dialog #dialog class="daily-editor" aria-labelledby="daily-editor-title" (cancel)="closed.emit()">
+  <div class="editor-heading">
+    <div>
+      <span class="eyebrow">
+        GÜNLÜK HİZMET / {{ item().bookingCode }}
+      </span>
+      <h2 id="daily-editor-title">
+        {{ item().serviceName }}
+      </h2>
+      <p>
+        {{ item().guestName }} · Oda {{ item().roomNumber }}
+      </p>
+    </div>
+    <button type="button" class="secondary" (click)="closed.emit()">
+      Kapat
+    </button>
+  </div>
+  @if(error()) {
+  <p class="alert" role="alert">
+    {{ error() }}
+  </p>
+  }
+  <form #form="ngForm" (ngSubmit)="form.valid && saved.emit(draft)">
+    <fieldset [disabled]="busy() || finished()">
+      <div class="editor-grid">
+        <label>
+          Hizmet tarihi
+          <input
+            type="date"
+            name="date"
+            [(ngModel)]="draft.date"
+            required
+            [readOnly]="draft.code !== 'TRANSFER'"
+          />
+        </label>
+        <label>
+          İşlem durumu
+          <select name="status" [(ngModel)]="draft.status">
+            @for(state of states(); track state) {
+            <option [value]="state">
+              {{ label(state) }}
+            </option>
+            }
+          </select>
+        </label>
+        <label>
+          Saat
+          <input
+            type="time"
+            name="time"
+            [(ngModel)]="draft.time"
+            [required]="draft.code === 'TRANSFER' && draft.status !== 'PENDING'"
+          />
+        </label>
+        @if(draft.code === 'TRANSFER') {
+        <label>
+          Yolcu sayısı
+          <input
+            type="number"
+            name="passengers"
+            min="1"
+            [max]="item().quantity"
+            [(ngModel)]="draft.passengers"
+            required
+          />
+        </label>
+        <label>
+          Alış noktası
+          <input
+            name="pickup"
+            [(ngModel)]="draft.pickup"
+            maxlength="200"
+            placeholder="Havalimanı, terminal veya adres"
+            [required]="draft.status !== 'PENDING'"
+          />
+        </label>
+        <label>
+          Varış noktası
+          <input
+            name="destination"
+            [(ngModel)]="draft.destination"
+            maxlength="200"
+            placeholder="Otel veya adres"
+            [required]="draft.status !== 'PENDING'"
+          />
+        </label>
+        }
+        @if(draft.code === 'TRANSFER' || draft.code === 'VALET') {
+        <label>
+          Araç plakası
+          <input
+            name="plate"
+            [(ngModel)]="draft.plate"
+            maxlength="30"
+            [required]="draft.code === 'VALET' && draft.status !== 'PENDING'"
+          />
+        </label>
+        }
+      </div>
+      <label>
+        Operasyon notu
+        <textarea
+          name="notes"
+          [(ngModel)]="draft.notes"
+          maxlength="1000"
+          rows="3"
+          placeholder="Şoför/iletişim, uçuş numarası veya teslim notu"
+        >
+        </textarea>
+      </label>
+      @if(!finished()) {
+      <button type="submit" [disabled]="busy() || !form.valid">
+        Günlük işlemi kaydet
+      </button>
+      }
+    </fieldset>
+  </form>
+  @if(finished()) {
+  <p class="notice">
+    Bu günlük hizmet tamamlandı. Diğer günlerin hizmetleri bağımsızdır.
+  </p>
+  }
+  <details class="daily-history" [open]="history().length > 0">
+    <summary>
+      İşlem geçmişi ({{ history().length }})
+    </summary>
+    @for(event of history(); track event.id) {
+    <article>
+      <strong>
+        {{ event.actor }}
+      </strong>
+      <time>
+        {{ event.createdAt | hotelTimestamp }}
+      </time>
+      <p>
+        <b>
+          Önce:
+        </b>
+        {{ summarize(event.beforeState) }}
+      </p>
+      <p>
+        <b>
+          Sonra:
+        </b>
+        {{ summarize(event.afterState) }}
+      </p>
+    </article>
+    } @empty {
+    <p>
+      Henüz kaydedilmiş günlük işlem yok.
+    </p>
+    }
+  </details>
+</dialog>

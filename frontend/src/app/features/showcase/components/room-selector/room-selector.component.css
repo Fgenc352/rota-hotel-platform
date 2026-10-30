@@ -1,0 +1,397 @@
+:host {
+  display:block;
+  --selector-ink:var(--atelier-ink,var(--sig-ink,#28382f));
+  --selector-muted:var(--atelier-muted,var(--sig-muted,#657067));
+  --selector-accent:var(--atelier-accent,var(--sig-accent,#6c765f));
+  --selector-line:var(--atelier-line,var(--sig-line,#d9ddd2));
+  --selector-surface:var(--atelier-panel,var(--sig-surface,#fff));
+  --selector-surface-ink:var(--atelier-panel-ink,var(--sig-ink,#28382f));
+  --selector-surface-muted:var(--atelier-panel-muted,var(--sig-muted,#657067));
+  --selector-button:var(--atelier-button,var(--sig-accent,#334537));
+  --selector-button-ink:var(--atelier-button-ink,var(--sig-button-ink,#fff));
+}
+
+.room-selector {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:14px;
+  margin-bottom:28px;
+}
+
+button {
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-width:0;
+  margin:0;
+  padding:15px;
+  border:1px solid var(--selector-line);
+  border-radius:12px;
+  background:transparent;
+  color:var(--selector-ink);
+  text-align:left;
+  transition:border-color .2s,background .2s,box-shadow .2s;
+}
+
+button:hover,button[aria-selected='true'] {
+  background:var(--selector-surface);
+  color:var(--selector-surface-ink);
+  border-color:var(--selector-accent);
+}
+
+button[aria-selected='true'] {
+  box-shadow:0 5px 18px #0000000a,inset 0 0 0 1px var(--selector-accent);
+}
+
+button:focus-visible {
+  outline:2px solid var(--selector-accent);
+  outline-offset:4px;
+}
+
+.selector-photo {
+  width:64px;
+  height:76px;
+  object-fit:cover;
+  border-radius:6px;
+  flex-shrink:0;
+}
+
+.selector-copy {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  min-width:0;
+}
+
+.selector-copy strong {
+  font:21px/1.15 Georgia,serif;
+  letter-spacing:-.4px;
+  overflow-wrap:anywhere;
+}
+
+.selector-copy small,.selector-state {
+  font-size:10px;
+  color:var(--selector-muted);
+  line-height:1.6;
+}
+
+button:is(:hover,[aria-selected='true']) :is(small,.selector-state) {
+  color:var(--selector-surface-muted);
+}
+
+.selector-state {
+  font-size:9px;
+  font-weight:500;
+}
+
+button[aria-selected='true'] .selector-state {
+  font-weight:650;
+}
+
+.selector-check {
+  display:grid;
+  place-items:center;
+  width:22px;
+  height:22px;
+  border:1px solid var(--selector-line);
+  border-radius:50%;
+  margin-left:auto;
+  flex-shrink:0;
+}
+
+.selector-check ui-icon {
+  width:12px;
+  height:12px;
+  opacity:0;
+}
+
+button[aria-selected='true'] .selector-check {
+  background:var(--selector-button);
+  color:var(--selector-button-ink);
+  border-color:var(--selector-button);
+}
+
+button[aria-selected='true'] .selector-check ui-icon {
+  opacity:1;
+}
+
+.selector-index {
+  display:none;
+}
+
+/* Maison: photographic suites with engraved frames. */
+.selector-maison {
+  gap:20px;
+}
+
+.selector-maison button {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:260px;
+  align-items:end;
+  padding:28px;
+  border-radius:3px;
+  border-color:var(--selector-line);
+  background:#1c242c;
+  color:#fff8eb;
+}
+
+.selector-maison button::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(180deg,#10172005 10%,#10172050 45%,#101720ed);
+  pointer-events:none;
+}
+
+.selector-maison button::before {
+  content:'';
+  position:absolute;
+  inset:10px;
+  border:1px solid #ffffff50;
+  pointer-events:none;
+}
+
+.selector-maison .selector-photo {
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  width:100%;
+  height:100%;
+  border-radius:0;
+  transition:transform .6s ease;
+}
+
+.selector-maison button:hover .selector-photo {
+  transform:scale(1.035);
+}
+
+.selector-maison button[aria-selected='true'] {
+  border-color:var(--selector-accent);
+  box-shadow:0 12px 30px #0002,0 0 0 1px var(--selector-accent);
+}
+
+.selector-maison button[aria-selected='true']::before {
+  border-color:var(--selector-accent);
+}
+
+.selector-maison .selector-copy {
+  padding-right:22px;
+  gap:10px;
+}
+
+.selector-maison .selector-copy strong {
+  font-size:28px;
+}
+
+.selector-maison button:is(:hover,[aria-selected='true']) {
+  background:#1c242c;
+  color:#fff8eb;
+}
+
+.selector-maison .selector-copy small,
+.selector-maison button:is(:hover,[aria-selected='true']) small {
+  color:#f1e8db;
+}
+
+.selector-maison .selector-state,
+.selector-maison button:is(:hover,[aria-selected='true']) .selector-state {
+  color:#f5d9a7;
+  font-size:9px;
+  letter-spacing:.5px;
+}
+
+.selector-maison .selector-check {
+  position:absolute;
+  top:24px;
+  right:24px;
+  width:26px;
+  height:26px;
+  border-color:#ffffff80;
+  background:#10172050;
+}
+
+.selector-maison button[aria-selected='true'] .selector-check {
+  background:var(--selector-accent);
+  color:#242424;
+  border-color:var(--selector-accent);
+}
+
+:host-context(.cave-estate) .selector-maison button {
+  border-radius:120px 120px 4px 4px;
+  min-height:290px;
+}
+
+:host-context(.cave-estate) .selector-maison button::before {
+  border-radius:110px 110px 0 0;
+}
+
+:host-context(.cave-estate) .selector-maison .selector-check {
+  top:45px;
+  right:35px;
+}
+
+/* Signature: oval portraits and a continuous selection rail. */
+.selector-signature {
+  gap:0;
+  border-block:1px solid var(--selector-line);
+  margin-bottom:35px;
+}
+
+.selector-signature button {
+  position:relative;
+  padding:23px 20px;
+  border:0;
+  border-radius:0;
+}
+
+.selector-signature button + button {
+  border-left:1px solid var(--selector-line);
+}
+
+.selector-signature button[aria-selected='true'] {
+  box-shadow:inset 0 -3px var(--selector-accent);
+}
+
+.selector-signature .selector-photo {
+  width:70px;
+  height:88px;
+  border-radius:50%;
+  outline:1px solid var(--selector-line);
+  outline-offset:4px;
+  margin-right:5px;
+}
+
+.selector-signature .selector-copy strong {
+  font-size:23px;
+}
+
+.selector-signature .selector-check {
+  border:0;
+}
+
+/* Atelier: editorial folios with arched thumbnails. */
+.selector-atelier {
+  gap:26px;
+}
+
+.selector-atelier button {
+  position:relative;
+  padding:20px 0;
+  border:0;
+  border-bottom:1px solid var(--selector-line);
+  border-radius:0;
+}
+
+.selector-atelier button:hover,
+.selector-atelier button[aria-selected='true'] {
+  background:transparent;
+  color:var(--selector-ink);
+  border-color:var(--selector-accent);
+  box-shadow:0 2px 0 -1px var(--selector-accent);
+}
+
+.selector-atelier .selector-photo {
+  width:80px;
+  height:108px;
+  border-radius:50px 50px 3px 3px;
+}
+
+.selector-atelier .selector-copy {
+  padding-top:14px;
+}
+
+.selector-atelier .selector-copy strong {
+  font-size:25px;
+}
+
+.selector-atelier button:is(:hover,[aria-selected='true']) :is(small,.selector-state) {
+  color:var(--selector-muted);
+}
+
+.selector-atelier .selector-index {
+  display:block;
+  position:absolute;
+  top:17px;
+  right:0;
+  font:italic 17px Georgia,serif;
+  color:var(--selector-accent);
+}
+
+.selector-atelier .selector-check {
+  display:none;
+}
+
+@media(max-width:700px) {
+  .room-selector {
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  button {
+    padding:12px;
+    gap:14px;
+  }
+  .selector-photo {
+    width:58px;
+    height:65px;
+  }
+  .selector-copy strong {
+    font-size:20px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  button {
+    transition:none;
+  }
+}
+
+@media(max-width:700px) {
+  .selector-maison {
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .selector-maison button {
+    min-height:195px;
+    padding:25px;
+  }
+  .selector-maison .selector-photo {
+    width:100%;
+    height:100%;
+  }
+  .selector-maison .selector-copy strong {
+    font-size:27px;
+  }
+  :host-context(.cave-estate) .selector-maison button {
+    min-height:255px;
+  }
+  .selector-signature {
+    gap:0;
+  }
+  .selector-signature button {
+    padding:20px 15px;
+  }
+  .selector-signature button + button {
+    border-left:0;
+    border-top:1px solid var(--selector-line);
+  }
+  .selector-atelier {
+    gap:6px;
+  }
+  .selector-atelier button {
+    padding:18px 0;
+  }
+  .selector-atelier .selector-photo {
+    width:70px;
+    height:88px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .selector-maison .selector-photo {
+    transition:none;
+  }
+}

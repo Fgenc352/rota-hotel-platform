@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+.confirmation {
+  text-align: center;
+  padding: 35px 12px;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 25px;
+  background: #f2f2f2;
+  border-radius: 50%;
+  color: #616161;
+  font-size: 27px;
+}
+
+.confirmation h2 {
+  font-family: Georgia,serif;
+  font-size: 27px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.booking-code {
+  display: block;
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin: 15px 0;
+}
+
+.confirmation button {
+  margin-top: 24px;
+}
+
+@media (max-width: 700px) {
+  .confirmation h2 {
+    font-size: 24px;
+  }
+  .booking-code {
+    font-size: 18px;
+  }
+}
+
+.confirmation:focus {
+  outline: none;
+}
+
+.confirmation:focus-visible {
+  outline: 2px solid #5c5c5c;
+  outline-offset: 6px;
+}

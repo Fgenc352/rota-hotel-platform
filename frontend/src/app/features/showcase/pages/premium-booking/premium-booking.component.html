@@ -1,0 +1,186 @@
+<main bookingWidgetResize class="premium-booking">
+  <header class="premium-header">
+    <div class="premium-brand">
+      <span class="brand-symbol" aria-hidden="true">
+        {{ experience.cave ? '◠' : '✳' }}
+      </span>
+      <div>
+        <span class="brand-category">
+          {{ experience.cave ? 'STONE. SKY. STILLNESS.' : 'A LITTLE CLOSER TO THE SEA.' }}
+        </span>
+        <h1>
+          {{ booking.hotel()?.name || (experience.cave ? 'Peri Stone Cave Hotel' : 'Lagos Beach Hotel') }}
+        </h1>
+        <p>
+          {{ booking.hotel()?.location }}
+        </p>
+      </div>
+    </div>
+    <div class="premium-tools">
+      <button
+        type="button"
+        class="language-toggle"
+        (click)="booking.lang.set(booking.lang() === 'tr' ? 'en' : 'tr')"
+        aria-label="Change language"
+      >
+        {{ booking.lang() === 'tr' ? 'EN' : 'TR' }}
+      </button>
+      <select
+        aria-label="Currency"
+        [value]="booking.currency()"
+        (change)="booking.currency.set($any($event.target).value)"
+      >
+        <option>
+          TRY
+        </option>
+        <option>
+          EUR
+        </option>
+      </select>
+    </div>
+  </header>
+  <showcase-booking-steps />
+  @if (booking.error()) {
+  <div class="alert" role="alert">
+    {{ booking.error() }}
+  </div>
+  }
+  <div class="premium-content" [attr.aria-busy]="booking.busy()">
+    @if (booking.receipt(); as receipt) {
+    <booking-confirmation [receipt]="receipt" (newBooking)="journey.reset()" />
+    } @else {
+    @if (!booking.selected()) {
+    <div class="search-intro">
+      <span class="premium-kicker">
+        {{ booking.t('DOĞRUDAN OTELİNİZDEN', 'DIRECTLY FROM YOUR HOTEL') }}
+      </span>
+      <h2>
+        {{ booking.searched() ? booking.t('Size ayrılan alanlar.', 'Spaces for your stay.') : booking.t('Güzel bir kaçamak, sizinle başlar.', 'A beautiful escape begins with you.') }}
+      </h2>
+      <p>
+        {{ booking.t('Tarihlerinizi seçin. Güncel müsaitliği ve tüm konaklama bedelini birlikte görün.', 'Choose your dates to see live availability and the full price of your stay.') }}
+      </p>
+    </div>
+    @if (experience.preferred(); as room) {
+    <div class="preferred-room">
+      <span>
+        {{ booking.t('Seçtiğiniz oda', 'Your preferred room') }}
+      </span>
+      <strong>
+        {{ booking.text(room.name) }}
+      </strong>
+      <small>
+        {{ booking.t('Seçilen tarihlerde müsaitse devam edebilirsiniz.', 'Continue if available for your dates.') }}
+      </small>
+    </div>
+    }
+    <booking-stay-search
+      [form]="booking.searchForm"
+      [busy]="booking.busy()"
+      [hotelLoaded]="!!booking.hotel()"
+      (submitted)="experience.search()"
+    />
+    @if (booking.searched()) {
+    @if (experience.requestedRoom && !booking.offers().some(experience.preferredOffer)) {
+    <p class="premium-info">
+      {{ booking.t('Seçtiğiniz oda bu aramada müsait değil. Diğer odaları inceleyebilirsiniz.', 'Your preferred room is unavailable for this search. Explore the other options below.') }}
+    </p>
+    }
+    <showcase-room-collection
+      [rooms]="experience.availableRooms()"
+      [offers]="booking.offers()"
+      [currency]="booking.currency()"
+      [language]="booking.lang()"
+      [eurRate]="booking.hotel()?.eurRate || 1"
+      layout="list"
+      [busy]="booking.busy()"
+      (selected)="experience.select($event)"
+    />
+    } @else {
+    <div class="stay-promise">
+      <div class="promise-illustration" aria-hidden="true">
+        {{ experience.cave ? '◠' : '✳' }}
+      </div>
+      <div>
+        <h3>
+          {{ booking.t('Rezervasyon şimdi. Ödeme otelde.', 'Reserve now. Pay at the hotel.') }}
+        </h3>
+        <p>
+          {{ booking.t('Odanızı doğrudan otelden ayırtın. Kart bilgisi veya ön ödeme bu rezervasyon adımında istenmez.', 'Reserve directly with your hotel. No card details or advance payment are requested in this booking step.') }}
+        </p>
+      </div>
+      <span class="promise-note">
+        {{ booking.t('SİZE KALAN, YOLCULUK.', 'JUST ENJOY THE JOURNEY.') }}
+      </span>
+    </div>
+    }
+    } @else if (booking.selected(); as offer) {
+    <div class="selected-stay">
+      <img
+        [src]="experience.selectedPhoto()"
+        [alt]="booking.text(offer.name) + ' · ' + booking.t('temsili görsel', 'illustrative image')"
+        width="220"
+        height="150"
+      />
+      <div>
+        <span class="premium-kicker">
+          {{ booking.t('KONAKLAMANIZ', 'YOUR STAY') }}
+        </span>
+        <h2>
+          {{ booking.text(offer.name) }}
+        </h2>
+        <div class="selected-readable-dates">
+          <ui-stay-dates
+            [checkIn]="booking.searchForm.controls.checkIn.value"
+            [checkOut]="booking.searchForm.controls.checkOut.value"
+            [locale]="booking.lang() === 'tr' ? 'tr-TR' : 'en-GB'"
+          />
+        </div>
+        <strong>
+          {{ booking.money(booking.bookingTotal()) }}
+        </strong>
+        <small>
+          {{ booking.t('Toplam · ödeme otelde', 'Total · pay at the hotel') }}
+        </small>
+      </div>
+    </div>
+    <booking-guest-form
+      [form]="booking.guestForm"
+      [room]="offer"
+      [busy]="booking.busy()"
+      (submitted)="booking.book()"
+      (back)="journey.goTo(2)"
+    />
+    }
+    @if (experience.catalogError()) {
+    <div class="catalog-warning">
+      <span>
+        {{ experience.catalogError() }}
+      </span>
+      <button type="button" (click)="experience.loadRooms()">
+        {{ booking.t('Yeniden dene', 'Retry') }}
+      </button>
+    </div>
+    }
+    @if (booking.currency() === 'EUR') {
+    <p class="premium-info">
+      {{ booking.t('EUR gösterimi örnek kurla hesaplanır. Rezervasyonun kesin bedeli TRY cinsindendir.', 'EUR is shown at a demo exchange rate. Your booking is fixed in TRY.') }}
+    </p>
+    }
+    }
+  </div>
+  <footer class="premium-footer">
+    <span>
+      <span class="footer-lock" aria-hidden="true">
+        ◇
+      </span>
+      {{ booking.t('Doğrudan rezervasyon · Ödeme otelde', 'Book direct · Pay at the hotel') }}
+    </span>
+    <span>
+      made for your stay
+      <b>
+        rota.
+      </b>
+    </span>
+  </footer>
+</main>

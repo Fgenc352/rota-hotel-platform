@@ -1,0 +1,178 @@
+<dialog #dialog aria-labelledby="reservation-dialog-title" (cancel)="closed.emit()">
+  <div class="reservation-dialog">
+    <header>
+      <span class="eyebrow">
+        REZERVASYON KARTI
+      </span>
+      <button type="button" class="quiet" (click)="closed.emit()" aria-label="Rezervasyon kartını kapat">
+        <ui-icon name="close" />
+      </button>
+    </header>
+    <h2 id="reservation-dialog-title">
+      {{ booking().first_name }} {{ booking().last_name }}
+    </h2>
+    <div class="reservation-dialog-meta">
+      <span class="code-label">
+        {{ booking().code }}
+      </span>
+      <span class="pill" [attr.data-status]="booking().status">
+        {{ label(booking().status) }}
+      </span>
+    </div>
+    <section class="reservation-contact">
+      <div>
+        <span>
+          E-posta
+        </span>
+        <a [href]="'mailto:' + booking().email">
+          {{ booking().email || 'Belirtilmemiş' }}
+        </a>
+      </div>
+      <div>
+        <span>
+          Telefon
+        </span>
+        <a [href]="'tel:' + booking().phone">
+          {{ booking().phone || 'Belirtilmemiş' }}
+        </a>
+      </div>
+      @if (booking().guest_id) {
+      <a class="profile-link" routerLink="/crm/guests" [queryParams]="{ guestId: booking().guest_id }">
+        <ui-icon name="users" />
+        Misafir profilini aç
+        <ui-icon name="chevron" />
+      </a>
+      } @else {
+      <p class="profile-pending">
+        Misafir profili henüz CRM’ye aktarılmamış. Kartı kapatıp kısa süre sonra tekrar açabilirsiniz.
+      </p>
+      }
+    </section>
+    <section class="reservation-room">
+      <ui-icon name="bed" />
+      <div>
+        <span>
+          Oda tipi
+        </span>
+        <strong>
+          {{ booking().room_name }}
+        </strong>
+      </div>
+      <span class="night-count">
+        {{ nights(booking().check_in, booking().check_out) }} gece
+      </span>
+    </section>
+    <dl class="occupancy-summary">
+      <div>
+        <dt>
+          Yetişkin
+        </dt>
+        <dd>
+          {{ booking().adults ?? '—' }}
+        </dd>
+      </div>
+      <div>
+        <dt>
+          Çocuk
+        </dt>
+        <dd>
+          {{ booking().children ?? '—' }}
+        </dd>
+      </div>
+      <div>
+        <dt>
+          Oda
+        </dt>
+        <dd>
+          1 oda
+        </dd>
+      </div>
+    </dl>
+    <div class="reservation-dates">
+      <ui-stay-dates [checkIn]="booking().check_in" [checkOut]="booking().check_out" />
+    </div>
+    <section class="reservation-services">
+      <h3>
+        Dahil olan ve seçilen hizmetler
+      </h3>
+      @if (booking().services?.length) {
+        <p>Listelenmeyen ek hizmetler bu rezervasyona dahil değildir.</p>
+      }
+      @for (service of booking().services || []; track service.code) {
+      <div class="service-line">
+        <span>
+          <strong>
+            {{ service.name }}
+          </strong>
+          <small>
+            {{ service.included ? 'Konaklamaya dahil' : service.quantity + ' × ' + money(service.unitPrice) }}
+          </small>
+        </span>
+        <strong>
+          {{ service.included ? 'Dahil' : money(service.total) }}
+        </strong>
+      </div>
+      } @empty {
+      <p>
+        Bu rezervasyonda hizmet bilgisi kaydedilmemiş.
+      </p>
+      }
+      <div class="service-line room-subtotal">
+        <span>
+          Oda bedeli
+        </span>
+        <strong>
+          {{ money(booking().room_total ?? booking().total) }}
+        </strong>
+      </div>
+      @if (booking().created_at) {
+      <p class="created-at">
+        Kayıt tarihi · {{ booking().created_at! | hotelTimestamp }}
+      </p>
+      }
+      @if (booking().checked_out_at) {
+      <p class="created-at">
+        Gerçek çıkış · {{ booking().checked_out_at! | hotelTimestamp }}
+      </p>
+      }
+    </section>
+    <div class="reservation-price">
+      <span>
+        Oda ve hizmetler toplamı
+        <small>
+          Ödeme otelde yapılır.
+        </small>
+      </span>
+      <strong>
+        {{ money(booking().total) }}
+      </strong>
+    </div>
+    @if (error()) {
+    <div class="alert" role="alert">
+      {{ error() }}
+    </div>
+    }
+    <section class="reservation-actions">
+      <h3>
+        Rezervasyon işlemleri
+      </h3>
+      @for (status of allowed(booking().status); track status) {
+      <button
+        type="button"
+        [class.danger-action]="status === 'CANCELLED' || status === 'NO_SHOW'"
+        (click)="changed.emit(status)"
+        [disabled]="busy()"
+      >
+        <span>
+          {{ actions[status] || label(status) }}
+        </span>
+        <ui-icon name="chevron" />
+      </button>
+      } @empty {
+      <p>
+        Bu rezervasyonun durumu tamamlanmış. Yapılabilecek yeni bir durum işlemi yok.
+      </p>
+      }
+    </section>
+  </div>
+</dialog>

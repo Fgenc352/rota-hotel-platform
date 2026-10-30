@@ -1,0 +1,85 @@
+<form class="guest-filter-form" (ngSubmit)="submit()">
+  <div class="identity-filters">
+    <label>
+      Ad
+      <input name="firstName" [(ngModel)]="filters.firstName" maxlength="100" placeholder="Misafirin adı" />
+    </label>
+    <label>
+      Soyad
+      <input name="lastName" [(ngModel)]="filters.lastName" maxlength="100" placeholder="Misafirin soyadı" />
+    </label>
+    <label>
+      E-posta
+      <input name="email" [(ngModel)]="filters.email" maxlength="254" placeholder="E-posta ile bul" />
+    </label>
+    <label>
+      Telefon
+      <input name="phone" [(ngModel)]="filters.phone" maxlength="20" placeholder="Telefon ile bul" />
+    </label>
+  </div>
+  <div class="filter-footer">
+    <details
+      class="advanced-filters"
+      [open]="!!(filters.checkInFrom || filters.checkInTo || filters.checkOutFrom || filters.checkOutTo)"
+    >
+      <summary>
+        Konaklama tarihi filtreleri
+        <span>
+          Gelişmiş arama
+        </span>
+      </summary>
+      <div class="advanced-grid">
+        <fieldset>
+          <legend>
+            Giriş tarihi
+          </legend>
+          <label>
+            Başlangıç
+            <input
+              type="date"
+              name="checkInFrom"
+              [(ngModel)]="filters.checkInFrom"
+              [max]="filters.checkInTo"
+            />
+          </label>
+          <label>
+            Bitiş
+            <input type="date" name="checkInTo" [(ngModel)]="filters.checkInTo" [min]="filters.checkInFrom" />
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>
+            Çıkış tarihi
+          </legend>
+          <label>
+            Başlangıç
+            <input
+              type="date"
+              name="checkOutFrom"
+              [(ngModel)]="filters.checkOutFrom"
+              [max]="filters.checkOutTo"
+            />
+          </label>
+          <label>
+            Bitiş
+            <input
+              type="date"
+              name="checkOutTo"
+              [(ngModel)]="filters.checkOutTo"
+              [min]="filters.checkOutFrom"
+            />
+          </label>
+        </fieldset>
+      </div>
+    </details>
+    <div class="filter-buttons">
+      <button type="button" class="quiet" (click)="reset()" [disabled]="busy()">
+        Temizle
+      </button>
+      <button type="submit" [disabled]="busy()">
+        <ui-icon name="search" />
+        Filtrele
+      </button>
+    </div>
+  </div>
+</form>

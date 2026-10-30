@@ -1,0 +1,147 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/001-schema.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 2
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/002-pilot-hotels.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 3
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/003-saved-segments.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 4
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/004-actual-checkout.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 5
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/005-hibernate-lock-version.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 6
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/006-phone-only-guest-identity.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 7
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/007-contact-pair-guest-identity.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 8
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/008-guest-matching-review.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 9
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/009-guest-match-snapshots.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 10
+      author: rota
+      contextFilter: "@demo"
+      changes:
+        - sqlFile:
+            path: changes/010-demo-guests.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 11
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/011-room-catalog.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 12
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/012-dedicated-room-galleries.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 13
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/013-reservation-services.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 14
+      author: rota
+      contextFilter: "@demo"
+      changes:
+        - sqlFile:
+            path: changes/014-demo-weekend-pricing.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 15
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/015-pms-rooms.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 16
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/016-pms-service-operations.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 17
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/017-pms-daily-operations.sql
+            relativeToChangelogFile: true
+            splitStatements: true
+  - changeSet:
+      id: 18
+      author: rota
+      changes:
+        - sqlFile:
+            path: changes/018-remove-segment-checkout-days.sql
+            relativeToChangelogFile: true
+            splitStatements: true

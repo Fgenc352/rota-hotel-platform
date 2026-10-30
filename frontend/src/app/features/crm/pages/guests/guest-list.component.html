@@ -1,0 +1,216 @@
+@if (error()) {
+<div class="alert" role="alert">
+  {{ error() }}
+</div>
+}
+@if (notice()) {
+<div class="notice" role="status">
+  {{ notice() }}
+</div>
+}
+@if (busy()) {
+<div class="loading-bar" role="status" aria-label="Yükleniyor">
+</div>
+}
+@if (detailId(); as id) {
+<crm-guest-detail [guestId]="id" (closed)="closeGuest()" />
+} @else {
+<div class="page-title">
+  <div>
+    <span class="eyebrow">
+      MİSAFİR İLİŞKİLERİ
+    </span>
+    <h1>
+      Misafirler
+    </h1>
+    <p>
+      İnsanları tanıyın. İletişimi ve kişisel detayları tek bir profilde bir araya getirin.
+    </p>
+  </div>
+  <button type="button" class="secondary" (click)="search()" [disabled]="busy()">
+    <ui-icon name="refresh" />
+    Yenile
+  </button>
+</div>
+<section class="hero-panel guest-hero">
+  <div>
+    <span class="eyebrow">
+      HER İSMİN ARKASINDA BİR HİKÂYE VAR
+    </span>
+    <h2>
+      İyi bir karşılama,
+      <br>
+      misafirinizi tanımakla başlar.
+    </h2>
+    <p>
+      Kimlik ve iletişim bilgileri burada; konaklamalar, notlar ve tercihler misafir profilinde.
+    </p>
+  </div>
+  <div class="hero-number">
+    <strong>
+      {{ guests().total }}
+    </strong>
+    <span>
+      eşleşen misafir kaydı
+    </span>
+  </div>
+</section>
+<section class="panel guest-directory">
+  <div class="toolbar-row">
+    <div class="toolbar-title">
+      <h2>
+        Misafir rehberi
+        <span class="count">
+          {{ guests().total }}
+        </span>
+      </h2>
+      <p>
+        Ad, iletişim bilgileri ve profil durumu.
+      </p>
+    </div>
+    <ui-sort-controls
+      [value]="sort"
+      [options]="sortOptions"
+      [busy]="busy()"
+      (changed)="sortChanged($event)"
+    />
+  </div>
+  <div class="directory-segment">
+    <label>
+      <span>
+        Görünüm
+      </span>
+      <select
+        [(ngModel)]="segment"
+        name="segment"
+        aria-label="Misafir segmenti"
+        (change)="search()"
+        [disabled]="busy()"
+      >
+        <option value="ALL">
+          Tüm misafirler
+        </option>
+        <option value="RETURNING">
+          Tekrar konaklayanlar
+        </option>
+        <option value="REENGAGE">
+          Yeniden iletişim kurulabilecekler
+        </option>
+        @for (s of segments(); track s.id) {
+        <option [value]="s.id">
+          {{ s.name }}
+        </option>
+        }
+      </select>
+    </label>
+    <details class="segment-tools">
+      <summary>
+        <ui-icon name="filter" />
+        Segment yönetimi
+      </summary>
+      <crm-segment-editor [selected]="segment" (changed)="segmentChanged($event)" />
+    </details>
+  </div>
+  <crm-guest-search [value]="filters" [busy]="busy()" (searched)="filterChanged($event)" />
+  <div class="table-scroll">
+    <table class="guest-table" aria-label="Misafir rehberi">
+      <thead>
+        <tr>
+          <th>
+            Misafir
+          </th>
+          <th>
+            E-posta
+          </th>
+          <th>
+            Telefon
+          </th>
+          <th>
+            Profil durumu
+          </th>
+          <th>
+            <span class="sr-only">
+              Profil işlemi
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (g of guests().items; track g.id) {
+        <tr>
+          <td class="guest-name-cell" data-label="Misafir">
+            <div class="name-avatar">
+              <div class="person-avatar">
+                {{ g.first_name.slice(0,1).toLocaleUpperCase('tr-TR') }}{{ g.last_name.slice(0,1).toLocaleUpperCase('tr-TR') }}
+              </div>
+              <div>
+                <strong>
+                  {{ g.first_name }} {{ g.last_name }}
+                </strong>
+                <small>
+                  Misafir profili
+                </small>
+              </div>
+            </div>
+          </td>
+          <td class="guest-contact-cell" data-label="E-posta">
+            <a [href]="'mailto:' + g.email">
+              {{ g.email }}
+            </a>
+          </td>
+          <td class="guest-contact-cell" data-label="Telefon">
+            <a [href]="'tel:' + g.phone">
+              {{ g.phone }}
+            </a>
+          </td>
+          <td data-label="Profil durumu">
+            <span class="pill">Kayıtlı</span>
+          </td>
+          <td class="guest-action-cell">
+            <button type="button" class="profile-link" (click)="openGuest(g.id)" [disabled]="busy()">
+              Profili aç
+              <ui-icon name="chevron" />
+            </button>
+          </td>
+        </tr>
+        }
+        @empty {
+        <tr>
+          <td colspan="5">
+            <div class="empty">
+              <ui-icon name="users" />
+              <h3>
+                Misafir bulunamadı.
+              </h3>
+              <p>
+                Filtrelerinizi değiştirebilir veya otel sayfasından yeni bir rezervasyon oluşturabilirsiniz.
+              </p>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <footer class="pagination">
+    <span>
+      {{ guests().total }} kayıt · Sayfa {{ page + 1 }}
+    </span>
+    <div>
+      <button type="button" class="secondary" (click)="changePage(-1)" [disabled]="page === 0 || busy()">
+        <ui-icon name="back" />
+        Önceki
+      </button>
+      <button
+        type="button"
+        class="secondary"
+        (click)="changePage(1)"
+        [disabled]="(page+1)*20 >= guests().total || busy()"
+      >
+        Sonraki
+        <ui-icon name="chevron" />
+      </button>
+    </div>
+  </footer>
+</section>
+}

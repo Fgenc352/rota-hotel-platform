@@ -1,0 +1,26 @@
+<section class="rate-breakdown" [attr.aria-label]="t('Konaklama fiyat hesabı', 'Stay price calculation')">
+  <span class="rate-heading">{{ t('Konaklama fiyat hesabı', 'Stay price calculation') }}</span>
+  <div class="rate-list">
+    @for (group of groups(); track group.kind + ':' + group.price) {
+    <div class="rate-night">
+      <span>
+        <span class="rate-label">{{ group.kind === 'weekend' ? t('Hafta sonu', 'Weekend') : t('Hafta içi', 'Weekday') }}</span>
+        <small>{{ group.nights }} {{ t('gece', 'nights') }} × {{ formatMoney()(group.price) }}</small>
+      </span>
+      <strong>{{ formatMoney()(group.total) }}</strong>
+    </div>
+    }
+  </div>
+  @if (weekend(); as rate) {
+  <p class="rate-policy">
+    {{ t('Cumartesi ve Pazar geceleri +', 'Saturday and Sunday nights +') }}{{ rate.percent }}%.
+    @if (rate.nights) {
+      {{ t('Hafta sonu farkı', 'Weekend surcharge') }} {{ formatMoney()(rate.surcharge) }}
+      {{ t('gösterilen toplama dahildir; ayrıca eklenmez.', 'is included in the displayed total; not charged again.') }}
+    } @else {
+      {{ t('Seçtiğiniz tarihlerde hafta sonu farkı yok.', 'No weekend surcharge for your selected dates.') }}
+    }
+  </p>
+  }
+  <small class="checkout-note">{{ t('Çıkış günü ücretlendirilmez. Ek hizmetler ayrı hesaplanır.', 'The checkout day is not charged. Extras are calculated separately.') }}</small>
+</section>

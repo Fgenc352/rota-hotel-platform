@@ -1,0 +1,257 @@
+<div class="atelier-site lagos-atelier" signatureMotion>
+  <atelier-site-header />
+  <div class="atelier-progress" aria-hidden="true">
+  </div>
+  <main id="main">
+    <section class="lagos-hero" id="top">
+      <div class="hero-masthead atelier-width">
+        <div>
+          <span class="atelier-eyebrow">
+            ANTALYA, AKDENİZ · LAGOS BEACH HOTEL
+          </span>
+          <h1>
+            Biraz deniz.
+            <br>
+            <em>
+              Biraz kendiniz.
+            </em>
+          </h1>
+        </div>
+        <div class="hero-introduction">
+          <span class="sun-mark" aria-hidden="true">
+            ✳
+          </span>
+          <p>
+            Takviminize değil,
+            <br>
+            kendinize ayırdığınız bir yer.
+          </p>
+          <a bookingScroll>
+            Güzel bir başlangıç
+            <ui-icon name="chevron" />
+          </a>
+        </div>
+      </div>
+      <div class="hero-seascape">
+        <img
+          src="/images/atelier/lagos-atelier-hero.webp"
+          alt="Akdeniz'e açılan traverten teras ve turkuaz su; temsili Lagos görseli"
+          width="1440"
+          height="960"
+          fetchpriority="high"
+        />
+        <div class="hero-photo-shade">
+        </div>
+        <div class="hero-watermark" aria-hidden="true">
+          lagos
+        </div>
+        <span class="hero-location">
+          ANTALYA · AKDENİZ'E DOĞRU
+          <br>
+          <small>
+            Temsili otel atmosferi
+          </small>
+        </span>
+        <a bookingScroll class="hero-reservation">
+          <span>
+            <small>
+              SİZE AİT BİR KONAKLAMA
+            </small>
+            <strong>
+              {{ minimumPrice() !== null ? money(minimumPrice()!) : 'Lagos’ta bir mola' }}
+            </strong>
+            <em>
+              {{ minimumPrice() !== null ? 'gecelik başlangıç' : 'Tarihlerinizi seçin' }}
+            </em>
+          </span>
+          <span class="hero-book-circle">
+            <ui-icon name="chevron" />
+          </span>
+        </a>
+      </div>
+      <div class="coastal-rail atelier-width">
+        <span>
+          Doğal dokular.
+        </span>
+        <i>
+        </i>
+        <span>
+          Uzun sabahlar.
+        </span>
+        <i>
+        </i>
+        <span>
+          Size kalan zaman.
+        </span>
+        <small>
+          LAGOS / ATELIER COLLECTION
+        </small>
+      </div>
+    </section>
+    <section class="lagos-story atelier-width atelier-section" id="experience">
+      <div class="story-copy" data-reveal>
+        <span class="atelier-eyebrow">
+          01 / İYİ HİSSETMENİN COĞRAFYASI
+        </span>
+        <h2>
+          Her şey biraz
+          <br>
+          <em>
+            daha hafif.
+          </em>
+        </h2>
+        <p>
+          Denizden gelen ışık, doğal dokular ve aceleye gelmeyen anlar. Lagos’ta bir konaklama, biraz da kendinizle yeniden karşılaşmaktır.
+        </p>
+        <a routerLink="." fragment="residences" queryParamsHandling="preserve" class="atelier-link">
+          Size ait alanı keşfedin
+          <ui-icon name="chevron" />
+        </a>
+        <span class="story-signature">
+          with love, lagos.
+        </span>
+      </div>
+      <div class="story-image" data-reveal>
+        <img
+          src="/images/atelier/lagos-atelier-detail.webp"
+          alt="Akdeniz manzaralı doğal taş dinlenme alanı; temsili görsel"
+          width="960"
+          height="640"
+          loading="lazy"
+        />
+        <span class="story-image-label">
+          <i>
+            01
+          </i>
+          Günün en güzel planı,
+          <br>
+          plansız kalabilmek.
+        </span>
+      </div>
+    </section>
+    <section class="lagos-rooms atelier-section" id="residences">
+      <div class="atelier-width">
+        <div class="atelier-heading" data-reveal>
+          <div>
+            <span class="atelier-eyebrow">
+              02 / ODALAR & SÜİTLER
+            </span>
+            <h2>
+              Günün sonunda,
+              <br>
+              <em>
+                iyi bir yere dönmek.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Doğal malzemeler, sakin tonlar ve size alan açan detaylar. Konaklamanıza en çok yakışan odayı bulun.
+          </p>
+        </div>
+        @if(stay.busy()) {
+        <div class="atelier-loading" role="status">
+          Odalarınız hazırlanıyor…
+        </div>
+        }
+        @else if(stay.error()) {
+        <div class="atelier-error" role="alert">
+          {{ stay.error() }}
+          <button type="button" (click)="retry()">
+            Tekrar dene
+          </button>
+        </div>
+        }
+        @else {
+        <atelier-rooms [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+        }
+      </div>
+    </section>
+    <section class="lagos-moments atelier-width atelier-section">
+      <div class="moments-title" data-reveal>
+        <span class="atelier-eyebrow">
+          BİR TATİLDEN AKLINIZDA KALANLAR.
+        </span>
+        <h2>
+          Büyük planlar değil.
+          <br>
+          <em>
+            Güzel küçük anlar.
+          </em>
+        </h2>
+      </div>
+      <div class="moments-grid">
+        <article data-reveal>
+          <img
+            src="/images/services/lagos-breakfast.webp"
+            alt="Deniz manzaralı kahvaltı sofrası; temsili görsel"
+            width="720"
+            height="480"
+            loading="lazy"
+          />
+          <span>
+            01 / GÜNE YAVAŞ BİR BAŞLANGIÇ
+          </span>
+          <h3>
+            Biraz daha kahvaltı.
+          </h3>
+          <p>
+            Bir fincanın etrafında uzayan sohbetler.
+          </p>
+        </article>
+        <article data-reveal>
+          <img
+            src="/images/services/lagos-dinner.webp"
+            alt="Akdeniz akşamında yemek masası; temsili görsel"
+            width="720"
+            height="480"
+            loading="lazy"
+          />
+          <span>
+            02 / AKŞAMIN EN GÜZEL SAATİ
+          </span>
+          <h3>
+            Biraz daha burada.
+          </h3>
+          <p>
+            Günün ışığı çekilirken geriye kalan his.
+          </p>
+        </article>
+      </div>
+      <a bookingScroll class="atelier-link moments-link">
+        Kendi Lagos hikâyenizi başlatın
+        <ui-icon name="chevron" />
+      </a>
+    </section>
+    <section class="atelier-booking-wrap lagos-booking">
+      <div class="atelier-width">
+        <div class="atelier-booking-intro" data-reveal>
+          <div>
+            <span class="atelier-eyebrow">
+              03 / DOĞRUDAN SİZİN İÇİN
+            </span>
+            <h2>
+              Bir güzel kaçamak.
+              <br>
+              <em>
+                Bir küçük adım.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Tarihlerinizi seçin. Güncel odaları, hizmetleri ve konaklamanızın toplamını birlikte görün.
+          </p>
+        </div>
+        <showcase-booking-embed
+          id="booking"
+          hotelKey="lagos-beach"
+          variant="atelier"
+          [preferredRoom]="stay.preferredRoom()"
+        />
+        <small class="atelier-quiet-note">
+          Rezervasyon şimdi, ödeme otelde. Hizmet seçimleri ve kesin toplam rezervasyon adımında.
+        </small>
+      </div>
+    </section>
+  </main>
+  <atelier-site-footer />
+</div>

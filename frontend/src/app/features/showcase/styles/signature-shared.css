@@ -1,0 +1,474 @@
+:host {
+  display: block;
+}
+
+.signature-page {
+  --page-progress: 0;
+  --hero-shift: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: clip;
+  position: relative;
+}
+
+.signature-page * {
+  box-sizing: border-box;
+}
+
+.signature-page section[id] {
+  scroll-margin-top: 95px;
+}
+
+.signature-skip {
+  position: fixed;
+  top: -90px;
+  left: 20px;
+  z-index: 100;
+  background: white;
+  color: #233d35;
+  padding: 15px;
+}
+
+.signature-skip:focus {
+  top: 15px;
+}
+
+.signature-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding: 26px 4%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  color: #fff;
+  border-bottom: 1px solid #ffffff38;
+  transition: background 250ms, padding 250ms;
+}
+
+.signature-brand {
+  font: 32px Georgia, serif;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.signature-brand small {
+  display: block;
+  font: 7px Arial, sans-serif;
+  letter-spacing: 2.8px;
+  margin-top: 9px;
+}
+
+.signature-header nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 10px;
+}
+
+.signature-header nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.signature-header nav a ui-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.signature-header nav a::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: 0;
+  left: 0;
+  bottom: 0;
+  background: currentColor;
+  transition: width 250ms;
+}
+
+.signature-header nav a:hover::after {
+  width: 100%;
+}
+
+.signature-header .nav-book {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  border: 1px solid #ffffff70;
+  padding: 14px 18px;
+  min-height: 44px;
+  font-size: 10px;
+}
+
+.page-progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--sig-accent);
+  transform: scaleX(var(--page-progress));
+  transform-origin: left;
+}
+
+.has-scrolled .signature-header {
+  padding-top: 17px;
+  padding-bottom: 17px;
+  background: var(--sig-header);
+  backdrop-filter: blur(18px);
+}
+
+.signature-hero {
+  min-height: 900px;
+  height: 100svh;
+  max-height: 1250px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.signature-hero > .hero-image {
+  position: absolute;
+  inset: -12%;
+  width: 124%;
+  height: 124%;
+  object-fit: cover;
+  transform: translate3d(0, var(--hero-shift), 0);
+  will-change: transform;
+}
+
+.signature-hero .hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #081d2c88, transparent 55%, #071d2c99);
+}
+
+.sig-kicker {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 2.2px;
+  line-height: 1.8;
+  color: var(--sig-muted);
+}
+
+.sig-width {
+  width: min(1320px, 90%);
+  margin: 0 auto;
+}
+
+.sig-section {
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.sig-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.sig-section-heading .sig-kicker {
+  margin-bottom: 24px;
+}
+
+.sig-section-heading h2 {
+  font: 400 clamp(45px, 5.8vw, 85px)/1.02 Georgia, serif;
+  letter-spacing: -3px;
+}
+
+.sig-section-heading h2 em {
+  font-weight: 400;
+}
+
+.sig-section-heading > p {
+  max-width: 300px;
+  font-size: 12px;
+  color: var(--sig-muted);
+  line-height: 1.9;
+}
+
+.sig-error {
+  padding: 24px;
+  margin-bottom: 25px;
+  background: #fff1df;
+  color: #654125;
+  font-size: 13px;
+}
+
+.sig-error button {
+  margin-top: 12px;
+  background: #654125;
+  color: #fff;
+  border-radius: 0;
+}
+
+.sig-loading {
+  padding: 60px;
+  text-align: center;
+  font: 26px Georgia, serif;
+  background: var(--sig-soft);
+}
+
+.signature-dock {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: fixed;
+  z-index: 25;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, 110px);
+  padding: 11px 13px 11px 25px;
+  background: var(--sig-dock);
+  color: var(--sig-ink);
+  border: 1px solid var(--sig-line);
+  box-shadow: 0 10px 50px #0002;
+  transition: transform 300ms;
+}
+
+.has-scrolled .signature-dock {
+  transform: translate(-50%, 0);
+}
+
+.signature-dock > div {
+  min-width: 180px;
+}
+
+.signature-dock small {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--sig-muted);
+  margin-bottom: 5px;
+}
+
+.signature-dock strong {
+  font: 21px Georgia, serif;
+}
+
+.signature-dock a {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--sig-accent);
+  color: var(--sig-button-ink);
+  padding: 17px 21px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.signature-footer {
+  padding: 80px 5% 30px;
+}
+
+.signature-footer .footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.signature-footer .footer-top h2 {
+  font: 400 clamp(45px, 5vw, 75px)/1.05 Georgia, serif;
+  letter-spacing: -2px;
+  margin-top: 20px;
+}
+
+.signature-footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 11px;
+  padding-top: 10px;
+}
+
+.signature-footer .footer-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.signature-footer .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 9px;
+  color: var(--sig-muted);
+  border-top: 1px solid var(--sig-line);
+  padding-top: 24px;
+}
+
+.signature-page.motion-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 900ms, transform 900ms;
+}
+
+.signature-page.motion-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .signature-header nav a:last-child {
+    display: none;
+  }
+  .signature-header nav {
+    gap: 20px;
+  }
+  .sig-section {
+    padding-top: 85px;
+    padding-bottom: 85px;
+  }
+}
+
+@media (max-width: 650px) {
+  .signature-header {
+    padding: 22px 6%;
+    gap: 15px;
+  }
+  .signature-header nav {
+    display: none;
+  }
+  .signature-brand {
+    font-size: 27px;
+  }
+  .signature-header .nav-book {
+    gap: 17px;
+    padding: 12px;
+    font-size: 9px;
+  }
+  .signature-hero {
+    min-height: 780px;
+    max-height: 1050px;
+  }
+  .sig-section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  .sig-section-heading h2 {
+    letter-spacing: -1.8px;
+  }
+  .signature-dock {
+    width: 90%;
+    justify-content: space-between;
+    gap: 15px;
+    padding-left: 15px;
+    bottom: 12px;
+  }
+  .signature-dock > div {
+    min-width: 0;
+  }
+  .signature-dock strong {
+    font-size: 18px;
+  }
+  .signature-dock small {
+    font-size: 6px;
+  }
+  .signature-dock a {
+    font-size: 10px;
+    gap: 12px;
+    padding: 15px 12px;
+  }
+  .signature-footer .footer-top {
+    flex-direction: column;
+  }
+  .signature-footer .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signature-page *, .signature-page.motion-ready [data-reveal] {
+    animation: none !important;
+    transition: none !important;
+  }
+  .signature-page.motion-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .signature-hero > .hero-image {
+    will-change: auto;
+  }
+}
+
+.signature-page.has-scrolled.booking-visible .signature-dock {
+  transform: translate(-50%, 110px);
+  pointer-events: none;
+}
+
+.signature-page .sig-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.65px;
+}
+
+.signature-page .sig-kicker::before {
+  content: '';
+  width: 23px;
+  height: 1px;
+  background: var(--sig-accent);
+  flex-shrink: 0;
+}
+
+.signature-page .sig-section-heading > p {
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.signature-page .signature-header nav {
+  font-size: 12px;
+}
+
+.signature-page .signature-header .nav-book {
+  border-radius: 4px;
+  font-size: 11px;
+  background: #ffffff0b;
+}
+
+.signature-page .signature-header .nav-book:hover {
+  background: #ffffff1b;
+}
+
+.signature-page .signature-footer .footer-links {
+  font-size: 13px;
+}
+
+.signature-page .signature-dock {
+  border-radius: 10px;
+}
+
+.signature-page .signature-dock a {
+  border-radius: 6px;
+}
+
+.signature-page .signature-dock small::after {
+  content: ' · GECELİK BAŞLANGIÇ';
+  font-size: 6px;
+}
+
+@media (max-width: 650px) {
+  .signature-page .sig-kicker {
+    font-size: 9px;
+  }
+  .signature-page .signature-dock small::after {
+    display: none;
+  }
+}

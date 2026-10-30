@@ -1,0 +1,23 @@
+<div class="sort-controls">
+  <label>
+    <ui-icon name="sort" />
+    <span>
+      Sıralama
+    </span>
+    <select aria-label="Sıralama alanı" [value]="value().field" (change)="field($event)" [disabled]="busy()">
+      @for (option of options(); track option.value) {
+      <option [value]="option.value">
+        {{ option.label }}
+      </option>
+      }
+    </select>
+  </label>
+  <button
+    type="button"
+    (click)="direction()"
+    [disabled]="busy()"
+    [attr.aria-label]="'Sıralama yönü: ' + (value().direction === 'ASC' ? 'Artan' : 'Azalan')"
+  >
+    {{ value().direction === 'ASC' ? 'Artan' : 'Azalan' }}
+  </button>
+</div>

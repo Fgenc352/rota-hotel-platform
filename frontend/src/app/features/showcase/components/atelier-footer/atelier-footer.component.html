@@ -1,0 +1,33 @@
+<footer class="atelier-footer" [class.cave-footer]="cave()">
+  <div class="footer-invitation">
+    <span class="footer-eyebrow">
+      GÜZEL ŞEYLER İÇİN YER AÇIN.
+    </span>
+    <p>
+      {{ cave() ? 'Biraz gizem.' : 'Biraz yavaşlayın.' }}
+      <em>
+        {{ cave() ? 'Biraz siz.' : 'Çokça siz.' }}
+      </em>
+    </p>
+    <a bookingScroll class="footer-round" aria-label="Rezervasyona git">
+      <ui-icon name="chevron" />
+    </a>
+  </div>
+  <div class="footer-baseline">
+    <strong>
+      {{ cave() ? 'peri stone.' : 'lagos.' }}
+    </strong>
+    <span>
+      {{ cave() ? 'Kapadokya · Türkiye' : 'Antalya · Türkiye' }}
+    </span>
+    <a bookingScroll>
+      Konaklamanızı planlayın
+    </a>
+    <span>
+      © {{ year }}
+    </span>
+  </div>
+  <small>
+    Otel ve hizmet görselleri temsilidir. Güncel fiyat ve müsaitlik rezervasyon adımında gösterilir.
+  </small>
+</footer>

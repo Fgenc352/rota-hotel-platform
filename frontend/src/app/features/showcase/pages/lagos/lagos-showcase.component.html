@@ -1,0 +1,295 @@
+<div class="lagos-page">
+  <a class="skip-link" routerLink="." fragment="main-content" queryParamsHandling="preserve">
+    İçeriğe geç
+  </a>
+  <header class="site-header">
+    <a class="wordmark" routerLink="." fragment="top" queryParamsHandling="preserve" aria-label="Lagos Beach Hotel ana sayfa">
+      <span class="sun-mark" aria-hidden="true">
+        ✳
+      </span>
+      <span>
+        LAGOS
+        <small>
+          BEACH HOTEL
+        </small>
+      </span>
+    </a>
+    <nav aria-label="Lagos ana menü">
+      <a routerLink="." fragment="experience" queryParamsHandling="preserve">
+        Lagos ruhu
+      </a>
+      <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+        Odalar & süitler
+      </a>
+      <a routerLink="/showcase/peri-stone">
+        Kapadokya’yı keşfet ↗
+      </a>
+    </nav>
+    <a class="header-book" bookingScroll>
+      Konaklamanı planla
+      <span>
+        ↗
+      </span>
+    </a>
+  </header>
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="lagos-hero-title">
+      <img
+        class="hero-image"
+        src="/images/showcase/lagos-hero.webp"
+        alt="Akdeniz kıyısında güneşli bir otel terası ve mavi deniz; temsili görsel"
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+      />
+      <div class="hero-shade">
+      </div>
+      <div class="hero-copy">
+        <span class="kicker light">
+          ANTALYA, TÜRKİYE · AKDENİZ’İN KIYISINDA
+        </span>
+        <h1 id="lagos-hero-title">
+          Biraz yavaşla.
+          <br>
+          <em>
+            Maviye karış.
+          </em>
+        </h1>
+        <p>
+          Gün ışığıyla uyanan odalar.
+          <br>
+          Size kalan, sadece burada olmak.
+        </p>
+        <a class="hero-discover" routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          <span class="circle-arrow">
+            ↗
+          </span>
+          Kendine bir yer seç
+        </a>
+      </div>
+      <div class="hero-aside">
+        <span>
+          GÜNLÜK HAYATTAN
+          <br>
+          KÜÇÜK BİR UZAKLAŞMA.
+        </span>
+        <span class="vertical-line">
+        </span>
+        <span>
+          GERİSİ DENİZ.
+        </span>
+      </div>
+      <div class="hero-bottom">
+        <span>
+          DOĞRUDAN OTELDEN. TAM SİZE GÖRE.
+        </span>
+        <a routerLink="." fragment="experience" queryParamsHandling="preserve">
+          Keşfetmek için aşağı kaydır
+          <span>
+            ↓
+          </span>
+        </a>
+      </div>
+    </section>
+    <div class="booking-rail">
+      <div>
+        <span class="kicker">
+          BİR SONRAKİ GÜZEL ANINIZ
+        </span>
+        <strong>
+          Burada başlasın.
+        </strong>
+      </div>
+      <div class="rail-benefit">
+        <span>
+          01
+        </span>
+        Doğrudan rezervasyon
+      </div>
+      <div class="rail-benefit">
+        <span>
+          02
+        </span>
+        Ödeme otelde
+      </div>
+      <a bookingScroll class="solid-link">
+        Tarihlerini seç
+        <span>
+          ↗
+        </span>
+      </a>
+    </div>
+    <section class="intro-section section-width" id="experience">
+      <div class="intro-heading">
+        <span class="kicker">
+          AZ EŞYA. ÇOK MAVİ. BİRAZ SİZ.
+        </span>
+        <h2>
+          Takviminiz değil,
+          <br>
+          <em>
+            kendiniz için.
+          </em>
+        </h2>
+      </div>
+      <div class="intro-body">
+        <span class="tiny-sun" aria-hidden="true">
+          ✳
+        </span>
+        <p>
+          Bazı yerlere varmak için değil, durmak için gidilir. Lagos; doğal dokuların, denizin ve sade bir konforun aynı hikâyede buluştuğu bir kaçamak.
+        </p>
+        <a class="text-link" routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          Sizi bekleyen odalar
+          <span>
+            ↗
+          </span>
+        </a>
+      </div>
+    </section>
+    <section class="rooms-section section-width" id="rooms" aria-labelledby="lagos-rooms-title">
+      <div class="section-top">
+        <div>
+          <span class="kicker">
+            KONAKLAMA KOLEKSİYONU
+          </span>
+          <h2 id="lagos-rooms-title">
+            Maviye açılan
+            <em>
+              alanlar.
+            </em>
+          </h2>
+        </div>
+        <p>
+          İster sakin bir kaçamak, ister birlikte bir tatil.
+          <br>
+          Ritminize uyan odayı bulun.
+        </p>
+      </div>
+      @if (stay.error()) {
+      <div class="catalog-error" role="alert">
+        <p>
+          {{ stay.error() }}
+        </p>
+        <button type="button" (click)="retry()">
+          Yeniden dene
+        </button>
+      </div>
+      }
+      @if (stay.busy()) {
+      <div class="catalog-loading" role="status" aria-label="Odalar yükleniyor">
+        <span>
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+      </div>
+      }
+      @else if (stay.rooms().length) {
+      <showcase-room-collection [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+      }
+      <p class="catalog-note">
+        Gecelik başlangıç fiyatlarıdır. Tarihlerinizi seçtiğinizde müsaitlik ve kesin toplam hesaplanır. Görseller temsilidir.
+      </p>
+    </section>
+    <section class="slow-story">
+      <div class="story-photo">
+        <img
+          src="/images/showcase/lagos-room.webp"
+          alt="Doğal dokulu, gün ışığı alan bir Lagos odası; temsili görsel"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+        <span>
+          İYİ HİSSETMENİN EN SADE HALİ.
+        </span>
+      </div>
+      <div class="story-copy">
+        <span class="kicker">
+          LAGOS’TA BİR GÜN
+        </span>
+        <h2>
+          Hiçbir yere
+          <br>
+          <em>
+            yetişmeyin.
+          </em>
+        </h2>
+        <p>
+          Perdeden süzülen ışık, uzayan bir kahve molası, kendinize ayırdığınız birkaç sayfa. Tatil bazen sadece budur.
+        </p>
+        <a class="text-link" bookingScroll>
+          Kendi hikâyeni başlat
+          <span>
+            ↗
+          </span>
+        </a>
+        <div class="story-signature">
+          Lagos.
+          <small>
+            STAY A LITTLE SLOWER.
+          </small>
+        </div>
+      </div>
+    </section>
+    <section class="reservation-section" aria-labelledby="lagos-booking-title">
+      <div class="section-width">
+        <div class="section-top">
+          <div>
+            <span class="kicker">
+              OTELİNİZLE ARANIZDA SADECE BİR ADIM
+            </span>
+            <h2 id="lagos-booking-title">
+              Sizi
+              <em>
+                bekliyoruz.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Canlı müsaitlik. Açık fiyatlar.
+            <br>
+            Rezervasyon şimdi, ödeme otelde.
+          </p>
+        </div>
+        <showcase-booking-embed id="booking" hotelKey="lagos-beach" [preferredRoom]="stay.preferredRoom()" />
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div>
+        <span class="kicker light">
+          LAGOS BEACH HOTEL
+        </span>
+        <p>
+          Akdeniz’e biraz daha yakın.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          Odalar & süitler
+        </a>
+        <a routerLink="/showcase/peri-stone">
+          Peri Stone Cave Hotel ↗
+        </a>
+        <a bookingScroll>
+          Konaklamanızı planlayın ↗
+        </a>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true">
+      LAGOS
+    </div>
+    <div class="footer-bottom">
+      <span>
+        © {{ year }} Lagos Beach Hotel · Kurgusal otel sunumu
+      </span>
+      <span>
+        Doğrudan rezervasyon · rota.
+      </span>
+    </div>
+  </footer>
+</div>

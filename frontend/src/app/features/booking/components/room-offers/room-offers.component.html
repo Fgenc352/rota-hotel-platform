@@ -1,0 +1,54 @@
+<section aria-live="polite">
+  <div class="section-heading">
+    <h2>
+      {{t('Size uygun odalar','Rooms for your stay')}}
+    </h2>
+    <span>
+      {{offers().length}} {{t('oda tipi','room types')}}
+    </span>
+  </div>
+  @for (room of offers();track room.roomTypeId){
+  <article class="room-card">
+    <div class="room-visual">
+      <span>
+        ⌂
+      </span>
+    </div>
+    <div class="room-info">
+      <span class="eyebrow">
+        {{t('DOĞRUDAN REZERVASYON','BOOK DIRECT')}}
+      </span>
+      <h3>
+        {{ text(room.name) }}
+      </h3>
+      <p>
+        {{t('En fazla','Up to')}} {{room.capacity}} {{t('kişi','guests')}} · {{room.nights.length}}
+        {{t('gece','nights')}}
+      </p>
+      <span class="availability">
+        {{room.remaining}} {{t('oda kaldı','rooms remaining')}}
+      </span>
+      <booking-rate-breakdown [offer]="room" [language]="presentation.lang()" [formatMoney]="money" />
+    </div>
+    <div class="room-price">
+      <span>
+        {{room.nights.length}} {{t('gece · oda toplamı','nights · room total')}}
+      </span>
+      <strong>
+        {{money(room.total)}}
+      </strong>
+      <small>
+        {{t('Toplam · ödeme otelde','Total · pay at hotel')}}
+      </small>
+      <button type="button" (click)="selected.emit(room)">
+        {{t('Odayı seç','Choose room')}}
+      </button>
+    </div>
+  </article>
+  }
+  @empty {
+  <div class="empty">
+    {{t('Bu tarihlerde kişi sayınıza uygun boş oda bulunamadı. Tarihleri veya kişi sayısını değiştirin.','No rooms match your dates and party size. Try different dates or guest counts.')}}
+  </div>
+  }
+</section>

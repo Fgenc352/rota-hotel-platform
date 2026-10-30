@@ -1,0 +1,92 @@
+.daily-editor::backdrop {
+  background: #26334265;
+  backdrop-filter: blur(7px);
+}
+
+.daily-editor {
+  position: fixed;
+  margin: auto;
+  width: min(820px, calc(100vw - 32px));
+  max-height: 88dvh;
+  overflow: auto;
+  padding: 32px;
+  border: 1px solid #e2e7ec;
+  border-radius: 22px;
+  background: #fcfcfc;
+  box-shadow: 0 30px 100px #1e293b35;
+}
+
+.editor-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 20px;
+}
+
+h2 {
+  margin: 10px 0;
+}
+
+.editor-heading p {
+  color: #718093;
+  font-size: 13px;
+}
+
+fieldset {
+  padding: 0;
+  margin: 24px 0;
+  border: 0;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: #56697d;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.daily-history {
+  border-top: 1px solid #dfe5eb;
+  padding-top: 20px;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.daily-history article {
+  padding: 16px 0;
+  border-bottom: 1px solid #e4e9ee;
+  font-size: 12px;
+}
+
+time {
+  margin-left: 14px;
+  color: #788695;
+}
+
+.daily-history p {
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+@media(max-width: 600px) {
+  .editor-grid {
+    grid-template-columns: 1fr;
+  }
+  .daily-editor {
+    padding: 22px;
+  }
+}

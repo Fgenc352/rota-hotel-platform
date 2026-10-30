@@ -1,0 +1,61 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.stay-dates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.stay-dates > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.stay-dates > div + div {
+  border-left: 1px solid var(--line, #dce4e9);
+  padding-left: 20px;
+}
+
+span {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--muted, #687a88);
+}
+
+time {
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.compact {
+  gap: 13px;
+  min-width: 218px;
+}
+
+.compact > div + div {
+  padding-left: 13px;
+}
+
+.compact time {
+  font-size: 12px;
+}
+
+@media (max-width: 400px) {
+  .stay-dates {
+    gap: 12px;
+  }
+  .stay-dates > div + div {
+    padding-left: 12px;
+  }
+  time {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.name-avatar {
+  min-width: 185px;
+}
+
+.booking-amount {
+  color: #4d5055 !important;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.manage-booking {
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.manage-booking ui-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.empty > ui-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 18px;
+}

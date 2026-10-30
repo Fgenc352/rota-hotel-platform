@@ -1,0 +1,35 @@
+<div
+  class="room-selector"
+  [class.selector-maison]="variant() === 'maison'"
+  [class.selector-signature]="variant() === 'signature'"
+  [class.selector-atelier]="variant() === 'atelier'"
+  role="tablist"
+  aria-label="Oda tipleri"
+>
+  @for(item of rooms(); track item.id; let i = $index) {
+  <button
+    #tab
+    type="button"
+    role="tab"
+    [id]="'room-tab-' + item.id"
+    [attr.aria-controls]="'room-panel-' + item.id"
+    [attr.aria-selected]="active() === i"
+    [attr.aria-label]="item.name"
+    [tabIndex]="active() === i ? 0 : -1"
+    (click)="changed.emit(i)"
+    (keydown.arrowRight)="navigate($event, 'ArrowRight')"
+    (keydown.arrowLeft)="navigate($event, 'ArrowLeft')"
+    (keydown.home)="navigate($event, 'Home')"
+    (keydown.end)="navigate($event, 'End')"
+  >
+    <img class="selector-photo" [src]="item.images[0]" alt="" width="140" height="140" loading="lazy" />
+    <span class="selector-copy">
+      <strong>{{ item.name }}</strong>
+      <small>{{ item.areaSquareMeters ? item.areaSquareMeters + ' m² · ' : '' }}{{ item.capacity }} kişiye kadar</small>
+      <span class="selector-state">{{ active() === i ? 'Seçili oda' : 'Odayı keşfedin' }}</span>
+    </span>
+    <span class="selector-index" aria-hidden="true">0{{ i + 1 }}</span>
+    <span class="selector-check" aria-hidden="true"><ui-icon name="check" /></span>
+  </button>
+  }
+</div>

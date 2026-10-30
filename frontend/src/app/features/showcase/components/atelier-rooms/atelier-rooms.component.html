@@ -1,0 +1,105 @@
+@if(current(); as room) {
+<showcase-room-selector [variant]="selectorVariant()" [rooms]="rooms()" [active]="active()" (changed)="choose($event)" />
+<article class="atelier-room" role="tabpanel" [id]="'room-panel-' + room.id" [attr.aria-labelledby]="'room-tab-' + room.id">
+  <div class="room-stage">
+    <button
+      type="button"
+      class="room-gallery-trigger"
+      (click)="gallery.set(true)"
+      [attr.aria-label]="room.name + ' fotoğraf galerisini aç'"
+    >
+      <img
+        [src]="room.images[photo()]"
+        [alt]="room.name + ' · temsili fotoğraf ' + (photo()+1)"
+        width="1000"
+        height="700"
+        loading="lazy"
+      />
+      <span class="photo-open">
+        <ui-icon name="plus" />
+        {{ room.images.length }} fotoğrafı keşfet
+      </span>
+    </button>
+    <div class="photo-controls">
+      <span>
+        {{ photo()+1 }}
+        <i>
+          / {{ room.images.length }}
+        </i>
+      </span>
+      <div>
+        <button type="button" (click)="move(-1)" aria-label="Önceki oda fotoğrafı">
+          <ui-icon name="back" />
+        </button>
+        <button type="button" (click)="move(1)" aria-label="Sonraki oda fotoğrafı">
+          <ui-icon name="chevron" />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="room-story">
+    <span class="room-label">
+      KENDİNİZE AİT BİR ALAN · 0{{ active()+1 }}
+    </span>
+    <h3>
+      {{ room.name }}
+    </h3>
+    <p>
+      {{ room.description }}
+    </p>
+    <div class="room-facts">
+      <span>
+        {{ room.areaSquareMeters }}
+        <small>
+          m² yaşam alanı
+        </small>
+      </span>
+      <span>
+        {{ room.capacity }}
+        <small>
+          kişiye kadar
+        </small>
+      </span>
+    </div>
+    <span class="room-bed">
+      <ui-icon name="bed" />
+      {{ room.bedDescription }}
+    </span>
+    <ul>
+      @for(amenity of room.amenities.slice(0,4);track amenity) {
+      <li>
+        {{ amenity }}
+      </li>
+      }
+    </ul>
+    <div class="room-choice">
+      <span>
+        <small>
+          Gecelik başlangıç
+        </small>
+        <strong>
+          {{ money(room.nightlyPrice) }}
+        </strong>
+      </span>
+      <button type="button" (click)="selected.emit(room.id)">
+        Bu odada konakla
+        <ui-icon name="chevron" />
+      </button>
+    </div>
+    <small class="room-rate-note">
+      Kesin toplam, seçtiğiniz tarihler ve kişi sayısıyla hesaplanır.
+    </small>
+  </div>
+</article>
+@if(gallery()) {
+<showcase-room-details-dialog
+  [room]="room"
+  (closed)="gallery.set(false)"
+  (selected)="selected.emit(room.id);gallery.set(false)"
+/>
+}
+} @else {
+<p class="room-empty">
+  Oda bilgileri henüz yüklenemedi. Sayfayı yenileyerek tekrar deneyebilirsiniz.
+</p>
+}

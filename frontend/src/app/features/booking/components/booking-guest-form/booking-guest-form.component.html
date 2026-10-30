@@ -1,0 +1,79 @@
+<section class="booking-form">
+  <button type="button" class="quiet" (click)="back.emit()">
+    ← {{t('Odalara dön','Back to rooms')}}
+  </button>
+  <h2>
+    {{ text(room().name) }}
+  </h2>
+  <p>
+    {{money(room().total)}} · {{t('Oda bedeli','Room total')}}
+  </p>
+  <booking-rate-breakdown [offer]="room()" [language]="presentation.lang()" [formatMoney]="money" />
+  <form [formGroup]="form()" (ngSubmit)="submitted.emit()">
+    <div class="form-grid">
+      <label>
+        {{t('Ad','First name')}}
+        <input
+          formControlName="firstName"
+          autocomplete="given-name"
+          maxlength="100"
+          required
+        >
+      </label>
+      <label>
+        {{t('Soyad','Last name')}}
+        <input
+          formControlName="lastName"
+          autocomplete="family-name"
+          maxlength="100"
+          required
+        >
+      </label>
+      <label>
+        {{t('E-posta','Email')}}
+        <input
+          formControlName="email"
+          type="email"
+          autocomplete="email"
+          maxlength="254"
+          required
+        >
+      </label>
+      <label>
+        {{t('Telefon (ülke koduyla)','Phone (with country code)')}}
+        <input
+          formControlName="phone"
+          type="tel"
+          autocomplete="tel"
+          placeholder="+905551234567"
+          required
+        >
+      </label>
+    </div>
+    <booking-services />
+    <details>
+      <summary>
+        {{t('KVKK aydınlatma metni','Privacy notice')}}
+      </summary>
+      <p>
+        {{t('Rezervasyon sırasında verdiğiniz bilgiler, konaklamanızı ve otel ile iletişiminizi yönetmek için işlenir. Bu demo metni üretimde otelin onaylı aydınlatma metniyle değiştirilmelidir.','Your booking details are processed to manage your stay and hotel communications. This demo notice must be replaced with the hotel’s approved privacy notice for production.')}}
+      </p>
+    </details>
+    <label class="checkbox">
+      <input type="checkbox" formControlName="privacyAccepted">
+      {{t('KVKK aydınlatma metnini okudum.','I have read the privacy notice.')}} *
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" formControlName="marketingAllowed">
+      {{t('Kampanya ve fırsatlardan haberdar olmak istiyorum (isteğe bağlı).','I would like to receive offers and news (optional).')}}
+    </label>
+    @if (form().touched&&form().invalid){
+    <p class="field-error" role="alert">
+      {{t('Tüm zorunlu alanları doldurun. Geçerli e-posta ve +ülke koduyla telefon girin; aydınlatma metnini onaylayın.','Complete required fields, enter a valid email and international phone number, and acknowledge the privacy notice.')}}
+    </p>
+    }
+    <button type="submit" [disabled]="busy()">
+      {{busy()?t('Kaydediliyor…','Booking…'):t('Rezervasyonu tamamla','Confirm booking')}}
+    </button>
+  </form>
+</section>

@@ -1,0 +1,146 @@
+<dialog
+  #dialog
+  class="neutral-gallery"
+  [class.hosted-gallery]="hosted()"
+  (cancel)="closed.emit()"
+  (click)="outside($event)"
+  aria-labelledby="room-dialog-title"
+  (keydown.arrowright)="movePhoto($event, 1)"
+  (keydown.arrowleft)="movePhoto($event, -1)"
+>
+  <button
+    type="button"
+    class="close"
+    (click)="closed.emit()"
+    [attr.aria-label]="t('Oda detayını kapat', 'Close room details')"
+  >
+    <ui-icon name="close" />
+  </button>
+  <div class="dialog-content">
+    <div class="gallery">
+      @if (room().images[photo()]; as image) {
+      <img
+        class="large-image"
+        [src]="image"
+        [alt]="text(room().name) + ' · ' + t('temsili görsel', 'illustrative image')"
+        width="1000"
+        height="650"
+        decoding="async"
+      />
+      }
+      <div class="gallery-pagination">
+        <button
+          type="button"
+          (click)="movePhoto($event, -1)"
+          [attr.aria-label]="t('Önceki fotoğraf', 'Previous photo')"
+        >
+          <ui-icon name="back" />
+        </button>
+        <span aria-live="polite">
+          {{ photo() + 1 }} / {{ room().images.length }}
+        </span>
+        <button
+          type="button"
+          (click)="movePhoto($event, 1)"
+          [attr.aria-label]="t('Sonraki fotoğraf', 'Next photo')"
+        >
+          <ui-icon name="chevron" />
+        </button>
+      </div>
+      <div class="thumbnails">
+        @for (image of room().images; track image; let i = $index) {
+        <button
+          type="button"
+          (click)="photo.set(i)"
+          [class.active]="photo() === i"
+          [attr.aria-label]="t('Fotoğraf', 'Photo') + ' ' + (i + 1)"
+          [attr.aria-pressed]="photo() === i"
+        >
+          <img [src]="image" alt="" width="100" height="70" />
+        </button>
+        }
+      </div>
+      <small>
+        {{ t('Kurgusal otel için temsili oda ve otel görselleri.', 'Illustrative room and hotel images for this fictional property.') }}
+      </small>
+    </div>
+    <div class="details">
+      <span class="kicker">
+        {{ t('SİZE AİT BİR ALAN', 'A SPACE OF YOUR OWN') }}
+      </span>
+      <h2 id="room-dialog-title">
+        {{ text(room().name) }}
+      </h2>
+      <p>
+        {{ text(room().description) }}
+      </p>
+      <dl>
+        @if (room().areaSquareMeters) {
+        <div>
+          <dt>
+            {{ t('Oda büyüklüğü', 'Room size') }}
+          </dt>
+          <dd>
+            {{ room().areaSquareMeters }} m²
+          </dd>
+        </div>
+        }
+        <div>
+          <dt>
+            {{ t('Kapasite', 'Capacity') }}
+          </dt>
+          <dd>
+            {{ room().capacity }} {{ t('kişi', 'guests') }}
+          </dd>
+        </div>
+        @if (room().bedDescription) {
+        <div>
+          <dt>
+            {{ t('Yatak düzeni', 'Beds') }}
+          </dt>
+          <dd>
+            {{ text(room().bedDescription) }}
+          </dd>
+        </div>
+        }
+        <div>
+          <dt>
+            {{ t('Minimum konaklama', 'Minimum stay') }}
+          </dt>
+          <dd>
+            {{ room().minNights }} {{ t('gece', 'nights') }}
+          </dd>
+        </div>
+      </dl>
+      <h3>
+        {{ t('Oda özellikleri', 'Amenities') }}
+      </h3>
+      <ul>
+        @for (amenity of room().amenities; track amenity) {
+        <li>
+          ✓ {{ text(amenity) }}
+        </li>
+        }
+      </ul>
+      <div class="dialog-bottom">
+        <div>
+          <small>
+            {{ t('Gecelik başlangıç', 'Per night from') }}
+          </small>
+          <strong>
+            {{ price() }}
+          </strong>
+        </div>
+        @if (selectable()) {
+        <button type="button" (click)="selected.emit()">
+          {{ t('Bu odada konakla', 'Stay in this room') }}
+          <ui-icon name="chevron" />
+        </button>
+        }
+      </div>
+      <small class="rate-note">
+        {{ t('Başlangıç fiyatıdır. Kesin toplam seçilen tarihler ve kişi sayısıyla hesaplanır. Ödeme otelde.', 'Starting rate. Your exact total depends on dates and party size. Pay at the hotel.') }}
+      </small>
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,42 @@
+{
+  "name": "timeout",
+  "scenarioName": "pms-delivery",
+  "requiredScenarioState": "slow",
+  "request": {
+    "method": "POST",
+    "urlPath": "/reservations",
+    "headers": {
+      "Content-Type": {
+        "contains": "application/json"
+      },
+      "Idempotency-Key": {
+        "matches": "[0-9a-fA-F-]{36}"
+      },
+      "X-Trace-Id": {
+        "matches": ".+"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.eventId"
+      },
+      {
+        "matchesJsonPath": "$.reservationId"
+      },
+      {
+        "matchesJsonPath": "$.hotelId"
+      },
+      {
+        "matchesJsonPath": "$.version"
+      }
+    ]
+  },
+  "response": {
+    "status": 202,
+    "fixedDelayMilliseconds": 1500,
+    "bodyFileName": "accepted.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

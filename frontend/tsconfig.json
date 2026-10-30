@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": false,
+    "noImplicitOverride": true,
+    "paths": {
+      "@core/*": [
+        "./src/app/core/*"
+      ],
+      "@shared/*": [
+        "./src/app/shared/*"
+      ],
+      "@booking/*": [
+        "./src/app/features/booking/*"
+      ],
+      "@crm/*": [
+        "./src/app/features/crm/*"
+      ],
+      "@auth/*": [
+        "./src/app/features/auth/*"
+      ],
+      "@environment": [
+        "./src/environments/environment.ts"
+      ]
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "strictInjectionParameters": true
+  }
+}

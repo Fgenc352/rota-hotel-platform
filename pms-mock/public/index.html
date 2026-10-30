@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Rota | PMS bildirim merkezi
+    </title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.mjs">
+    </script>
+  </head>
+  <body>
+    <div class="workspace">
+      <aside>
+        <a class="brand" href="/">
+          rota
+          <span>
+            .
+          </span>
+          <small>
+            PROPERTY MANAGEMENT
+          </small>
+        </a>
+        <div class="workspace-tag">
+          YEREL DEMO · PMS
+        </div>
+        <nav aria-label="PMS menüsü">
+          <a href="#reservations" class="active">
+            Rezervasyonlar
+            <span>
+              01
+            </span>
+          </a>
+          <a href="#requests">
+            Bildirim günlüğü
+            <span>
+              02
+            </span>
+          </a>
+          <a href="#simulation">
+            Bağlantı testi
+            <span>
+              03
+            </span>
+          </a>
+        </nav>
+        <p class="aside-note">
+          Gelen her rezervasyon,
+          <br>
+          tek bir yerde.
+          <small>
+            Doğrudan HTTP ve Kafka akışlarıyla aynı PMS alıcısı.
+          </small>
+        </p>
+      </aside>
+      <main>
+        <header>
+          <span>
+            Rota /
+            <strong>
+              Otel yönetim sistemi
+            </strong>
+          </span>
+          <span class="connection" id="connection">
+            Bağlantı kontrol ediliyor
+          </span>
+        </header>
+        <div class="title">
+          <div>
+            <span class="eyebrow">
+              RESERVATION INBOX
+            </span>
+            <h1>
+              Güzel bir karşılama,
+              <br>
+              <em>
+                doğru bilgiyle başlar.
+              </em>
+            </h1>
+            <p>
+              Rezervasyonların güncel durumunu, giriş/çıkış ve iptal bildirimlerini izleyin.
+            </p>
+          </div>
+          <a class="operations-link" href="http://localhost:4205/crm/pms">
+            PMS / Resepsiyon paneli ↗
+          </a>
+          <button id="refresh" type="button">
+            Şimdi yenile
+            <span aria-hidden="true">
+              ↻
+            </span>
+          </button>
+        </div>
+        <p class="error" id="error" role="alert" hidden>
+        </p>
+        <section class="stats" aria-label="Bildirim özeti">
+          <article>
+            <span>
+              Alınan tekil bildirim
+            </span>
+            <strong id="accepted">
+              —
+            </strong>
+            <small>
+              Oluşturma ve durum güncellemeleri
+            </small>
+          </article>
+          <article>
+            <span>
+              Başarısız deneme
+            </span>
+            <strong id="failed">
+              —
+            </strong>
+            <small>
+              Son 1.000 istek içindeki hatalar
+            </small>
+          </article>
+          <article>
+            <span>
+              Tekrarlanan bildirim
+            </span>
+            <strong id="duplicates">
+              —
+            </strong>
+            <small>
+              Yeni rezervasyon oluşturmadan karşılandı
+            </small>
+          </article>
+        </section>
+        <section class="panel" id="reservations">
+          <div class="panel-title">
+            <div>
+              <span class="eyebrow">
+                01 / REZERVASYONLAR
+              </span>
+              <h2>
+                Misafiriniz yola çıkmadan.
+              </h2>
+            </div>
+            <span id="count" class="count">
+              0 kayıt
+            </span>
+          </div>
+          <form id="filters">
+            <label>
+              Otel
+              <select id="hotel">
+                <option value="">
+                  Tüm oteller
+                </option>
+                <option value="10000000-0000-0000-0000-000000000001">
+                  Lagos Beach Hotel
+                </option>
+                <option value="10000000-0000-0000-0000-000000000002">
+                  Peri Stone Cave Hotel
+                </option>
+              </select>
+            </label>
+            <label>
+              Rezervasyon durumu
+              <select id="reservation-status">
+                <option value="">
+                  Tüm durumlar
+                </option>
+                <option value="CONFIRMED">
+                  Onaylandı
+                </option>
+                <option value="CHECKED_IN">
+                  Giriş yapıldı
+                </option>
+                <option value="CHECKED_OUT">
+                  Çıkış yapıldı
+                </option>
+                <option value="CANCELLED">
+                  İptal
+                </option>
+                <option value="NO_SHOW">
+                  Gelmedi
+                </option>
+                <option value="PENDING">
+                  Bekliyor
+                </option>
+              </select>
+            </label>
+            <label class="search">
+              Rezervasyon ara
+              <input id="query" placeholder="Rezervasyon kodu veya kimliği" maxlength="100">
+            </label>
+            <button type="submit">
+              Filtrele
+            </button>
+          </form>
+          <p class="help" id="legacy-note" hidden>
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Rezervasyon
+                  </th>
+                  <th>
+                    Otel
+                  </th>
+                  <th>
+                    Giriş
+                  </th>
+                  <th>
+                    Çıkış
+                  </th>
+                  <th>
+                    Son senkronizasyon
+                  </th>
+                  <th>
+                    Durum
+                  </th>
+                  <th>
+                    <span class="sr-only">
+                      Detay
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="reservations-body">
+              </tbody>
+            </table>
+          </div>
+          <p class="empty" id="empty" hidden>
+            Henüz bu filtreye uygun rezervasyon yok. Widget’tan yeni bir rezervasyon oluşturabilirsiniz.
+          </p>
+          <div class="pagination">
+            <span id="page-label">
+              Sayfa 1
+            </span>
+            <button type="button" class="secondary" id="previous">
+              Önceki
+            </button>
+            <button type="button" class="secondary" id="next">
+              Sonraki
+            </button>
+          </div>
+        </section>
+        <section class="panel" id="requests">
+          <div class="panel-title">
+            <div>
+              <span class="eyebrow">
+                02 / BİLDİRİM GÜNLÜĞÜ
+              </span>
+              <h2>
+                Her denemenin bir izi var.
+              </h2>
+            </div>
+          </div>
+          <p class="help">
+            Son 10 istek gösterilir. Başarılı teslimat ile tekrar deneme farklı kayıtlardır.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Rezervasyon / olay
+                  </th>
+                  <th>
+                    Alınma zamanı
+                  </th>
+                  <th>
+                    Sonuç
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="requests-body">
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="simulation panel" id="simulation">
+          <div>
+            <span class="eyebrow">
+              03 / BAĞLANTI TESTİ
+            </span>
+            <h2>
+              Kesintiyi güvenle deneyin.
+            </h2>
+            <p>
+              PMS alımını durdurduğunuzda yeni bildirimlere 503 döner. Ekran açık kalır; backend bildirimleri tekrar dener.
+            </p>
+          </div>
+          <div class="simulation-controls">
+            <label>
+              Yanıt gecikmesi
+              <select id="delay">
+                <option value="0">
+                  Gecikme yok
+                </option>
+                <option value="1000">
+                  1 saniye
+                </option>
+                <option value="5000">
+                  5 saniye (timeout testi)
+                </option>
+              </select>
+            </label>
+            <button type="button" id="pause">
+              Kesinti simüle et
+            </button>
+          </div>
+        </section>
+        <footer>
+          Bu ekran dış PMS alıcısının güncel rezervasyon ve senkronizasyon kaydını gösterir. Oda atama, giriş/çıkış ve temizlik işlemleri personel oturumuyla PMS / Resepsiyon panelinde yapılır. İletişim bilgileri bu alıcıya gönderilmez.
+        </footer>
+      </main>
+    </div>
+    <dialog id="detail">
+      <div class="dialog-header">
+        <span class="eyebrow">
+          REZERVASYON KAYDI
+        </span>
+        <button type="button" class="secondary" id="close-detail" aria-label="Detayı kapat">
+          Kapat
+        </button>
+      </div>
+      <h2 id="detail-title">
+      </h2>
+      <dl id="detail-fields">
+      </dl>
+      <h3>
+        Durum geçmişi
+      </h3>
+      <div id="detail-history" class="status-history">
+      </div>
+      <p class="help">
+        Gecikmiş veya tekrar gelen bildirim güncel rezervasyon durumunu geriye çeviremez.
+      </p>
+    </dialog>
+  </body>
+</html>

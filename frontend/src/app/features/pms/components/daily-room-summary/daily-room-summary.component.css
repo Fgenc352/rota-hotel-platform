@@ -1,0 +1,75 @@
+.room-summary-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.room-summary-head p {
+  font-size: 12px;
+  color: #738297;
+  line-height: 1.8;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: #62758a;
+  font-size: 12px;
+}
+
+.room-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+article {
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #dce6e2;
+  background: #f7faf8;
+}
+
+article.occupied {
+  border-color: #bdc9d8;
+  background: #f0f3f8;
+}
+
+article div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+strong {
+  font-size: 25px;
+  color: #35455d;
+}
+
+span, p, small {
+  font-size: 12px;
+  color: #728296;
+}
+
+button.quiet {
+  display: block;
+  font-size: 11px;
+  margin-top: 15px;
+}
+
+.room-summary-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.room-summary-pagination span {
+  margin-right: auto;
+}

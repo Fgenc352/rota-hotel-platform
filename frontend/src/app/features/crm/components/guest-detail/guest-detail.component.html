@@ -1,0 +1,396 @@
+@if (actions.error()) {
+<div class="alert" role="alert">
+  {{ actions.error() }}
+</div>
+}
+@if (busy()) {
+<div class="loading-bar" role="status" aria-label="Profil yükleniyor">
+</div>
+}
+@if (detail(); as d) {
+<div class="profile-breadcrumb">
+  <button type="button" class="quiet" (click)="closed.emit()">
+    <ui-icon name="back" />
+    Misafir listesi
+  </button>
+  <span>
+    Misafir kartı
+  </span>
+</div>
+<header class="profile-hero">
+  <div class="profile-avatar">
+    {{ d.guest.first_name.slice(0,1).toLocaleUpperCase('tr-TR') }}{{ d.guest.last_name.slice(0,1).toLocaleUpperCase('tr-TR') }}
+  </div>
+  <div class="profile-identity">
+    <span>
+      MİSAFİR PROFİLİ
+    </span>
+    <h1>
+      {{ d.guest.first_name }} {{ d.guest.last_name }}
+    </h1>
+    <div class="profile-contact-links">
+      <a [href]="'mailto:' + d.guest.email">
+        <ui-icon name="mail" />
+        {{ d.guest.email }}
+      </a>
+      <a [href]="'tel:' + d.guest.phone">
+        <ui-icon name="phone" />
+        {{ d.guest.phone }}
+      </a>
+    </div>
+  </div>
+  <div class="profile-state">
+    <span class="pill">Misafir kaydı</span>
+    <small>
+      Her detay, kişisel bir karşılama için.
+    </small>
+  </div>
+</header>
+<section class="stats-grid profile-stats" aria-label="Misafirin konaklama özeti">
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="bed" />
+    </div>
+    <span>
+      Tamamlanan konaklama
+    </span>
+    <strong>
+      {{ d.guest.stays }}
+    </strong>
+    <small>
+      Çıkışı tamamlanmış rezervasyonlar.
+    </small>
+  </article>
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="chart" />
+    </div>
+    <span>
+      Tamamlanan konaklama tutarı
+    </span>
+    <strong>
+      {{ money(d.guest.spend) }}
+    </strong>
+    <small>
+      Rezervasyon bedelidir; tahsilat bilgisi değildir.
+    </small>
+  </article>
+  <article class="stat">
+    <div class="stat-icon">
+      <ui-icon name="calendar" />
+    </div>
+    <span>
+      Rezervasyon geçmişi
+    </span>
+    <strong>
+      {{ d.reservations.length }}
+    </strong>
+    <small>
+      İptal ve gelinmeyen rezervasyonlar dahildir.
+    </small>
+  </article>
+</section>
+<div class="profile-content">
+  <div class="profile-main">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>
+            Misafiri tanıyın
+          </h2>
+          <p>
+            Kimlik, iletişim ve iletişim tercihi.
+          </p>
+        </div>
+        <span class="section-icon">
+          <ui-icon name="users" />
+        </span>
+      </div>
+      <dl class="identity-grid">
+        <div>
+          <dt>
+            Ad
+          </dt>
+          <dd>
+            {{ d.guest.first_name }}
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Soyad
+          </dt>
+          <dd>
+            {{ d.guest.last_name }}
+          </dd>
+        </div>
+        <div>
+          <dt>
+            E-posta
+          </dt>
+          <dd>
+            @for (email of (d.emails ?? [d.guest.email]); track email) {
+            <a class="contact-alias" [href]="'mailto:' + email">{{ email }}</a>
+            }
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Telefon
+          </dt>
+          <dd>
+            @for (phone of (d.phones ?? [d.guest.phone]); track phone) {
+            <a class="contact-alias" [href]="'tel:' + phone">{{ phone }}</a>
+            }
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Pazarlama iletişimi
+          </dt>
+          <dd>
+            <span class="pill" [class.neutral]="!d.guest.marketing_allowed">
+              {{ d.guest.marketing_allowed ? 'İletişim izni var' : 'İletişim izni yok' }}
+            </span>
+          </dd>
+        </div>
+        <div>
+          <dt>
+            İletişim tercihinin kayıt zamanı
+          </dt>
+          <dd>
+            {{ d.guest.consent_at | hotelTimestamp }}
+          </dd>
+        </div>
+      </dl>
+      <details class="profile-reference">
+        <summary>
+          Profil kayıt bilgisi
+        </summary>
+        <span>
+          Profil kimliği
+        </span>
+        <code>
+          {{ d.guest.id }}
+        </code>
+      </details>
+    </section>
+    <section class="panel" id="profile-reservations">
+      <div class="section-heading">
+        <div>
+          <h2>
+            Konaklama hikâyesi
+          </h2>
+          <p>
+            Rezervasyonlar, tarihler ve güncel durumları.
+          </p>
+        </div>
+        <span class="count">
+          {{ d.reservations.length }}
+        </span>
+      </div>
+      <div class="table-scroll">
+        <table aria-label="Misafirin rezervasyon geçmişi">
+          <thead>
+            <tr>
+              <th>
+                Rezervasyon
+              </th>
+              <th>
+                Konaklama tarihleri
+              </th>
+              <th>
+                Durum
+              </th>
+              <th>
+                Tutar
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (b of d.reservations; track b.reservation_id) {
+            <tr>
+              <td>
+                <a
+                  class="code-label reservation-detail-link"
+                  routerLink="/crm/reservations"
+                  [queryParams]="{ reservationId: b.reservation_id }"
+                  [attr.aria-label]="b.code + ' rezervasyon detayını aç'"
+                >
+                  {{ b.code }}
+                  <ui-icon name="chevron" />
+                </a>
+                <small>
+                  {{ nights(b.check_in, b.check_out) }} gece
+                </small>
+              </td>
+              <td class="date-cell">
+                <ui-stay-dates [checkIn]="b.check_in" [checkOut]="b.check_out" [compact]="true" />
+              </td>
+              <td>
+                <span class="pill" [attr.data-status]="b.status">
+                  {{ label(b.status) }}
+                </span>
+                @if (b.checked_out_at) {
+                <small class="actual-checkout">
+                  Gerçek çıkış
+                  <br>
+                  {{ b.checked_out_at | hotelTimestamp }}
+                </small>
+                }
+              </td>
+              <td class="reservation-amount">
+                {{ money(b.total) }}
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="4" class="empty">
+                Henüz rezervasyon bulunmuyor.
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="profile-booking-total">
+        <span>
+          İptal ve gelinmeyenler hariç rezervasyon bedeli
+          <small>
+            {{ d.guest.active_reservations }} geçerli kayıt · tamamlanan konaklamalar dahil
+          </small>
+        </span>
+        <strong>
+          {{ money(d.guest.booked_value) }}
+        </strong>
+      </div>
+    </section>
+  </div>
+  <aside class="profile-aside">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>
+            Kişisel detaylar
+          </h2>
+          <p>
+            Ekibinizin hatırlamasını istedikleriniz.
+          </p>
+        </div>
+        <span class="section-icon">
+          <ui-icon name="tag" />
+        </span>
+      </div>
+      <div class="tags">
+        @for (t of d.tags; track t) {
+        <button
+          class="profile-tag"
+          type="button"
+          (click)="removeTag(t)"
+          [disabled]="busy()"
+          [attr.aria-label]="t + ' etiketini kaldır'"
+        >
+          {{ t }}
+          <ui-icon name="close" />
+        </button>
+        } @empty {
+        <span class="subtle-help">
+          Henüz etiket eklenmedi.
+        </span>
+        }
+      </div>
+      <form (ngSubmit)="addTag()" class="inline-form">
+        <input
+          [(ngModel)]="tag"
+          name="tag"
+          maxlength="40"
+          placeholder="VIP, balayı, oda tercihi…"
+          aria-label="Yeni etiket"
+          required
+        />
+        <button type="submit" [disabled]="busy() || !tag.trim()">
+          Ekle
+        </button>
+      </form>
+    </section>
+    <section class="panel" id="profile-notes">
+      <div class="section-heading">
+        <div>
+          <h2>
+            Misafir notları
+          </h2>
+          <p>
+            Bir sonraki karşılamayı kişiselleştirin.
+          </p>
+        </div>
+        <span class="section-icon">
+          <ui-icon name="note" />
+        </span>
+      </div>
+      <form (ngSubmit)="addNote()">
+        <label>
+          Yeni not
+          <textarea
+            [(ngModel)]="note"
+            name="note"
+            maxlength="2000"
+            rows="4"
+            placeholder="Misafirle ilgili önemli bir ayrıntı…"
+            required
+          >
+          </textarea>
+        </label>
+        <button type="submit" [disabled]="busy() || !note.trim()">
+          <ui-icon name="plus" />
+          Not ekle
+        </button>
+      </form>
+      <p class="note-deletion-rule">Notu yazan personel, eklenmesinden sonraki ilk 24 saat içinde silebilir.</p>
+      <div class="notes-timeline">
+        @for (n of d.notes; track n.id) {
+        <article class="note">
+          <div class="note-author">
+            <span>
+              {{ n.author.slice(0,1).toLocaleUpperCase('tr-TR') }}
+            </span>
+            <strong>
+              {{ n.author }}
+            </strong>
+          </div>
+          <p>
+            {{ n.body }}
+          </p>
+          <div class="note-footer">
+            <time [attr.datetime]="n.created_at">
+              {{ n.created_at | hotelTimestamp }}
+            </time>
+            <button type="button" class="note-delete"
+              [disabled]="busy() || noteDeletionState(n) !== 'available'"
+              [title]="noteDeletionHint(n)"
+              (click)="pendingNoteDeletion.set(n.id)">
+              <ui-icon name="trash" /> Notu sil
+            </button>
+          </div>
+          @if (noteDeletionState(n) === 'expired') {
+          <small class="note-expired">24 saatlik silme süresi doldu.</small>
+          }
+          @if (pendingNoteDeletion() === n.id) {
+          <div class="note-delete-confirmation" role="group" aria-label="Not silme onayı">
+            <p>Bu not silinsin mi?</p>
+            <div>
+              <button type="button" class="note-delete" [disabled]="busy() || noteDeletionState(n) !== 'available'"
+                (click)="deleteNote(n)">Evet, notu sil</button>
+              <button type="button" class="quiet" [disabled]="busy()" (click)="pendingNoteDeletion.set(null)">Vazgeç</button>
+            </div>
+          </div>
+          }
+        </article>
+        } @empty {
+        <p class="no-notes">
+          Bu profilin ilk notunu siz ekleyin.
+        </p>
+        }
+      </div>
+    </section>
+  </aside>
+</div>
+}

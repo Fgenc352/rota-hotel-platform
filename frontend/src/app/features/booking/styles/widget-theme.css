@@ -1,0 +1,90 @@
+/* An embedded document must not paint an opaque canvas around its white cards. */
+html:has(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page),
+html:has(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) body {
+  background: transparent;
+  color-scheme: light;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) {
+  --widget-surface: #fff;
+  --widget-ink: #242424;
+  --widget-muted: #656565;
+  --widget-accent: #242424;
+  --widget-hover: #3d3d3d;
+  --widget-line: #e5e5e5;
+  --widget-wash: #f6f6f6;
+  --widget-focus: #707070;
+  --showcase-ink: var(--widget-ink);
+  --showcase-accent: var(--widget-accent);
+  --showcase-line: var(--widget-line);
+  --room-surface: var(--widget-surface);
+  --room-photo-surface: #e9e9e9;
+  --room-photo-overlay: #0008;
+  --green: var(--widget-accent);
+  --muted: var(--widget-muted);
+  --line: var(--widget-line);
+  --gold: #858585;
+  font-family: Inter, 'Segoe UI', Arial, sans-serif;
+  color: var(--widget-ink);
+  color-scheme: light;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) input,
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) select,
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) textarea {
+  color: var(--widget-ink);
+  border-color: var(--widget-line);
+  background: var(--widget-surface);
+  accent-color: var(--widget-accent);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) :is(input, select, textarea):focus,
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) :is(button, a):focus-visible {
+  outline: 2px solid var(--widget-focus);
+  outline-offset: 3px;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget, .room-gallery-page) button:hover {
+  background: var(--widget-hover);
+  color: #fff;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) :is(.quiet, .secondary):hover {
+  color: var(--widget-ink);
+  background: var(--widget-wash);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .eyebrow {
+  color: var(--widget-muted);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .room-photo {
+  background: #e9e9e9;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .room-photo::after {
+  background: linear-gradient(transparent, #0008);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) :is(.room-specs, .room-description, .room-price small, .room-price > span, .nightly-rates) {
+  color: var(--widget-muted);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .room-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 28px #00000005;
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .no-rooms {
+  background: var(--widget-wash);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .details-link:hover {
+  background: transparent;
+  color: var(--widget-ink);
+}
+
+:is(.widget-shell, .premium-booking, .signature-widget, .atelier-widget, .collection-widget) .empty h3 {
+  color: var(--widget-ink);
+}

@@ -1,0 +1,45 @@
+:host {
+  display: block;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  padding-left: 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--muted);
+}
+
+select {
+  border: 0;
+  min-height: 40px;
+  padding: 9px 25px 9px 0;
+  background: transparent;
+  font-size: 12px;
+  max-width: 200px;
+  color: var(--ink, #1e3444);
+}
+
+button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink, #1e3444);
+  font-size: 11px;
+  min-height: 42px;
+  padding: 10px 13px;
+  border-radius: 9px;
+}
+
+button:hover {
+  background: #eff5f5;
+}

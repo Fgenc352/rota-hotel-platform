@@ -1,0 +1,299 @@
+<div class="page-title">
+  <div>
+    <span class="eyebrow">
+      PROPERTY MANAGEMENT / RESEPSİYON
+    </span>
+    <h1>
+      Her oda hazır.
+      <br>
+      <em>
+        Her karşılama özenli.
+      </em>
+    </h1>
+    <p>
+      {{ pms.auth.identity()?.hotelName }} · Oda atama, konaklama ve temizlik operasyonları.
+    </p>
+  </div>
+  <button type="button" class="secondary" (click)="pms.refresh()" [disabled]="pms.actions.busy()">
+    <ui-icon name="refresh" />
+    Yenile
+  </button>
+</div>
+@if(pms.actions.error()) {
+<p class="alert" role="alert">
+  {{ pms.actions.error() }}
+</p>
+}
+@if(pms.actions.notice()) {
+<p class="notice" role="status">
+  {{ pms.actions.notice() }}
+</p>
+}
+@if(pms.actions.busy()) {
+<div class="loading-bar" role="status" aria-label="İşlem sürüyor">
+</div>
+}
+<section class="pms-overview">
+  <article>
+    <span>
+      Fiziksel oda
+    </span>
+    <strong>
+      {{ pms.board().rooms.length }}
+    </strong>
+    <small>
+      Mevcut oda tiplerine bağlı
+    </small>
+  </article>
+  <article>
+    <span>
+      Konaklama devam ediyor
+    </span>
+    <strong>
+      {{ pms.occupied() }}
+    </strong>
+    <small>
+      Oda atanmış, giriş yapmış
+    </small>
+  </article>
+  <article>
+    <span>
+      Hazır ve boş
+    </span>
+    <strong>
+      {{ pms.ready() }}
+    </strong>
+    <small>
+      Yeni karşılama için hazır
+    </small>
+  </article>
+  <article>
+    <span>
+      Temizlik gerekli
+    </span>
+    <strong>
+      {{ pms.dirty() }}
+    </strong>
+    <small>
+      Çıkış sonrası otomatik güncellenir
+    </small>
+  </article>
+</section>
+<nav class="pms-tabs" aria-label="PMS çalışma alanı">
+  <button
+    type="button"
+    [class.active]="view() === 'daily'"
+    [attr.aria-pressed]="view() === 'daily'"
+    (click)="view.set('daily')"
+  >
+    Günlük operasyon
+  </button>
+  <button
+    type="button"
+    [class.active]="view() === 'stays'"
+    [attr.aria-pressed]="view() === 'stays'"
+    (click)="view.set('stays')"
+  >
+    Konaklamalar
+  </button>
+  <button
+    type="button"
+    [class.active]="view() === 'rooms'"
+    [attr.aria-pressed]="view() === 'rooms'"
+    (click)="view.set('rooms')"
+  >
+    Odalar ve temizlik
+  </button>
+  <button
+    type="button"
+    [class.active]="view() === 'services'"
+    [attr.aria-pressed]="view() === 'services'"
+    (click)="view.set('services')"
+  >
+    Yemek, vale ve transfer
+  </button>
+  <button
+    type="button"
+    [class.active]="view() === 'history'"
+    [attr.aria-pressed]="view() === 'history'"
+    (click)="view.set('history')"
+  >
+    İşlem geçmişi
+  </button>
+</nav>
+@if(view() === 'daily') {
+<pms-daily-operations [rooms]="pms.board().rooms" (opened)="pms.openId($event)" (refreshed)="pms.refresh()" />
+}
+@if(view() === 'rooms') {
+<section class="panel">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">
+        01 / ODA OPERASYONLARI
+      </span>
+      <h2>
+        Otelinize bir bakış.
+      </h2>
+      <p>
+        Oda durumunu görün, temizliği takip edin. Boş görünmesi, odanın her tarihte müsait olduğu anlamına gelmez.
+      </p>
+    </div>
+  </div>
+  <pms-room-board
+    [rooms]="pms.board().rooms"
+    [busy]="pms.actions.busy()"
+    (saved)="pms.housekeeping($event.room,$event.state)"
+    (opened)="pms.openId($event)"
+  />
+</section>
+}
+@if(view() === 'services') {
+<section class="panel">
+  <span class="eyebrow">
+    MİSAFİR DENEYİMİ / HİZMETLER
+  </span>
+  <h2>
+    Konaklamanın ötesinde.
+  </h2>
+  <p>
+    Kahvaltı, öğle ve akşam yemeği, vale ve transfer: otelinizin sunduğu hizmetler.
+  </p>
+  <pms-service-catalog [services]="pms.serviceCatalog()" [hotelKey]="pms.auth.identity()?.hotelKey || ''" />
+</section>
+}
+@if(view() === 'stays' || view() === 'services') {
+<section class="panel">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">
+        02 / KONAKLAMALAR
+      </span>
+      <h2>
+        {{ view() === 'services' ? 'Hizmet takibi için rezervasyon seçin.' : 'Misafirinizi karşılayın.' }}
+      </h2>
+      <p>
+        {{ view() === 'services' ? 'Misafiri veya rezervasyon kodunu arayın, Hizmet planı düğmesiyle seçilen hizmetleri açın. Önceki demo kayıtları hizmet içermeyebilir.' : 'Önce uygun oda tipinden fiziksel oda atayın. Detay/işlemler bölümünden giriş, çıkış ve iptal işlemlerini yapın.' }}
+      </p>
+    </div>
+  </div>
+  <crm-reservation-filters
+    [rooms]="pms.roomTypes()"
+    [busy]="pms.actions.busy()"
+    (changed)="pms.filter($event)"
+  />
+  <ui-sort-controls
+    [options]="sortOptions"
+    [value]="pms.sort()"
+    [busy]="pms.actions.busy()"
+    (changed)="pms.order($event)"
+  />
+  <pms-stay-list
+    [bookings]="pms.bookings().items"
+    [rooms]="pms.board().rooms"
+    [assignments]="pms.board().assignments"
+    [busy]="pms.actions.busy()"
+    (assigned)="pms.assign($event.reservation,$event.room)"
+    (opened)="pms.open($event)"
+    (servicesOpened)="services($event)"
+  />
+  <div class="pagination">
+    <span>
+      {{ pms.bookings().total }} rezervasyon · Sayfa {{ pms.page()+1 }}
+    </span>
+    <div>
+      <button
+        type="button"
+        class="secondary"
+        [disabled]="pms.actions.busy() || pms.page() === 0"
+        (click)="pms.go(pms.page()-1)"
+      >
+        Önceki
+      </button>
+      <button
+        type="button"
+        class="secondary"
+        [disabled]="pms.actions.busy() || (pms.page()+1)*20 >= pms.bookings().total"
+        (click)="pms.go(pms.page()+1)"
+      >
+        Sonraki
+      </button>
+    </div>
+  </div>
+</section>
+}
+@if(pms.servicePlan();as plan) {
+<section class="panel service-desk-panel">
+  <button type="button" class="secondary" (click)="view.set('daily'); pms.servicePlan.set(null)">
+    Günlük hizmetlere geç
+  </button>
+  <pms-service-desk
+    [plan]="plan"
+    [hotelKey]="pms.auth.identity()?.hotelKey || ''"
+    (closed)="pms.servicePlan.set(null)"
+  />
+</section>
+}
+@if(view() === 'history') {
+<section class="panel">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">
+        03 / İŞLEM GEÇMİŞİ
+      </span>
+      <h2>
+        Her değişikliğin bir izi var.
+      </h2>
+      <p>
+        Tüm oda işlemleri, önceki ve sonraki durum, işlem yapan personel ve zaman bilgisiyle sayfalar halinde gösterilir.
+      </p>
+    </div>
+  </div>
+  <pms-audit-timeline [history]="pms.history().items" />
+  <div class="pagination" aria-label="İşlem geçmişi sayfaları">
+    <span>
+      {{ pms.history().total }} işlem · Sayfa {{ pms.history().page + 1 }} / {{ historyPages() }}
+    </span>
+    <div>
+      <button
+        type="button"
+        class="secondary"
+        [disabled]="pms.actions.busy() || pms.history().page === 0"
+        (click)="pms.historyGo(pms.history().page - 1)"
+      >
+        Önceki sayfa
+      </button>
+      <button
+        type="button"
+        class="secondary"
+        [disabled]="pms.actions.busy() || (pms.history().page + 1) * pms.history().size >= pms.history().total"
+        (click)="pms.historyGo(pms.history().page + 1)"
+      >
+        Sonraki sayfa
+      </button>
+    </div>
+  </div>
+</section>
+}
+<div class="pms-integration-note">
+  <ui-icon name="shield" />
+  <div>
+    <strong>
+      CRM ve PMS aynı rezervasyon kaydını kullanır.
+    </strong>
+    <p>
+      Durum değişiklikleri ayrıca doğrudan veya Kafka üzerinden dış PMS alıcısına iletilir.
+      <a [href]="pmsDashboardUrl" target="_blank" rel="noopener noreferrer">
+        Dış PMS senkronizasyon ekranı ↗
+      </a>
+    </p>
+  </div>
+</div>
+@if(pms.selected();as booking) {
+<crm-reservation-detail
+  [booking]="booking"
+  [busy]="pms.actions.busy()"
+  [error]="pms.actions.error()"
+  (closed)="pms.selected.set(null)"
+  (changed)="pms.changeStatus($event)"
+/>
+}

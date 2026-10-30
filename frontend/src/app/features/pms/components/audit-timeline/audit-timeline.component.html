@@ -1,0 +1,37 @@
+<div class="audit-list">
+  @for(entry of history(); track entry.id) {
+  <article>
+    <span class="audit-dot" aria-hidden="true">
+    </span>
+    <div class="audit-head">
+      <strong>
+        {{ title(entry.action) }} · Oda {{ entry.roomNumber }}
+      </strong>
+      <time>
+        {{ entry.createdAt | hotelTimestamp }}
+      </time>
+    </div>
+    <div class="audit-change">
+      <span>
+        <small>
+          Önce
+        </small>
+        {{ state(entry.beforeState) }}
+      </span>
+      <span>
+        <small>
+          Sonra
+        </small>
+        {{ state(entry.afterState) }}
+      </span>
+    </div>
+    <small class="audit-actor">
+      İşlemi yapan: {{ entry.actor }}
+    </small>
+  </article>
+  } @empty {
+  <p class="empty">
+    Oda atama ve temizlik işlemleri burada geçmişiyle görünecek.
+  </p>
+  }
+</div>

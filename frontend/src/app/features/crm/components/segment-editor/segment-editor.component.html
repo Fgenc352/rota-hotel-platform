@@ -1,0 +1,66 @@
+<section class="panel">
+  <div class="section-heading">
+    <h2>
+      Misafir segmentleri
+    </h2>
+    <div>
+      <button class="quiet" type="button" (click)="segmentEditor.set(!segmentEditor())">
+        + Segment oluştur
+      </button>
+      @if (!['ALL','RETURNING','REENGAGE'].includes(selected())){
+      <button
+        class="quiet"
+        type="button"
+        (click)="deleteSegment()"
+        [disabled]="busy()"
+      >
+        Seçili segmenti sil
+      </button>
+      }
+    </div>
+  </div>
+  @if (segmentEditor()){
+  <form (ngSubmit)="createSegment()">
+    <div class="form-grid">
+      <label>
+        Segment adı
+        <input
+          [(ngModel)]="segmentName"
+          name="segmentName"
+          maxlength="100"
+          required
+        >
+      </label>
+      <label>
+        En az tamamlanan konaklama
+        <input
+          [(ngModel)]="minStays"
+          name="minStays"
+          type="number"
+          min="0"
+          max="100"
+          required
+        >
+      </label>
+      <label>
+        Son kaç ay
+        <input
+          [(ngModel)]="months"
+          name="months"
+          type="number"
+          min="1"
+          max="120"
+          required
+        >
+      </label>
+    </div>
+    <label class="checkbox">
+      <input [(ngModel)]="marketingRequired" name="marketingRequired" type="checkbox">
+      Pazarlama izni zorunlu olsun
+    </label>
+    <button type="submit" [disabled]="busy()||!segmentName.trim()">
+      Segmenti kaydet
+    </button>
+  </form>
+  }
+</section>

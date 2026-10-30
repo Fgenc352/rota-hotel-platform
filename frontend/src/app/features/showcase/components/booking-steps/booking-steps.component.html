@@ -1,0 +1,26 @@
+<nav [attr.aria-label]="booking.t('Rezervasyon adımları', 'Booking steps')">
+  <ol>
+    @for (item of steps; track item.id) {
+    <li [class.current]="journey.step() === item.id" [class.done]="journey.step() > item.id">
+      <button
+        type="button"
+        (click)="journey.goTo(item.id)"
+        [disabled]="!journey.canVisit(item.id)"
+        [attr.aria-current]="journey.step() === item.id ? 'step' : null"
+      >
+        <span class="step-number">
+          {{ journey.step() > item.id ? '✓' : '0' + item.id }}
+        </span>
+        <span>
+          {{ booking.t(item.tr, item.en) }}
+        </span>
+        @if (journey.step() > item.id && !booking.receipt()) {
+        <small>
+          {{ booking.t('Düzenle', 'Edit') }}
+        </small>
+        }
+      </button>
+    </li>
+    }
+  </ol>
+</nav>

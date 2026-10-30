@@ -1,0 +1,119 @@
+:host {
+  display:block;
+}
+
+.atelier-footer {
+  padding: 85px 6% 30px;
+  background: #163b49;
+  color: #f4f3e9;
+}
+
+.cave-footer {
+  background: #1d141b;
+  color: #f8ead5;
+}
+
+.footer-invitation {
+  position:relative;
+  border-bottom:1px solid #ffffff26;
+  padding-bottom:60px;
+}
+
+.footer-eyebrow {
+  font-size:9px;
+  letter-spacing:2px;
+  opacity:.75;
+}
+
+.footer-invitation p {
+  font:clamp(37px,5.8vw,85px)/1.15 Georgia,serif;
+  letter-spacing:-2px;
+  margin-top:24px;
+  padding-right:120px;
+}
+
+em {
+  font-weight:400;
+  opacity:.7;
+}
+
+.footer-round {
+  position:absolute;
+  bottom:60px;
+  right:0;
+  display:grid;
+  place-items:center;
+  width:80px;
+  height:80px;
+  border:1px solid #ffffff60;
+  border-radius:50%;
+}
+
+.footer-round ui-icon {
+  width:28px;
+  height:28px;
+}
+
+.footer-round:hover {
+  background:#fff;
+  color:#163b49;
+}
+
+.footer-baseline {
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:35px 0 24px;
+  font-size:10px;
+}
+
+.footer-baseline strong {
+  margin-right:auto;
+  font:36px Georgia,serif;
+  letter-spacing:-2px;
+}
+
+small {
+  display:block;
+  color:#ffffff9c;
+  font-size:10px;
+  line-height:1.7;
+}
+
+@media(max-width:600px) {
+  .atelier-footer {
+    padding-top:55px;
+  }
+  .footer-invitation p {
+    padding-right:0;
+    font-size:42px;
+  }
+  .footer-round {
+    position:static;
+    width:54px;
+    height:54px;
+    margin-top:25px;
+  }
+  .footer-baseline {
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  .footer-baseline strong {
+    width:100%;
+  }
+}
+
+:host-context(.lagos-atelier) .atelier-footer {
+  background:#0b2332;
+  color:#fff5e3;
+  border-top:1px solid #b5905538;
+}
+
+:host-context(.lagos-atelier) em {
+  color:#e1bc7f;
+  opacity:1;
+}
+
+:host-context(.lagos-atelier) .footer-round {
+  border-color:#d1ad70;
+}

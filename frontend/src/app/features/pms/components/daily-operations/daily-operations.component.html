@@ -1,0 +1,457 @@
+<section class="daily-heading panel">
+  <div>
+    <span class="eyebrow">
+      GÜNLÜK OTEL OPERASYONU
+    </span>
+    <h2>
+      Bugünün her ayrıntısı.
+    </h2>
+    <p>
+      Otelde kalanlar, geliş/gidişler ve pakete göre günlük hizmet planı.
+    </p>
+  </div>
+  <div class="daily-date">
+    <label>
+      Operasyon tarihi
+      <input
+        type="date"
+        [value]="store.date()"
+        [disabled]="store.actions.busy()"
+        (change)="day($any($event.target).value)"
+      />
+    </label>
+    <button type="button" class="secondary" (click)="today()" [disabled]="store.actions.busy()">
+      Bugün
+    </button>
+    <button type="button" class="secondary" [disabled]="store.actions.busy()" (click)="refresh()">
+      Yenile
+    </button>
+  </div>
+</section>
+@if(store.actions.error()) {
+<p class="alert" role="alert">
+  {{ store.actions.error() }}
+</p>
+}
+@if(store.actions.notice()) {
+<p class="notice" role="status">
+  {{ store.actions.notice() }}
+</p>
+}
+@if(store.data(); as data) {
+<div class="daily-metrics">
+  <article>
+    <span>
+      Şu an otelde
+    </span>
+    <strong>
+      {{ peopleInHouse() }}
+    </strong>
+    <small>
+      {{ inHouse() }} giriş yapmış rezervasyon
+    </small>
+  </article>
+  <article>
+    <span>
+      Şu an dolu / boş
+    </span>
+    <strong>
+      {{ data.occupiedNow }} / {{ data.emptyNow }}
+    </strong>
+    <small>
+      Fiziksel oda · anlık durum
+    </small>
+  </article>
+  <article>
+    <span>
+      Seçilen gün geliş / gidiş
+    </span>
+    <strong>
+      {{ data.arrivals }} / {{ data.departures }}
+    </strong>
+    <small>
+      Rezervasyon tarihlerine göre
+    </small>
+  </article>
+  <article>
+    <span>
+      Seçilen gün atanmış oda
+    </span>
+    <strong>
+      {{ data.plannedOccupied }} / {{ data.totalRooms }}
+    </strong>
+    <small>
+      Planlanan gece doluluğu
+    </small>
+  </article>
+</div>
+<section class="panel">
+  <div class="daily-toolbar">
+    <label>
+      Misafir, kod veya oda ara
+      <input
+        type="search"
+        [value]="query()"
+        (input)="search($any($event.target).value)"
+        placeholder="İsim, RT-… veya oda numarası"
+      />
+    </label>
+    <label>
+      Konaklama görünümü
+      <select [value]="stayFilter()" (change)="stayFilter.set($any($event.target).value); stayPage.set(0)">
+        <option value="ALL">
+          Seçilen günün konaklamaları
+        </option>
+        <option value="IN_HOUSE">
+          Şu an otelde kalanlar
+        </option>
+        <option value="ARRIVAL">
+          Seçilen gün giriş
+        </option>
+        <option value="DEPARTURE">
+          Seçilen gün çıkış
+        </option>
+        <option value="UNASSIGNED">
+          Oda atanmamış
+        </option>
+      </select>
+    </label>
+  </div>
+  <h3>
+    Misafir ve oda listesi
+  </h3>
+  <p class="daily-help">
+    “Şu an” bilgileri gerçek check-in durumudur. Seçilen günün geliş, gidiş ve gece doluluğu planlanan tarihlere göre gösterilir. Gecikmiş çıkışlar otelde kalanlar listesinde görünmeye devam eder.
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Misafir
+          </th>
+          <th>
+            Oda
+          </th>
+          <th>
+            Konaklama
+          </th>
+          <th>
+            Durum
+          </th>
+          <th>
+            İşlem
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(stay of visibleStays(); track stay.reservationId) {
+        <tr>
+          <td>
+            <strong>
+              {{ stay.guestName }}
+            </strong>
+            <small>
+              {{ stay.code }} · {{ stay.people }} kişi
+            </small>
+            <small>
+              {{ stay.phone }}
+            </small>
+          </td>
+          <td>
+            <strong>
+              {{ stay.roomNumber }}
+            </strong>
+            <small>
+              {{ stay.roomType }}
+            </small>
+          </td>
+          <td>
+            <ui-stay-dates [checkIn]="stay.checkIn" [checkOut]="stay.checkOut" [compact]="true" />
+          </td>
+          <td>
+            <span class="pill">
+              {{ label(stay.status) }}
+            </span>
+            @if(stay.checkedOutAt) {
+            <small>
+              Gerçek çıkış: {{ stay.checkedOutAt | hotelTimestamp }}
+            </small>
+            }
+            @if(stay.arrival) {
+            <small>
+              Seçilen gün giriş
+            </small>
+            } @if(stay.departure) {
+            <small>
+              Seçilen gün çıkış
+            </small>
+            }
+          </td>
+          <td>
+            <button type="button" class="secondary" (click)="opened.emit(stay.reservationId)">
+              Rezervasyonu aç
+            </button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="5" class="empty">
+            Bu görünümde konaklama yok.
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="daily-pagination">
+    <span>
+      {{ stays().length }} konaklama · Sayfa {{ stayPage()+1 }}
+    </span>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="stayPage() === 0"
+      (click)="stayPage.set(stayPage()-1)"
+    >
+      Önceki konaklamalar
+    </button>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="(stayPage()+1)*20 >= stays().length"
+      (click)="stayPage.set(stayPage()+1)"
+    >
+      Sonraki konaklamalar
+    </button>
+  </div>
+</section>
+<section class="panel">
+  <pms-daily-room-summary [rooms]="rooms()" (opened)="opened.emit($event)" />
+</section>
+@if(upcoming().length) {
+<section class="panel">
+  <span class="eyebrow">
+    GELİŞTEN ÖNCE HAZIRLIK / ÖNÜMÜZDEKİ 7 GÜN
+  </span>
+  <h2>
+    Yaklaşan transferler.
+  </h2>
+  <p class="daily-help">
+    Misafir gelmeden alış/varış noktası, tarih, saat ve yolcu sayısını belirleyin. Transfer tarihi girişten 7 gün önce ile çıkıştan 1 gün sonra arasında planlanabilir.
+  </p>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            Misafir
+          </th>
+          <th>
+            Transfer günü / saati
+          </th>
+          <th>
+            Güzergâh
+          </th>
+          <th>
+            Durum
+          </th>
+          <th>
+            İşlem
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for(item of visibleUpcoming(); track item.reservationId) {
+        <tr>
+          <td>
+            <strong>
+              {{ item.guestName }}
+            </strong>
+            <small>
+              {{ item.bookingCode }} · {{ item.task.passengers }} yolcu
+            </small>
+          </td>
+          <td>
+            {{ dateLabel(item.task.date) }}
+            <small>
+              {{ item.task.time?.slice(0,5) || 'Saat planlanmadı' }}
+            </small>
+          </td>
+          <td>
+            {{ item.task.pickup || 'Alış bekleniyor' }}
+            <small>
+              {{ item.task.destination || 'Varış bekleniyor' }}
+            </small>
+          </td>
+          <td>
+            {{ statusLabel(item.task.status) }}
+          </td>
+          <td>
+            <button
+              type="button"
+              class="secondary"
+              [disabled]="store.actions.busy()"
+              (click)="store.edit(item)"
+            >
+              Transferi planla
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="daily-pagination">
+    <span>
+      {{ upcoming().length }} yaklaşan transfer · Sayfa {{ transferPage()+1 }}
+    </span>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="transferPage()===0"
+      (click)="transferPage.set(transferPage()-1)"
+    >
+      Önceki transferler
+    </button>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="(transferPage()+1)*20 >= upcoming().length"
+      (click)="transferPage.set(transferPage()+1)"
+    >
+      Sonraki transferler
+    </button>
+  </div>
+</section>
+}
+<section class="panel">
+  <span class="eyebrow">
+    PAKETE GÖRE GÜNLÜK HİZMETLER
+  </span>
+  <h2>
+    Ne zaman, kime, hangi hizmet?
+  </h2>
+  <p class="daily-help">
+    Kahvaltı ertesi sabah başlayıp çıkış günü dahil; öğle/akşam yemeği giriş günü başlayıp çıkıştan önceki gün dahil planlanır. Vale kontrolü çıkış günü araç teslimini de kapsar. Transfer varsayılan olarak giriş günündedir; önceden planlamak için o günü açıp transfer tarihini ve saatini düzenleyin. Ücret değişmez.
+  </p>
+  <div class="daily-toolbar">
+    <label>
+      Hizmet türü
+      <select
+        [value]="serviceFilter()"
+        (change)="serviceFilter.set($any($event.target).value); servicePage.set(0)"
+      >
+        <option value="ALL">
+          Tüm günlük hizmetler
+        </option>
+        <option value="BREAKFAST">
+          Sabah kahvaltısı
+        </option>
+        <option value="LUNCH">
+          Öğle yemeği
+        </option>
+        <option value="DINNER">
+          Akşam yemeği
+        </option>
+        <option value="VALET">
+          Vale
+        </option>
+        <option value="TRANSFER">
+          Transfer
+        </option>
+      </select>
+    </label>
+    <label class="check-label">
+      <input
+        type="checkbox"
+        [checked]="pendingOnly()"
+        (change)="pendingOnly.set($any($event.target).checked); servicePage.set(0)"
+      />
+      Yalnız tamamlanmamış hizmetler
+    </label>
+  </div>
+  <div class="daily-service-grid">
+    @for(item of visibleServices(); track item.reservationId + item.task.code + item.task.date) {
+    <article class="daily-service-card" [attr.data-status]="item.task.status">
+      <div class="service-top">
+        <span class="eyebrow">
+          {{ item.serviceName }}
+        </span>
+        <span class="pill">
+          {{ statusLabel(item.task.status) }}
+        </span>
+      </div>
+      <h3>
+        {{ item.guestName }}
+      </h3>
+      <p>
+        {{ item.bookingCode }} · Oda {{ item.roomNumber }}
+      </p>
+      <p>
+        {{ item.task.code === 'VALET' ? '1 araç' : (item.task.code === 'TRANSFER' ? item.task.passengers : item.quantity) + ' kişi' }} · {{ label(item.reservationStatus) }}
+      </p>
+      @if(item.task.code === 'TRANSFER') {
+      <p>
+        {{ item.task.time ? item.task.time.slice(0,5) : 'Saat planlanmadı' }} · {{ item.task.passengers }} yolcu
+      </p>
+      <p>
+        {{ item.task.pickup || 'Alış noktası bekleniyor' }}
+      </p>
+      <p>
+        {{ item.task.destination || 'Varış noktası bekleniyor' }}
+      </p>
+      }
+      @if(item.task.plate) {
+      <p>
+        Plaka: {{ item.task.plate }}
+      </p>
+      }
+      @if(item.task.actor) {
+      <small>
+        {{ item.task.actor }} · {{ item.task.updatedAt | hotelTimestamp }}
+      </small>
+      }
+      <button type="button" class="secondary" [disabled]="store.actions.busy()" (click)="store.edit(item)">
+        {{ item.task.code === 'TRANSFER' ? 'Transfer planı / işlem' : 'Günlük işlem / geçmiş' }}
+      </button>
+    </article>
+    } @empty {
+    <p class="empty">
+      Bu gün ve filtre için paket kaynaklı hizmet yok. Önceki demo rezervasyonları hizmet paketi içermeyebilir.
+    </p>
+    }
+  </div>
+  <div class="daily-pagination">
+    <span>
+      {{ services().length }} hizmet · Sayfa {{ servicePage()+1 }}
+    </span>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="servicePage() === 0"
+      (click)="servicePage.set(servicePage()-1)"
+    >
+      Önceki hizmetler
+    </button>
+    <button
+      type="button"
+      class="secondary"
+      [disabled]="(servicePage()+1)*12 >= services().length"
+      (click)="servicePage.set(servicePage()+1)"
+    >
+      Sonraki hizmetler
+    </button>
+  </div>
+</section>
+}
+@if(store.selected(); as item) {
+<pms-daily-service-editor
+  [item]="item"
+  [history]="store.history()"
+  [busy]="store.actions.busy()"
+  [error]="store.actions.error()"
+  (closed)="store.selected.set(null)"
+  (saved)="store.save($event)"
+/>
+}

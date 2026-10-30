@@ -1,0 +1,42 @@
+{
+  "name": "recovery-failure",
+  "scenarioName": "pms-delivery",
+  "requiredScenarioState": "recovering",
+  "request": {
+    "method": "POST",
+    "urlPath": "/reservations",
+    "headers": {
+      "Content-Type": {
+        "contains": "application/json"
+      },
+      "Idempotency-Key": {
+        "matches": "[0-9a-fA-F-]{36}"
+      },
+      "X-Trace-Id": {
+        "matches": ".+"
+      }
+    },
+    "bodyPatterns": [
+      {
+        "matchesJsonPath": "$.eventId"
+      },
+      {
+        "matchesJsonPath": "$.reservationId"
+      },
+      {
+        "matchesJsonPath": "$.hotelId"
+      },
+      {
+        "matchesJsonPath": "$.version"
+      }
+    ]
+  },
+  "response": {
+    "status": 503,
+    "bodyFileName": "unavailable.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  },
+  "newScenarioState": "recovered"
+}

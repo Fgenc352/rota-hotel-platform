@@ -1,0 +1,378 @@
+.peri-signature {
+  --sig-ink: #f5eee2;
+  --sig-muted: #c3bdac;
+  --sig-accent: #d1b58c;
+  --sig-line: #4e5b58;
+  --sig-surface: #2e3937;
+  --sig-soft: #35413b;
+  --sig-dock: #2a3633;
+  --sig-header: #242e2eea;
+  --sig-button-ink: #24281d;
+  --showcase-accent: #826342;
+  background: #242e2e;
+  color: var(--sig-ink);
+}
+
+.signature-brand {
+  font-style: italic;
+  letter-spacing: -1px;
+}
+
+.signature-hero .hero-image {
+  object-position: 58% center;
+}
+
+.signature-hero .hero-shade {
+  background: linear-gradient(90deg, #171b168c, transparent 80%), linear-gradient(180deg, #171b167a, transparent 45%, #171b1690);
+}
+
+.hero-story {
+  position: absolute;
+  left: 7%;
+  top: 20%;
+}
+
+.hero-story > span {
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font: 400 clamp(46px, 5.5vw, 87px)/1.07 Georgia, serif;
+  letter-spacing: -2.6px;
+  margin: 28px 0;
+}
+
+h1 em {
+  color: #e5cfae;
+  font-weight: 400;
+}
+
+.hero-story > p {
+  font-size: 12px;
+  color: #ede6d9;
+  line-height: 1.9;
+}
+
+.hero-story > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 35px;
+  border-bottom: 1px solid #e8d5b977;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  padding: 20px 0 12px;
+  margin-top: 20px;
+}
+
+.hero-story > a span {
+  font-size: 22px;
+}
+
+.peri-hero-word {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 85px;
+  font: 400 clamp(90px, 15.4vw, 250px)/.9 Georgia, serif;
+  letter-spacing: -.06em;
+  color: #f6eddd;
+  white-space: nowrap;
+}
+
+.peri-hero-word em {
+  font-weight: 400;
+  color: #e6cfab;
+}
+
+.hero-location {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 7px;
+  letter-spacing: 1.8px;
+  color: #f1e7d6;
+}
+
+.peri-prologue {
+  text-align: center;
+}
+
+.peri-prologue > h2 {
+  font: 400 clamp(48px, 6.8vw, 102px)/1.08 Georgia, serif;
+  letter-spacing: -3px;
+  margin: 35px 0 55px;
+}
+
+.peri-prologue h2 em {
+  font-weight: 400;
+  color: #cfb58c;
+}
+
+.prologue-bottom {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  align-items: center;
+  border-top: 1px solid var(--sig-line);
+  padding-top: 35px;
+}
+
+.prologue-bottom > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--sig-muted);
+  text-align: left;
+}
+
+.stone-symbol {
+  font: 100px Georgia, serif;
+  color: #b39871;
+  line-height: 1;
+}
+
+.prologue-signature {
+  font: 30px Georgia, serif;
+  text-align: right;
+}
+
+.prologue-signature em {
+  color: #cfb58c;
+}
+
+.peri-photo-story {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  background: #303c38;
+}
+
+.photo-story-image {
+  position: relative;
+  min-height: 740px;
+}
+
+.photo-story-image img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-story-image > span {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+  color: #fff;
+  font-size: 10px;
+  text-shadow: 0 1px 8px #000;
+}
+
+.photo-story-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 75px 15%;
+}
+
+.photo-story-controls h2 {
+  font: 400 clamp(45px, 4.8vw, 76px)/1.07 Georgia, serif;
+  letter-spacing: -2px;
+  margin: 28px 0 35px;
+}
+
+.photo-story-controls h2 em {
+  font-weight: 400;
+  color: #cfb58c;
+}
+
+.scene-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.scene-options button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-radius: 0;
+  background: transparent;
+  color: #c6c3b1;
+  border: 0;
+  border-bottom: 1px solid #555849;
+  font-size: 13px;
+  font-weight: 400;
+  text-align: left;
+}
+
+.scene-options button span:first-child {
+  font-size: 9px;
+  color: #9a9d85;
+}
+
+.scene-options button span:last-child {
+  margin-left: auto;
+  font-size: 21px;
+}
+
+.scene-options button[aria-pressed='true'] {
+  color: #ebd4ac;
+}
+
+.peri-quote {
+  text-align: center;
+  padding: 90px 20px 110px;
+  background: #2a3732;
+}
+
+.peri-quote > p {
+  font: 400 clamp(47px, 6.3vw, 96px)/1.08 Georgia, serif;
+  letter-spacing: -3px;
+  margin: 35px 0;
+}
+
+.peri-quote p em {
+  color: #cbb186;
+  font-weight: 400;
+}
+
+.quote-rule {
+  display: block;
+  height: 50px;
+  width: 1px;
+  background: #7c7f63;
+  margin: 30px auto;
+}
+
+.peri-quote > span:last-child {
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #c2b99f;
+}
+
+.peri-booking {
+  background: #e8dfce;
+  color: #403f31;
+  --sig-muted: #6e6d5d;
+}
+
+.signature-footer {
+  background: #1b2928;
+}
+
+.peri-footer-word {
+  font: 400 clamp(80px, 19vw, 300px)/1.1 Georgia, serif;
+  letter-spacing: -.06em;
+  text-align: center;
+  margin: 50px 0;
+  color: #dfd1b8;
+}
+
+.peri-footer-word em {
+  color: #b99e74;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .peri-photo-story {
+    grid-template-columns: 1fr 1fr;
+  }
+  .photo-story-controls {
+    padding: 50px 10%;
+  }
+  .photo-story-image {
+    min-height: 620px;
+  }
+  .prologue-bottom {
+    grid-template-columns: .5fr 2fr;
+  }
+  .prologue-signature {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero-story {
+    top: 22%;
+    left: 6%;
+    right: 6%;
+  }
+  h1 {
+    font-size: 48px;
+    letter-spacing: -1.7px;
+  }
+  .hero-story > span {
+    font-size: 6px;
+  }
+  .hero-story > p {
+    font-size: 11px;
+  }
+  .peri-hero-word {
+    font-size: 14.5vw;
+    bottom: 100px;
+  }
+  .hero-location {
+    font-size: 5px;
+    letter-spacing: 1px;
+    bottom: 35px;
+  }
+  .peri-prologue > h2 {
+    font-size: 48px;
+    letter-spacing: -1.5px;
+  }
+  .prologue-bottom {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .stone-symbol {
+    font-size: 70px;
+  }
+  .prologue-bottom > p {
+    text-align: center;
+  }
+  .peri-photo-story {
+    grid-template-columns: 1fr;
+  }
+  .photo-story-image {
+    min-height: 450px;
+  }
+  .photo-story-controls {
+    padding: 55px 7%;
+  }
+  .photo-story-controls h2 {
+    font-size: 54px;
+  }
+  .peri-quote {
+    padding: 75px 20px;
+  }
+  .peri-quote > p {
+    letter-spacing: -1.5px;
+  }
+}
+
+.peri-signature .prologue-bottom > p {
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+.peri-signature .scene-options button {
+  font-size: 15px;
+  padding-top: 23px;
+  padding-bottom: 23px;
+}
+
+.peri-signature .hero-story > p {
+  font-size: 14px;
+}
+
+.peri-signature .hero-story > span {
+  font-size: 10px;
+  font-weight: 600;
+}

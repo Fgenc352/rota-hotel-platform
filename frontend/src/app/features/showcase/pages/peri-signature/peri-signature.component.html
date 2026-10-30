@@ -1,0 +1,295 @@
+<div signatureMotion class="signature-page peri-signature">
+  <a class="signature-skip" routerLink="." fragment="main" queryParamsHandling="preserve">
+    İçeriğe geç
+  </a>
+  <header class="signature-header">
+    <a routerLink="." fragment="top" queryParamsHandling="preserve" class="signature-brand">
+      peri stone
+      <small>
+        CAVE HOTEL · CAPPADOCIA
+      </small>
+    </a>
+    <nav aria-label="Peri menüsü">
+      <a routerLink="." fragment="story" queryParamsHandling="preserve">
+        Taşın hikâyesi
+      </a>
+      <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+        Odalarımız
+      </a>
+      <a routerLink="/signature/lagos-beach">
+        Akdeniz
+        <ui-icon name="chevron" />
+      </a>
+    </nav>
+    <a bookingScroll class="nav-book">
+      Konaklamanı planla
+      <span>
+        <ui-icon name="chevron" />
+      </span>
+    </a>
+    <div class="page-progress" aria-hidden="true">
+    </div>
+  </header>
+  <main id="main">
+    <section class="signature-hero" id="top">
+      <img
+        class="hero-image"
+        src="/images/showcase/peri-hero.webp"
+        alt="Gün doğumunda Kapadokya vadisi ve taş otel terası; temsili görsel"
+        width="1536"
+        height="1024"
+        fetchpriority="high"
+      />
+      <div class="hero-shade">
+      </div>
+      <div class="hero-story">
+        <span>
+          TAŞIN HAFIZASI. GÖĞÜN SONSUZLUĞU.
+        </span>
+        <h1>
+          Dünyanın gürültüsü
+          <br>
+          <em>
+            burada susar.
+          </em>
+        </h1>
+        <p>
+          Kapadokya’da, zamanın biraz dışında.
+          <br>
+          Size ait bir sığınak.
+        </p>
+        <a routerLink="." fragment="story" queryParamsHandling="preserve">
+          PERI’NİN DÜNYASINI KEŞFEDİN
+          <span>
+            <ui-icon name="down" />
+          </span>
+        </a>
+      </div>
+      <div class="peri-hero-word" aria-hidden="true">
+        PERI
+        <em>
+          STONE
+        </em>
+      </div>
+      <div class="hero-location">
+        <span>
+          KAPADOKYA / TÜRKİYE
+        </span>
+        <span>
+          CARVED BY TIME. MADE FOR YOU.
+        </span>
+      </div>
+    </section>
+    <section class="peri-prologue sig-width sig-section" id="story" data-reveal>
+      <span class="sig-kicker">
+        01 / YERİN RUHU
+      </span>
+      <h2>
+        Her taş bir hikâye.
+        <br>
+        <em>
+          Her konaklama, bir iz.
+        </em>
+      </h2>
+      <div class="prologue-bottom">
+        <span class="stone-symbol" aria-hidden="true">
+          ◠
+        </span>
+        <p>
+          Bir duvarın dokusunda, bir kemerin gölgesinde, pencerenize düşen ilk ışıkta. Peri Stone, acele etmeyenlerin ve anın içinde kalmak isteyenlerin yeri.
+        </p>
+        <span class="prologue-signature">
+          stay with
+          <br>
+          <em>
+            the story.
+          </em>
+        </span>
+      </div>
+    </section>
+    <section class="peri-photo-story" aria-label="Peri’nin atmosferi">
+      <div class="photo-story-image">
+        <img
+          [src]="scenes[scene()].image"
+          [alt]="scenes[scene()].title + ' · temsili görsel'"
+          width="1536"
+          height="1024"
+          loading="lazy"
+        />
+        <span>
+          {{ scenes[scene()].caption }}
+        </span>
+      </div>
+      <div class="photo-story-controls" data-reveal>
+        <span class="sig-kicker">
+          KÜÇÜK ANLAR, DERİN HİSLER.
+        </span>
+        <h2>
+          Biraz taş.
+          <br>
+          Biraz ışık.
+          <br>
+          <em>
+            Biraz büyü.
+          </em>
+        </h2>
+        <div class="scene-options" role="group" aria-label="Atmosfer fotoğrafı seçin">
+          @for (item of scenes; track item.title; let i = $index) {
+          <button type="button" [attr.aria-pressed]="scene() === i" (click)="scene.set(i)">
+            <span>
+              0{{ i + 1 }}
+            </span>
+            {{ item.title }}
+            <span>
+              <ui-icon name="chevron" />
+            </span>
+          </button>
+          }
+        </div>
+      </div>
+    </section>
+    <section class="peri-rooms sig-width sig-section" id="rooms">
+      <div class="sig-section-heading" data-reveal>
+        <div>
+          <span class="sig-kicker">
+            02 / TAŞIN İÇİNDE SİZE AİT BİR YER
+          </span>
+          <h2>
+            Bir odadan
+            <br>
+            <em>
+              çok daha fazlası.
+            </em>
+          </h2>
+        </div>
+        <p>
+          Her oda kendi dokusuyla, kendi ışığıyla.
+          <br>
+          Beş fotoğrafla keşfedin; size uyan alanı seçin.
+        </p>
+      </div>
+      @if (stay.error()) {
+      <div class="sig-error" role="alert">
+        <p>
+          {{ stay.error() }}
+        </p>
+        <button type="button" (click)="retry()">
+          Yeniden dene
+        </button>
+      </div>
+      } @if (stay.busy()) {
+      <div class="sig-loading" role="status">
+        Taşın içindeki alanlar hazırlanıyor…
+      </div>
+      } @else {
+      <signature-rooms [rooms]="stay.rooms()" (selected)="stay.chooseRoom($event)" />
+      }
+    </section>
+    <section class="peri-quote" data-reveal>
+      <span class="sig-kicker">
+        BİRKAÇ GÜNLÜĞÜNE.
+      </span>
+      <p>
+        Dışarıda bir dünya.
+        <br>
+        <em>
+          İçeride, siz.
+        </em>
+      </p>
+      <span class="quote-rule">
+      </span>
+      <span>
+        PERI STONE CAVE HOTEL
+      </span>
+    </section>
+    <section class="peri-booking sig-section">
+      <div class="sig-width">
+        <div class="sig-section-heading" data-reveal>
+          <div>
+            <span class="sig-kicker">
+              03 / HİKÂYENİZİ BAŞLATIN
+            </span>
+            <h2>
+              Size ait bir an
+              <br>
+              <em>
+                ayırdık.
+              </em>
+            </h2>
+          </div>
+          <p>
+            Gerçek zamanlı müsaitlik.
+            <br>
+            Doğrudan rezervasyon. Ödeme otelde.
+          </p>
+        </div>
+        <showcase-booking-embed
+          id="booking"
+          hotelKey="peri-stone"
+          variant="signature"
+          [preferredRoom]="stay.preferredRoom()"
+        />
+      </div>
+    </section>
+  </main>
+  <footer class="signature-footer">
+    <div class="footer-top">
+      <div>
+        <span class="sig-kicker">
+          PERI STONE CAVE HOTEL
+        </span>
+        <h2>
+          Yolunuz bir gün
+          <br>
+          <em>
+            buraya düşsün.
+          </em>
+        </h2>
+      </div>
+      <div class="footer-links">
+        <a routerLink="." fragment="rooms" queryParamsHandling="preserve">
+          Odalarımız
+          <ui-icon name="chevron" />
+        </a>
+        <a routerLink="/signature/lagos-beach">
+          Lagos Beach Hotel
+          <ui-icon name="chevron" />
+        </a>
+        <a bookingScroll>
+          Konaklamanızı planlayın
+          <ui-icon name="chevron" />
+        </a>
+      </div>
+    </div>
+    <div class="peri-footer-word" aria-hidden="true">
+      peri
+      <em>
+        stone
+      </em>
+    </div>
+    <div class="footer-bottom">
+      <span>
+        © {{ year }} Peri Stone Cave Hotel · Kurgusal otel ve temsili görseller
+      </span>
+      <span>
+        Doğrudan rezervasyon · rota.
+      </span>
+    </div>
+  </footer>
+  <aside class="signature-dock" aria-label="Hızlı rezervasyon">
+    <div>
+      <small>
+        PERI STONE CAVE HOTEL
+      </small>
+      <strong>
+        {{ minimumPrice() !== null ? money(minimumPrice()!) : 'Size ait bir sığınak' }}
+      </strong>
+    </div>
+    <a bookingScroll>
+      Yerinizi ayırın
+      <span>
+        <ui-icon name="chevron" />
+      </span>
+    </a>
+  </aside>
+</div>

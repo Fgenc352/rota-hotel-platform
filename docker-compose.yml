@@ -1,0 +1,117 @@
+name: rota-hotel
+services:
+  db:
+    image: postgres:16.6-alpine
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_DB: hotel
+      POSTGRES_USER: hotel
+      POSTGRES_PASSWORD: hotel-local-only
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hotel -d hotel"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  backend:
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SERVER_SERVLET_SESSION_COOKIE_NAME: ROTA_DOCKER_SESSION
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/hotel
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      SPRING_DATA_REDIS_HOST: redis
+      APP_PMS_URL: http://pms:8090
+      APP_MESSAGING_TRANSPORT: ${MESSAGING_TRANSPORT:-kafka}
+      APP_AVAILABILITY_CACHE_PROVIDER: ${AVAILABILITY_CACHE_PROVIDER:-redis}
+    depends_on:
+      db:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - backend-logs:/app/logs
+    restart: unless-stopped
+    # PMS is intentionally not a startup prerequisite: its outbox retries outages.
+  frontend:
+    build:
+      context: ./frontend
+      target: runtime
+    ports:
+      - "127.0.0.1:4200:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+      widget:
+        condition: service_healthy
+    restart: unless-stopped
+  widget:
+    build:
+      context: ./frontend
+      target: widget
+    ports:
+      - "127.0.0.1:4300:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+  pms:
+    build:
+      context: ./pms-mock
+    ports:
+      - "127.0.0.1:8090:8090"
+    volumes:
+      - pms-data:/app/data
+    restart: unless-stopped
+  redis:
+    image: redis:7.4
+    ports:
+      - "127.0.0.1:6379:6379"
+    command: ["redis-server", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  kafka:
+    image: apache/kafka:4.1.2
+    ports:
+      - "127.0.0.1:9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: EXTERNAL://:9092,INTERNAL://:29092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: EXTERNAL://localhost:9092,INTERNAL://kafka:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: EXTERNAL:PLAINTEXT,INTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_HEAP_OPTS: -Xms256m -Xmx512m
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:29092 --list >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  postgres-data:
+  kafka-data:
+  backend-logs:
+  pms-data:
